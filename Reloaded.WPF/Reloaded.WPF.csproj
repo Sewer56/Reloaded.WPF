@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <StartupObject />
+    <RootNamespace>Reloaded.WPF</RootNamespace>
+    <AssemblyName>Reloaded.WPF</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Theme\Fonts\FontLight.ttf" />
+    <None Remove="Theme\Fonts\FontRegular.ttf" />
+    <None Remove="Theme\Fonts\FontThin.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Colourful" Version="2.0.2" />
+    <PackageReference Include="Fody" Version="4.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="2.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Theme\Colours.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Fonts.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Fonts\FontLight.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Fonts\FontRegular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Fonts\FontThin.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Settings.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Styles.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Window.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Radius of the rounded corners of the window -->
+    <CornerRadius  x:Key="CornerRadius">10</CornerRadius>
+    <sys:Double x:Key="ClipCornerRadius">10</sys:Double> <!-- Used for masking/clipping window corners. Please keep the same as above. -->
+
+    <!-- Height of the titlebar of the window. -->
+    <GridLength x:Key="TitleBarHeight">32</GridLength>
+
+    <!-- If true, removes the glow effect when docked or maximized. -->
+    <sys:Boolean x:Key="BorderlessOnDock">True</sys:Boolean>
+
+    <!-- The size of the drop shadow effect used for glow/drop shadow. -->
+    <sys:Double x:Key="DropShadowSize">20</sys:Double>
+
+    <!-- The size of the invisible transparent border acting as the space for the glow effect to render. -->
+    <Thickness x:Key="DropShadowBorderSize">20</Thickness>
+
+    <!-- The size of the resize border at the edge of the window. -->
+    <Thickness x:Key="ResizeBorderThickness">8</Thickness>
+
+    <!-- Enables the glow effect around the window. -->
+    <sys:Boolean x:Key="EnableGlow">True</sys:Boolean>
+    <sys:Double x:Key="GlowOpacity">1</sys:Double>
+    <sys:Double x:Key="GlowDirection">315</sys:Double> <!-- Gets or sets the direction of the drop shadow. -->
+    <sys:Double x:Key="GlowDepth">0</sys:Double>       <!-- Gets or sets the distance of the drop shadow at the given direction below the window. -->
+    <RenderingBias x:Key="GlowRenderBias">1</RenderingBias>  <!-- 0 = Performance, 1 = Quality -->
+
+    <!-- Window Properties -->
+    <sys:Double x:Key="DefaultMinWidth">210</sys:Double>
+    <sys:Double x:Key="DefaultMinHeight">150</sys:Double>
+    <Visibility x:Key="CloseButtonVisibility">Visible</Visibility>
+    <Visibility x:Key="MinimizeButtonVisibility">Visible</Visibility>
+    <Visibility x:Key="MaximizeButtonVisibility">Visible</Visibility>
+
+    <!-- Glow Properties -->
+    <sys:Boolean x:Key="EnableGlowHueCycle">True</sys:Boolean>
+    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">30</sys:Int32>
+    <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
+    <sys:Single x:Key="GlowHueCycleChroma">52.44212324580516</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
+    <sys:Single x:Key="GlowHueCycleLightness">79.22796277336843</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
+
+</ResourceDictionary>

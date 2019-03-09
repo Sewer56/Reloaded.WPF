@@ -1,0 +1,75 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- For IntelliSense -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Colours.xaml"/>
+                <ResourceDictionary Source="Fonts.xaml"/>
+                <ResourceDictionary Source="Settings.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- Base Styles -->
+
+    <!-- Most Controls -->
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}"/>
+    </Style>
+
+    <!-- Text Blocks -->
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}"/>
+    </Style>
+
+    <!-- Styles not fully inheriting from Control -->
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
+
+    <!-- Page Header -->
+    <Style x:Key="HeaderText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="FontFamily" Value="{DynamicResource FontThin}" />
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style x:Key="HeaderAlignment" TargetType="{x:Type Viewbox}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Window Control Button -->
+    <Style x:Key="WindowControlButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="BorderBrush" Value="Transparent"></Setter>
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"></Setter>
+        <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"></Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{TemplateBinding Content}"></TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource AccentColorBrush}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

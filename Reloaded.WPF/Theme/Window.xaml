@@ -1,0 +1,134 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Reloaded.WPF"
+                    xmlns:helpers="clr-namespace:Reloaded.WPF.ViewModels.Helpers">
+
+    <!-- Import Other Dependent ResourceDictionaries etc. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- The code below expects the Window's DataContext to be set to WindowViewModel -->
+    <!-- Style the Window. -->
+    <Style x:Key="ReloadedWindow" TargetType="{x:Type Window}">
+        
+        <!-- Redefine Window Template -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+
+                    <!-- Gives us invisible padding space to allow for rendering of drop shadow. -->
+                    <Border Padding="{Binding Path=DropShadowBorderSize}">
+                        <Grid>
+
+                            <!-- This is our window background and drop shadow generator. -->
+                            <Border x:Name="DropShadowBorder" Background="{Binding Path=Background, 
+                                                         RelativeSource={RelativeSource AncestorType={x:Type Window}}, 
+                                                         FallbackValue=#181818}"
+                                    CornerRadius="{DynamicResource CornerRadius}">
+
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        ShadowDepth="{DynamicResource GlowDepth}"
+                                        Direction="{DynamicResource GlowDirection}"
+                                        RenderingBias="{DynamicResource GlowRenderBias}"
+                                        Color="{DynamicResource DropShadowColor}"
+                                        BlurRadius="{Binding Path=DropShadowSize}"
+                                        Opacity="{DynamicResource GlowOpacity}" />
+                                </Border.Effect>
+
+                                <!-- The border containing all content of the window. This border acts as a clip/mask to ensure
+                                     child elements in Window stay consistent with corner radius. -->
+                                <Border x:Name="ClipBorder" CornerRadius="{DynamicResource CornerRadius}">
+
+                                    <Border.Clip>
+                                        <RectangleGeometry 
+                                            RadiusX="{DynamicResource ClipCornerRadius}" 
+                                            RadiusY="{DynamicResource ClipCornerRadius}" 
+
+                                            Rect="{Binding 
+                                                   Path=ClientArea,
+                                                   FallbackValue='0,0,860,560'}">
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+
+                                    <!-- Main Window Content -->
+                                    <Grid>
+
+                                        <!-- TitleBar and rest of page for content. -->
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="{DynamicResource TitleBarHeight}"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Title Bar -->
+                                        <Grid Background="{DynamicResource AccentColorLightBrush}" 
+                                              Grid.Row="0">
+
+                                            <!-- Title & Buttons -->
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource HeaderAlignment}">
+                                                <TextBlock
+                                                    Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Window Title'}"
+                                                    Style="{DynamicResource HeaderText}"
+                                                >
+                                                </TextBlock>
+                                            </Viewbox>
+
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                <Button Command="{Binding Path=MinimizeCommand}" 
+                                                        Visibility="{DynamicResource MinimizeButtonVisibility}"
+                                                        Content="_" 
+                                                        Style="{DynamicResource WindowControlButton}"/>
+                                                <Button Command="{Binding Path=MaximizeCommand}" 
+                                                        Visibility="{DynamicResource MaximizeButtonVisibility}"
+                                                        Content="O" 
+                                                        Style="{DynamicResource WindowControlButton}"/>
+                                                <Button Command="{Binding Path=CloseCommand}"
+                                                        Visibility="{DynamicResource CloseButtonVisibility}"
+                                                        Content="X"
+                                                        Style="{DynamicResource WindowControlButton}"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <!-- Window Content Goes in Here -->
+                                        <Grid Grid.Row="1">
+                                            <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
+                                        </Grid>
+                                    </Grid>
+
+                                </Border>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!-- WindowChrome for Window Dragging, Round Corners -->
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="{Binding Path=WindowChromeTitleBarHeight,
+                                              FallbackValue=44}"
+                              CornerRadius="{DynamicResource CornerRadius}"
+                              ResizeBorderThickness="{Binding Path=ResizeBorderThickness}"
+                />
+            </Setter.Value>
+        </Setter>
+
+        <!-- Window Properties -->
+        <Setter Property="Background" Value="{DynamicResource BackgroundColorBrush}"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowStyle" Value="None"/>
+    </Style>
+
+</ResourceDictionary>
