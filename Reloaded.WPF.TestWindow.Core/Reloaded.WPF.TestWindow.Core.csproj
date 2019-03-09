@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Reloaded.WPF.TestWindow.Core</AssemblyName>
+    <RootNamespace>Reloaded.WPF.TestWindow</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="..\Reloaded.WPF.TestWindow.Framework\App.xaml" Link="App.xaml" />
+    <Compile Include="..\Reloaded.WPF.TestWindow.Framework\App.xaml.cs" Link="App.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="..\Reloaded.WPF.TestWindow.Framework\MainWindow.xaml" Link="MainWindow.xaml" />
+    <Compile Include="..\Reloaded.WPF.TestWindow.Framework\MainWindow.xaml.cs" Link="MainWindow.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Reloaded.WPF\Reloaded.WPF.csproj" />
+  </ItemGroup>
+
+</Project>
