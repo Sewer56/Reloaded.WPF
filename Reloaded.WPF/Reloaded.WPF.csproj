@@ -19,8 +19,4 @@
     <PackageReference Include="PropertyChanged.Fody" Version="2.6.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Reloaded.WPF.Theme.Default\Reloaded.WPF.Theme.Default.csproj" />
-  </ItemGroup>
-
 </Project>

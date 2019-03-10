@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 
-namespace Reloaded.WPF.ViewModels.Helpers
+namespace Reloaded.WPF
 {
     /// <summary>
     /// The dock position of the window

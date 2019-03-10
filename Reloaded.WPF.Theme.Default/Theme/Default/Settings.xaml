@@ -4,7 +4,6 @@
 
     <!-- Radius of the rounded corners of the window -->
     <CornerRadius  x:Key="CornerRadius">10</CornerRadius>
-    <sys:Double x:Key="ClipCornerRadius">10</sys:Double> <!-- Used for masking/clipping window corners. Please keep the same as above. -->
 
     <!-- Height of the titlebar of the window. -->
     <GridLength x:Key="TitleBarHeight">32</GridLength>

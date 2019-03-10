@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Reloaded.WPF.ViewModels.Base
+namespace Reloaded.WPF
 {
     /// <summary>
     /// Simple WPF command that executes an <see cref="Action"/>.

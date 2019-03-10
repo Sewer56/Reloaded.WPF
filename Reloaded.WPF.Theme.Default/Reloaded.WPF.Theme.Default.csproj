@@ -58,4 +58,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Reloaded.WPF\Reloaded.WPF.csproj" />
+  </ItemGroup>
+
 </Project>

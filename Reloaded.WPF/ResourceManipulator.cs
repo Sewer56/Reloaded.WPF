@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
-namespace Reloaded.WPF.ViewModels.Helpers
+namespace Reloaded.WPF
 {
     /// <summary>
     /// A helper class which lets you access the XAML Resources

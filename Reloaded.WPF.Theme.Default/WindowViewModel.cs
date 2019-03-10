@@ -5,17 +5,15 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using PropertyChanged;
+using Reloaded.WPF;
 using Reloaded.WPF.Utilities;
-using Reloaded.WPF.ViewModels.Base;
-using Reloaded.WPF.ViewModels.Helpers;
-using static Reloaded.WPF.ViewModels.Helpers.ResourceManipulator;
 
-namespace Reloaded.WPF.ViewModels
+namespace Reloaded.WPF.Theme.Default.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class WindowViewModel : BaseViewModel, IDisposable
     {
         #region XAML Key Names
@@ -49,74 +47,41 @@ namespace Reloaded.WPF.ViewModels
         // ReSharper restore InconsistentNaming
         #endregion
 
-        public ICommand MinimizeCommand { get; set; }
-        public ICommand MaximizeCommand { get; set; }
-        public ICommand CloseCommand { get; set; }
-        
-        private ResourceManipulator     _resources;
-        private Window                  _targetWindow;
-        private WindowResizer           _windowResizer;
-        private Effect                  _oldDropShadowEffect;
-
-        private Thread              _cycleDropShadow;
-        private WindowDockPosition  _dockPosition = WindowDockPosition.Undocked;
+        private Effect _oldDropShadowEffect;
+        private Thread _cycleDropShadow;
 
         /* Note: All sizes are in points, not pixels. */
-        public WindowViewModel(Window window)
+        public WindowViewModel(Window window) : base(window)
         {
-            // Note that we are breaking MVVM concepts by accepting this parameter,
-            // though this is not a viewmodel we will probably use in non-desktop
-            // environments and everything here is specific to desktop style.
-            _targetWindow  = window;
-            _resources     = new ResourceManipulator(window);
-            _windowResizer = new WindowResizer(_targetWindow);
-
             LoadStyle();
             LoadFonts();
 
             // Notify drop shadow/border on change of state
             // or window dock position.
-            _targetWindow.StateChanged += (sender, args) => GlowStateChanged();
-            _windowResizer.WindowDockChanged += position =>
-            {
-                _dockPosition = position;
-                GlowStateChanged();
-            };
-
-            // Update clip area (ensure titlebar background rounded corner) when
-            // the window is resized.
-            _targetWindow.SizeChanged += (sender, args) =>
-            {
-                if (RealHeight > 0 && RealWidth > 0)
-                    ClientArea = new Rect(0, 0, RealWidth, RealHeight);
-            };
+            TargetWindow.StateChanged += (sender, args) => GlowStateChanged();
+            WindowDockChanged += position => DockPosition = position;
 
             // Enable/Disable Glow based off of XAML preferences once
             // the window fully loads.
-            _targetWindow.Loaded += (sender, args) =>
+            TargetWindow.Loaded += (sender, args) =>
             {
                 EnableGlow = EnableGlow;
             };
 
             // Set initial minimum window sizes if not defined.
-            if (Math.Abs(_targetWindow.MinHeight) < 0.1F)
-                _targetWindow.MinHeight = _resources.Get<double>(XAML_DefaultMinHeight);
+            if (Math.Abs(TargetWindow.MinHeight) < 0.1F)
+                TargetWindow.MinHeight = Resources.Get<double>(XAML_DefaultMinHeight);
 
-            if (Math.Abs(_targetWindow.MinWidth) < 0.1F)
-                _targetWindow.MinWidth  = _resources.Get<double>(XAML_DefaultMinWidth);
-
-            // Implement Titlebar Buttons
-            MinimizeCommand = new ActionCommand(() => { _targetWindow.WindowState = WindowState.Minimized;  });
-            MaximizeCommand = new ActionCommand(() => { _targetWindow.WindowState ^= WindowState.Maximized; });
-            CloseCommand    = new ActionCommand(() => { this.Dispose(); _targetWindow.Close(); });
+            if (Math.Abs(TargetWindow.MinWidth) < 0.1F)
+                TargetWindow.MinWidth  = Resources.Get<double>(XAML_DefaultMinWidth);
 
             // Fun
-            if (_resources.Get<bool>(XAML_EnableGlowHueCycle))
+            if (Resources.Get<bool>(XAML_EnableGlowHueCycle))
                 EnableHueCycleDropShadow(
-                    _resources.Get<int>(XAML_GlowHueCycleFramesPerSecond),
-                    _resources.Get<int>(XAML_GlowHueCycleLoopDuration),
-                    _resources.Get<float>(XAML_GlowHueCycleChroma),
-                    _resources.Get<float>(XAML_GlowHueCycleLightness));
+                    Resources.Get<int>(XAML_GlowHueCycleFramesPerSecond),
+                    Resources.Get<int>(XAML_GlowHueCycleLoopDuration),
+                    Resources.Get<float>(XAML_GlowHueCycleChroma),
+                    Resources.Get<float>(XAML_GlowHueCycleLightness));
         }
 
         /* Public Tweakables */
@@ -131,15 +96,15 @@ namespace Reloaded.WPF.ViewModels
             {
                 if (EnableGlow)
                 {
-                    return IsMaximized()  ? _windowResizer.CurrentMonitorMargin
+                    return IsMaximized()  ? WindowResizer.CurrentMonitorMargin
                                           : (IsBorderlessOnDock()
                                             ? new Thickness(0)
-                                            : _resources.Get<Thickness>(XAML_DropShadowBorderSize));
+                                            : Resources.Get<Thickness>(XAML_DropShadowBorderSize));
                 }
                 
                 return new Thickness(0);
             }
-            set => _resources.Set( XAML_DropShadowBorderSize, value);
+            set => Resources.Set( XAML_DropShadowBorderSize, value);
         }
 
         /// <summary>
@@ -151,11 +116,11 @@ namespace Reloaded.WPF.ViewModels
             {
                 if (EnableGlow)
                     return IsBorderlessOnDock() ? 0 
-                                                : _resources.Get<double>(XAML_DropShadowSize);
+                                                : Resources.Get<double>(XAML_DropShadowSize);
 
                 return 0;
             }
-            set => _resources.Set(XAML_DropShadowSize, value);
+            set => Resources.Set(XAML_DropShadowSize, value);
         }
 
         /// <summary>
@@ -185,8 +150,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public Color DropShadowColor
         {
-            get => _resources.Get<Color>(XAML_DropShadowColor);
-            set => _resources.Set(XAML_DropShadowColor, value);
+            get => Resources.Get<Color>(XAML_DropShadowColor);
+            set => Resources.Set(XAML_DropShadowColor, value);
         }
 
         /// <summary>
@@ -194,8 +159,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public CornerRadius CornerRadius
         {
-            get => _resources.Get<CornerRadius>(XAML_CornerRadius);
-            set => _resources.Set(XAML_CornerRadius, value);
+            get => Resources.Get<CornerRadius>(XAML_CornerRadius);
+            set => Resources.Set(XAML_CornerRadius, value);
         }
 
         /// <summary>
@@ -203,8 +168,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public GridLength TitleBarHeight
         {
-            get => _resources.Get<GridLength>(XAML_TitleBarHeight);
-            set => _resources.Set(XAML_TitleBarHeight, value);
+            get => Resources.Get<GridLength>(XAML_TitleBarHeight);
+            set => Resources.Set(XAML_TitleBarHeight, value);
         }
 
         /// <summary>
@@ -212,8 +177,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public double GlowOpacity
         {
-            get => _resources.Get<double>(XAML_GlowOpacity);
-            set => _resources.Set(XAML_GlowOpacity, value);
+            get => Resources.Get<double>(XAML_GlowOpacity);
+            set => Resources.Set(XAML_GlowOpacity, value);
         }
 
         /// <summary>
@@ -221,8 +186,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public double GlowDirection
         {
-            get => _resources.Get<double>(XAML_GlowDirection);
-            set => _resources.Set(XAML_GlowDirection, value);
+            get => Resources.Get<double>(XAML_GlowDirection);
+            set => Resources.Set(XAML_GlowDirection, value);
         }
 
         /// <summary>
@@ -230,8 +195,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public double GlowDepth
         {
-            get => _resources.Get<double>(XAML_GlowDepth);
-            set => _resources.Set(XAML_GlowDepth, value);
+            get => Resources.Get<double>(XAML_GlowDepth);
+            set => Resources.Set(XAML_GlowDepth, value);
         }
 
         /// <summary>
@@ -240,8 +205,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public bool BorderlessOnDock
         {
-            get => _resources.Get<bool>(XAML_BorderlessOnDock);
-            set => _resources.Set(XAML_BorderlessOnDock, value);
+            get => Resources.Get<bool>(XAML_BorderlessOnDock);
+            set => Resources.Set(XAML_BorderlessOnDock, value);
         }
 
         /// <summary>
@@ -249,8 +214,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public Visibility MinimizeButtonVisibility
         {
-            get => _resources.Get<Visibility>(XAML_MinimizeButtonVisibility);
-            set => _resources.Set(XAML_MinimizeButtonVisibility, value);
+            get => Resources.Get<Visibility>(XAML_MinimizeButtonVisibility);
+            set => Resources.Set(XAML_MinimizeButtonVisibility, value);
         }
 
         /// <summary>
@@ -258,8 +223,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public Visibility MaximizeButtonVisibility
         {
-            get => _resources.Get<Visibility>(XAML_MaximizeButtonVisibility);
-            set => _resources.Set(XAML_MaximizeButtonVisibility, value);
+            get => Resources.Get<Visibility>(XAML_MaximizeButtonVisibility);
+            set => Resources.Set(XAML_MaximizeButtonVisibility, value);
         }
 
         /// <summary>
@@ -267,8 +232,8 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         public Visibility CloseButtonVisibility
         {
-            get => _resources.Get<Visibility>(XAML_CloseButtonVisibility);
-            set => _resources.Set(XAML_CloseButtonVisibility, value);
+            get => Resources.Get<Visibility>(XAML_CloseButtonVisibility);
+            set => Resources.Set(XAML_CloseButtonVisibility, value);
         }
 
         /// <summary>
@@ -277,7 +242,7 @@ namespace Reloaded.WPF.ViewModels
         [DoNotCheckEquality]
         public bool EnableGlow
         {
-            get => _resources.Get<bool>(XAML_EnableGlow);
+            get => Resources.Get<bool>(XAML_EnableGlow);
             set
             {
                 if (value == false)
@@ -285,7 +250,7 @@ namespace Reloaded.WPF.ViewModels
                 else
                     EnableDropShadow();
 
-                _resources.Set(XAML_EnableGlow, value);
+                Resources.Set(XAML_EnableGlow, value);
                 GlowStateChanged();
             }
         }
@@ -322,39 +287,23 @@ namespace Reloaded.WPF.ViewModels
         /* Rendering & Control Shenanigans */
 
         /// <summary>
-        /// Contains the real size of the client area of the window, i.e. the area the user interacts.
-        /// This is defined as the window width,height minus the invisible border size.
-        /// </summary>
-        public Rect ClientArea { get; private set; } = new Rect(0, 0, 560, 860);
-
-        /// <summary>
-        /// The actual width of the internal contents of the window excluding the invisible drop shadow border.
-        /// </summary>
-        public int RealWidth => (int)_targetWindow.ActualWidth - (2 * (int)DropShadowBorderSize.Left);
-
-        /// <summary>
-        /// The actual height of the internal contents of the window excluding the invisible drop shadow border.
-        /// </summary>
-        public int RealHeight => (int)_targetWindow.ActualHeight - (2 * (int)DropShadowBorderSize.Left);
-
-        /// <summary>
         /// [For WindowChrome]
         /// Gets the real titlebar height of the window, including the drop shadow border.
         /// </summary>
-        public int WindowChromeTitleBarHeight => (int)(TitleBarHeight.Value - XamlResizeBorderThickness.Top + _windowResizer.CurrentMonitorMargin.Top);
+        public int WindowChromeTitleBarHeight => (int)(TitleBarHeight.Value - XamlResizeBorderThickness.Top + WindowResizer.CurrentMonitorMargin.Top);
 
         private Thickness XamlResizeBorderThickness
         {
-            get => _resources.Get<Thickness>(XAML_ResizeBorderThickness);
-            set => _resources.Set(XAML_ResizeBorderThickness, value);
+            get => Resources.Get<Thickness>(XAML_ResizeBorderThickness);
+            set => Resources.Set(XAML_ResizeBorderThickness, value);
         }
 
         /* Core Logic */
         private void DisableDropShadow()
         {
-            _targetWindow.Dispatcher.Invoke(() =>
+            TargetWindow.Dispatcher.Invoke(() =>
             {
-                Border _oldBorder  = (Border)_targetWindow.Template.FindName(XAML_DropShadowBorderName, _targetWindow);
+                Border _oldBorder  = (Border)TargetWindow.Template.FindName(XAML_DropShadowBorderName, TargetWindow);
                 if (_oldBorder != null)
                 {
                     _oldDropShadowEffect = _oldBorder.Effect;
@@ -365,9 +314,9 @@ namespace Reloaded.WPF.ViewModels
 
         private void EnableDropShadow()
         {
-            _targetWindow.Dispatcher.Invoke(() =>
+            TargetWindow.Dispatcher.Invoke(() =>
             {
-                Border _oldBorder = (Border)_targetWindow.Template.FindName(XAML_DropShadowBorderName, _targetWindow);
+                Border _oldBorder = (Border)TargetWindow.Template.FindName(XAML_DropShadowBorderName, TargetWindow);
                 if (_oldBorder != null && _oldDropShadowEffect != null)
                     _oldBorder.Effect = _oldDropShadowEffect;
             });
@@ -391,12 +340,12 @@ namespace Reloaded.WPF.ViewModels
         {
             return BorderlessOnDock &&  
                   (IsMaximized() ||
-                   _dockPosition != WindowDockPosition.Undocked);
+                   DockPosition != WindowDockPosition.Undocked);
         }
 
         private bool IsMaximized()
         {
-            return _targetWindow.WindowState == WindowState.Maximized;
+            return TargetWindow.WindowState == WindowState.Maximized;
         }
 
         public void Dispose()
@@ -421,7 +370,7 @@ namespace Reloaded.WPF.ViewModels
                     {
                         foreach (var fontFamily in Fonts.GetFontFamilies(fontFileLocation))
                         {
-                            _resources.Set(Path.GetFileNameWithoutExtension(fontFileLocation), fontFamily);
+                            Resources.Set(Path.GetFileNameWithoutExtension(fontFileLocation), fontFamily);
                         }
                     }
                     catch { /* Ignored*/ }
@@ -438,7 +387,9 @@ namespace Reloaded.WPF.ViewModels
             if (Directory.Exists(themeDirectory))
             {
                 string themeRoot = themeDirectory + "/Default/Root.xaml";
-                _targetWindow.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(themeRoot, UriKind.Absolute) } );
+                if (File.Exists(themeRoot))
+                    TargetWindow.Resources.MergedDictionaries.Add(
+                        new ResourceDictionary() { Source = new Uri(themeRoot, UriKind.Absolute) } );
             }
         }
     }
