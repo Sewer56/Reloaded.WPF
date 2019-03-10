@@ -71,6 +71,7 @@ namespace Reloaded.WPF.ViewModels
             _resources     = new ResourceManipulator(window);
             _windowResizer = new WindowResizer(_targetWindow);
 
+            LoadStyle();
             LoadFonts();
 
             // Notify drop shadow/border on change of state
@@ -408,7 +409,7 @@ namespace Reloaded.WPF.ViewModels
         /// </summary>
         private void LoadFonts()
         {
-            string fontDirectory = AppDomain.CurrentDomain.BaseDirectory + "Theme/Fonts";
+            string fontDirectory = AppDomain.CurrentDomain.BaseDirectory + "Theme/Default/Fonts";
             if (Directory.Exists(fontDirectory))
             {
                 List<string> fontFiles = Directory.GetFiles(fontDirectory, "*.otf").ToList();
@@ -425,6 +426,19 @@ namespace Reloaded.WPF.ViewModels
                     }
                     catch { /* Ignored*/ }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Loads a custom WPF style from the filesystem.
+        /// </summary>
+        private void LoadStyle()
+        {
+            string themeDirectory = AppDomain.CurrentDomain.BaseDirectory + "Theme";
+            if (Directory.Exists(themeDirectory))
+            {
+                string themeRoot = themeDirectory + "/Default/Root.xaml";
+                _targetWindow.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri(themeRoot, UriKind.Absolute) } );
             }
         }
     }

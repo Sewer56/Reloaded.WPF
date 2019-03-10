@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <FontFamily x:Key="FontThin">./Theme/Fonts/#Lato Thin</FontFamily>
-    <FontFamily x:Key="FontLight">./Theme/Fonts/#Lato Light</FontFamily>
-    <FontFamily x:Key="FontRegular">./Theme/Fonts/#Lato</FontFamily>
+    <FontFamily x:Key="FontThin">./Theme/Default/Fonts/#Lato Thin</FontFamily>
+    <FontFamily x:Key="FontLight">./Theme/Default/Fonts/#Lato Light</FontFamily>
+    <FontFamily x:Key="FontRegular">./Theme/Default/Fonts/#Lato</FontFamily>
     <sys:Double x:Key="FontSizeRegular">16</sys:Double>
 
 </ResourceDictionary>

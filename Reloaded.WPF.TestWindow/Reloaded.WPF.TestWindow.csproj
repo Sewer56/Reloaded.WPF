@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>NET472;netcoreapp3.0</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Reloaded.WPF.TestWindow</AssemblyName>
+    <RootNamespace>Reloaded.WPF.TestWindow</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DesignTimeResources.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Properties\DesignTimeResources.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\DesignTimeResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Reloaded.WPF.Theme.Default\Reloaded.WPF.Theme.Default.csproj" />
+    <ProjectReference Include="..\Reloaded.WPF\Reloaded.WPF.csproj" />
+  </ItemGroup>
+
+</Project>

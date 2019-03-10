@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon />
+    <StartupObject />
+    <RootNamespace>Reloaded.WPF.Theme.Default</RootNamespace>
+    <AssemblyName>Reloaded.WPF.Theme.Default</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Theme\Default\Colours.xaml" />
+    <None Remove="Theme\Default\Fonts.xaml" />
+    <None Remove="Theme\Default\Fonts\FontLight.ttf" />
+    <None Remove="Theme\Default\Fonts\FontRegular.ttf" />
+    <None Remove="Theme\Default\Fonts\FontThin.ttf" />
+    <None Remove="Theme\Default\Root.xaml" />
+    <None Remove="Theme\Default\Settings.xaml" />
+    <None Remove="Theme\Default\Styles.xaml" />
+    <None Remove="Theme\Default\Window.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Theme\Default\Colours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Fonts\FontLight.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Fonts\FontRegular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Fonts\FontThin.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Root.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

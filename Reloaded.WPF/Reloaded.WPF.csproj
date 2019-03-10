@@ -1,25 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
     <UseWPF>true</UseWPF>
     <ApplicationIcon />
     <StartupObject />
     <RootNamespace>Reloaded.WPF</RootNamespace>
     <AssemblyName>Reloaded.WPF</AssemblyName>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Theme\Fonts\FontLight.ttf" />
-    <None Remove="Theme\Fonts\FontRegular.ttf" />
-    <None Remove="Theme\Fonts\FontThin.ttf" />
-    <None Remove="Theme\Root.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="Theme\Root.xaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Colourful" Version="2.0.2" />
@@ -31,34 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Theme\Colours.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Theme\Fonts.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Theme\Fonts\FontLight.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Theme\Fonts\FontRegular.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Theme\Fonts\FontThin.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Theme\Settings.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Theme\Styles.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Theme\Root.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Generator>MSBuild:Compile</Generator>
-    </Content>
-    <Content Include="Theme\Window.xaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\Reloaded.WPF.Theme.Default\Reloaded.WPF.Theme.Default.csproj" />
   </ItemGroup>
 
 </Project>
