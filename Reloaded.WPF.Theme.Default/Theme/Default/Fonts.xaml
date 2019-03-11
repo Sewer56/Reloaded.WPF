@@ -5,6 +5,10 @@
     <FontFamily x:Key="FontThin">./Theme/Default/Fonts/#Lato Thin</FontFamily>
     <FontFamily x:Key="FontLight">./Theme/Default/Fonts/#Lato Light</FontFamily>
     <FontFamily x:Key="FontRegular">./Theme/Default/Fonts/#Lato</FontFamily>
+    <FontFamily x:Key="FontBold">./Theme/Default/Fonts/#Lato Bold</FontFamily>
+    <FontFamily x:Key="FontBlack">./Theme/Default/Fonts/#Lato Black</FontFamily>
+
     <sys:Double x:Key="FontSizeRegular">16</sys:Double>
+    <sys:Double x:Key="FontSizeTooltip">12</sys:Double>
 
 </ResourceDictionary>

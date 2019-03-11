@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Reloaded.WPF.Controls;
 using Reloaded.WPF.Theme.Default.ViewModels;
 
 namespace Reloaded.WPF.TestWindow

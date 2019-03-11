@@ -93,7 +93,7 @@
 
                                     <!-- Window Content Goes in Here -->
                                     <Grid Grid.Row="1">
-                                        <ContentPresenter Content="{TemplateBinding Content}"></ContentPresenter>
+                                        <ContentPresenter Content="{TemplateBinding Content}"/>
                                     </Grid>
                                 </Grid>
                             </Border>

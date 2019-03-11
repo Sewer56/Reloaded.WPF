@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reloaded.WPF.TestWindow"
+        xmlns:controls="clr-namespace:Reloaded.WPF.Controls;assembly=Reloaded.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Style="{DynamicResource ReloadedWindow}">
@@ -16,6 +17,33 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Vertical" Background="{DynamicResource AccentColorBrush}"/>
-        <TextBlock Grid.Column="1" Text="Hello NETCore WPF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" 
+                   Text="Hello NETCore WPF"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"
+                   ToolTipService.InitialShowDelay="0"
+                   ToolTip="Heroes Hacking Central (&amp; Shadow &amp; SatSR &amp; SatBK &amp; Unwiished &amp; Knuckles Adventure DX)">
+        </TextBlock>
+
+        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5,10">
+            <Viewbox Margin="0,0,0,5">
+                <controls:CircleButton Grid.Column="1" 
+                                       TooltipText="Sonic Mania"
+                                       ImageSource="pack://application:,,,/Images/Mania_Icon.jpg"
+                                       />
+            </Viewbox>
+            <Viewbox Margin="0,0,0,5">
+                <controls:CircleButton Grid.Column="1" 
+                                       TooltipText="Sonic Heroes"
+                                       ImageSource="pack://application:,,,/Images/Heroes_Icon.png"
+                                       />
+            </Viewbox>
+            <Viewbox Margin="0,0,0,5">
+                <controls:CircleButton Grid.Column="1" 
+                                       TooltipText="Shadow The Hedgehog" 
+                                       ImageSource="pack://application:,,,/Images/Shadow_Icon.png" />
+            </Viewbox>
+        </StackPanel>
+        
     </Grid>
 </Window>

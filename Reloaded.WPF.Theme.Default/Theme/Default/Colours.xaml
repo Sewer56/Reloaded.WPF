@@ -7,11 +7,21 @@
     <Color x:Key="TextColor">#ffffff</Color>
     <Color x:Key="BackgroundColor">#181818</Color>
     <Color x:Key="DropShadowColor">#FFFFFF</Color>
+    <Color x:Key="TooltipBackgroundColor">#000000</Color>
 
     <SolidColorBrush x:Key="AccentColorLightBrush" Color="{DynamicResource AccentColorLight}"/>
     <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}"/>
     <SolidColorBrush x:Key="BorderColorBrush" Color="{DynamicResource BorderColor}"/>
     <SolidColorBrush x:Key="TextColorBrush" Color="{DynamicResource TextColor}"/>
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{DynamicResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="TooltipBackgroundColorBrush" Color="{DynamicResource TooltipBackgroundColor}" Opacity="{DynamicResource TooltipBackgroundOpacity}"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Settings.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

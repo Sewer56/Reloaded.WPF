@@ -14,7 +14,7 @@
 
     <!-- Base Styles -->
 
-    <!-- Most Controls -->
+    <!-- Base Style -->
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
@@ -70,6 +70,28 @@
                 <Setter Property="Background" Value="{DynamicResource AccentColorBrush}"></Setter>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- Dark Style Tooltips -->
+    <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="{DynamicResource TooltipCornerRadius}">
+                        <TextBlock Text="{TemplateBinding Content}" 
+                               Padding="{DynamicResource TooltipPaddingSize}"
+                               FontSize="{TemplateBinding FontSize}"
+                               FontFamily="{TemplateBinding FontFamily}"
+                               Background="Transparent"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeTooltip}" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontBold}"/>
+
+        <Setter Property="Background" Value="{DynamicResource TooltipBackgroundColorBrush}"/>
     </Style>
 
 </ResourceDictionary>

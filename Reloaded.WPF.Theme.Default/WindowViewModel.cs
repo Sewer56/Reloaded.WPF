@@ -290,7 +290,19 @@ namespace Reloaded.WPF.Theme.Default.ViewModels
         /// [For WindowChrome]
         /// Gets the real titlebar height of the window, including the drop shadow border.
         /// </summary>
-        public int WindowChromeTitleBarHeight => (int)(TitleBarHeight.Value - XamlResizeBorderThickness.Top + WindowResizer.CurrentMonitorMargin.Top);
+        public int WindowChromeTitleBarHeight
+        {
+            get
+            {
+                if (IsMaximized())
+                {
+                    return (int)(TitleBarHeight.Value - XamlResizeBorderThickness.Top +
+                                 WindowResizer.CurrentMonitorMargin.Top);
+                }
+
+                return (int) (TitleBarHeight.Value - XamlResizeBorderThickness.Top);
+            }
+        }
 
         private Thickness XamlResizeBorderThickness
         {

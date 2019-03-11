@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!-- Radius of the rounded corners of the window -->
-    <CornerRadius  x:Key="CornerRadius">10</CornerRadius>
+    <CornerRadius x:Key="CornerRadius">10</CornerRadius>
 
     <!-- Height of the titlebar of the window. -->
     <GridLength x:Key="TitleBarHeight">32</GridLength>
@@ -18,7 +18,7 @@
     <Thickness x:Key="DropShadowBorderSize">20</Thickness>
 
     <!-- The size of the resize border at the edge of the window. -->
-    <Thickness x:Key="ResizeBorderThickness">8</Thickness>
+    <Thickness x:Key="ResizeBorderThickness">0</Thickness>
 
     <!-- Enables the glow effect around the window. -->
     <sys:Boolean x:Key="EnableGlow">True</sys:Boolean>
@@ -40,5 +40,10 @@
     <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
     <sys:Single x:Key="GlowHueCycleChroma">52.44212324580516</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
     <sys:Single x:Key="GlowHueCycleLightness">79.22796277336843</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
+
+    <!-- Control Properties: Tooltips -->
+    <CornerRadius x:Key="TooltipCornerRadius">10</CornerRadius>
+    <Thickness x:Key="TooltipPaddingSize">12</Thickness>
+    <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>
 
 </ResourceDictionary>

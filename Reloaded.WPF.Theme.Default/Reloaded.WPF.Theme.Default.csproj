@@ -13,6 +13,8 @@
   <ItemGroup>
     <None Remove="Theme\Default\Colours.xaml" />
     <None Remove="Theme\Default\Fonts.xaml" />
+    <None Remove="Theme\Default\Fonts\FontBlack.ttf" />
+    <None Remove="Theme\Default\Fonts\FontBold.ttf" />
     <None Remove="Theme\Default\Fonts\FontLight.ttf" />
     <None Remove="Theme\Default\Fonts\FontRegular.ttf" />
     <None Remove="Theme\Default\Fonts\FontThin.ttf" />
@@ -29,6 +31,12 @@
     </Content>
     <Content Include="Theme\Default\Fonts.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Fonts\FontBlack.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Default\Fonts\FontBold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Theme\Default\Fonts\FontLight.ttf">
