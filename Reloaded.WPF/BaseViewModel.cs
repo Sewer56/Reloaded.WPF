@@ -7,10 +7,8 @@ using PropertyChanged;
 
 namespace Reloaded.WPF
 {
-    [AddINotifyPropertyChangedInterface]
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : ObservableObject
     {
-        public event PropertyChangedEventHandler PropertyChanged   = (sender, e) => { };
         public event Action<WindowDockPosition>  WindowDockChanged = position => { };
 
         /* Default Minimize, Maximize, Close implementations. */
@@ -43,16 +41,6 @@ namespace Reloaded.WPF
             MinimizeCommand = new ActionCommand(() => { TargetWindow.WindowState = WindowState.Minimized; });
             MaximizeCommand = new ActionCommand(() => { TargetWindow.WindowState ^= WindowState.Maximized; });
             CloseCommand = new ActionCommand(() =>    { TargetWindow.Close(); } );
-        }
-
-        
-        /// <summary>
-        /// Calls the PropertyChange event manually.
-        /// </summary>
-        /// <param name="propertyName">The name of the property that changed.</param>
-        protected void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

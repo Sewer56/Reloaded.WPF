@@ -15,7 +15,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PropertyChanged;
-using Reloaded.WPF.Annotations;
 
 namespace Reloaded.WPF.Controls
 {
@@ -24,15 +23,26 @@ namespace Reloaded.WPF.Controls
     /// </summary>
     public partial class CircleButton : UserControl
     {
+        public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(CircleButton), new PropertyMetadata(new BitmapImage(new Uri("/Reloaded.WPF;component/Images/Reloaded_Icon.png", UriKind.RelativeOrAbsolute))));
+        public static readonly DependencyProperty TooltipTextProperty = DependencyProperty.Register(nameof(TooltipText), typeof(String), typeof(CircleButton), new PropertyMetadata("Tooltip Text"));
+
         /// <summary>
-        /// The source of the image 
+        /// The source of the image.
         /// </summary>
-        public String ImageSource { get; set; }
+        public ImageSource ImageSource
+        {
+            get => (ImageSource)GetValue(ImageSourceProperty);
+            set => SetValue(ImageSourceProperty, value);
+        }
 
         /// <summary>
         /// Gets or Sets the text displayed by the tooltip.
         /// </summary>
-        public string TooltipText { get; set; }
+        public string TooltipText
+        {
+            get => (string)GetValue(TooltipTextProperty);
+            set => SetValue(TooltipTextProperty, value);
+        }
 
         /// <summary>
         /// Retrieves the internal button control.
@@ -42,7 +52,6 @@ namespace Reloaded.WPF.Controls
         public CircleButton()
         {
             InitializeComponent();
-            this.DataContext = this;
         }
     }
 }

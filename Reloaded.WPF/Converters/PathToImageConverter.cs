@@ -1,28 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Reloaded.WPF.Converters
 {
     /// <summary>
-    /// Converts a WPF Framework element to a point being the center of the element.
+    /// Converts an absolute WPF path to a BitmapImage.
     /// </summary>
-    [ValueConversion(typeof(FrameworkElement), typeof(Point))]
-    public class FrameworkElementToPointCenterConverter : IValueConverter
+    [ValueConversion(typeof(string), typeof(ImageSource))]
+    public class AbsolutePathToImageConverter : IValueConverter
     {
-        public static FrameworkElementToPointCenterConverter Instance = new FrameworkElementToPointCenterConverter();
+        public static AbsolutePathToImageConverter Instance = new AbsolutePathToImageConverter();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is FrameworkElement)
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+                return null;
+
+            if (value is string uriString)
             {
-                var element = (FrameworkElement) value;
-                return new Point(element.ActualWidth / 2, element.ActualHeight / 2);
+                return new BitmapImage(new Uri(uriString, UriKind.RelativeOrAbsolute));
             }
 
             return null;

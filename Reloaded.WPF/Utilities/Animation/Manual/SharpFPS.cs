@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace Reloaded.WPF.Utilities
+namespace Reloaded.WPF.Utilities.Animation.Manual
 {
     /// <summary>
     /// The SharpFPS class is a simple class that automatically calculates the current rendered amount of frames per second

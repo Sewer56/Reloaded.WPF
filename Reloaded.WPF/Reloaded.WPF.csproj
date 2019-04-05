@@ -13,27 +13,32 @@
   <ItemGroup>
     <None Remove="Controls\CircleButton.xaml" />
     <None Remove="Images\Mania_Icon.jpg" />
+    <None Remove="Images\Reloaded_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Mania_Icon.jpg">
+    <Resource Include="Images\Reloaded_Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Colourful" Version="2.0.2" />
-    <PackageReference Include="Fody" Version="4.0.2">
+    <PackageReference Include="Fody" Version="4.2.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="2.6.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.6.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Controls\CircleButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\Page\Animations\" />
   </ItemGroup>
 
 </Project>

@@ -35,7 +35,7 @@
     <Visibility x:Key="MaximizeButtonVisibility">Visible</Visibility>
 
     <!-- Glow Properties -->
-    <sys:Boolean x:Key="EnableGlowHueCycle">True</sys:Boolean>
+    <sys:Boolean x:Key="EnableGlowHueCycle">False</sys:Boolean>
     <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">30</sys:Int32>
     <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
     <sys:Single x:Key="GlowHueCycleChroma">52.44212324580516</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
@@ -45,5 +45,8 @@
     <CornerRadius x:Key="TooltipCornerRadius">10</CornerRadius>
     <Thickness x:Key="TooltipPaddingSize">12</Thickness>
     <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>
+
+    <!-- Animation Properties -->
+    <sys:Double x:Key="BackgroundFadeAnimationDuration">1.0</sys:Double>
 
 </ResourceDictionary>

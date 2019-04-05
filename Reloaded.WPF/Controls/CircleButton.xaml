@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Reloaded.WPF.Controls"
              xmlns:converters="clr-namespace:Reloaded.WPF.Converters"
-             mc:Ignorable="d" Width="50" Height="50">
+             mc:Ignorable="d"
+             Height="50"
+             Width="50">
     <UserControl.Resources>
         <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}">
 
@@ -13,28 +15,26 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        <Image IsHitTestVisible="True" 
-                               x:Name="CircleImage" 
-                               Source="{Binding Path=ImageSource, 
-                                        Converter={x:Static converters:AbsolutePathToImageConverter.Instance},
-                                        FallbackValue='pack://application:,,,/Images/Mania_Icon.jpg'}" 
-                               RenderOptions.BitmapScalingMode="HighQuality"
-                               RenderOptions.EdgeMode="Aliased"
-                               Height="{TemplateBinding Height}" 
-                               Width="{TemplateBinding Width}">
-                            <Image.Clip>
-                                <EllipseGeometry RadiusX="{Binding  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Image}}, 
-                                                        Path=ActualHeight, 
-                                                        Converter={x:Static converters:DivideDoubleByTwoConverter.Instance}}" 
 
-                                                     RadiusY="{Binding  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Image}}, 
-                                                        Path=ActualWidth, 
-                                                        Converter={x:Static converters:DivideDoubleByTwoConverter.Instance}}"
-
-                                                     Center="{Binding   RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Image}},
-                                                        Converter={x:Static converters:FrameworkElementToPointCenterConverter.Instance}}"/>
-                            </Image.Clip>
-                        </Image>
+                        <!-- This Viewbox scales the internal contents with respect to the control size.
+                             This allows for all templated controls inside to scale themselves relative to each other and
+                             not to the size of the window. -->
+                        <Viewbox Height="50" Width="50">
+                            <Image IsHitTestVisible="True" 
+                                   x:Name="CircleImage" 
+                                   Source="{Binding Path=ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   RenderOptions.EdgeMode="Aliased"
+                                   RenderOptions.CachingHint="Cache"
+                                   Height="50" 
+                                   Width="50">
+                                <Image.Clip>
+                                    <EllipseGeometry RadiusX="25" 
+                                                     RadiusY="25"
+                                                     Center="25,25"/>
+                                </Image.Clip>
+                            </Image>
+                        </Viewbox>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -49,6 +49,6 @@
         <Button Style="{DynamicResource CircleButtonStyle}" 
                 x:Name="_button"
                 ToolTipService.InitialShowDelay="0"
-                ToolTip="{Binding Path=TooltipText}"/>
+                ToolTip="{Binding Path=TooltipText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
     </Grid>
 </UserControl>

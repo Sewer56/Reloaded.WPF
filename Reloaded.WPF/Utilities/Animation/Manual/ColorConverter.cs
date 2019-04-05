@@ -4,7 +4,7 @@ using System.Windows.Media;
 using Colourful;
 using Colourful.Conversion;
 
-namespace Reloaded.WPF.Utilities
+namespace Reloaded.WPF.Utilities.Animation.Manual
 {
     /// <summary>
     /// Colour c, suitable for HUE cycling and interpolation

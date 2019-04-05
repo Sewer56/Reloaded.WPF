@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Colourful;
 
-namespace Reloaded.WPF.Utilities
+namespace Reloaded.WPF.Utilities.Animation.Manual
 {
     public static class ColorInterpolator
     {

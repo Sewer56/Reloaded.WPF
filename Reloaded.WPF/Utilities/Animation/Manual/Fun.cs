@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Media;
 
-namespace Reloaded.WPF.Utilities
+namespace Reloaded.WPF.Utilities.Animation.Manual
 {
     public class Fun
     {

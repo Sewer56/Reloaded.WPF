@@ -10,13 +10,21 @@
 
   <ItemGroup>
     <None Remove="DesignTimeResources.xaml" />
-    <None Remove="Images\Heroes_Icon.png" />
-    <None Remove="Images\Mania_Icon.jpg" />
-    <None Remove="Images\Shadow_Icon.png" />
+    <None Remove="Pages\GamePortal.xaml" />
+    <None Remove="Pages\MainPage.xaml" />
+    <None Remove="Styles\Window_Settings.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <Page Remove="Properties\DesignTimeResources.xaml" />
+    <Page Remove="Styles\Window_Settings.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Styles\Window_Settings.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -26,19 +34,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fody" Version="4.2.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ORMi" Version="1.4.2" />
+    <PackageReference Include="ParallelExtensionsExtras" Version="1.2.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Reloaded.WPF.Theme.Default\Reloaded.WPF.Theme.Default.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Heroes_Icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Mania_Icon.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Shadow_Icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Compile Update="Pages\GamePortal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\MainPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

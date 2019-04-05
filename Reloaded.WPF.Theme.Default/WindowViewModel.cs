@@ -10,6 +10,8 @@ using System.Windows.Media.Effects;
 using PropertyChanged;
 using Reloaded.WPF;
 using Reloaded.WPF.Utilities;
+using Reloaded.WPF.Utilities.Animation;
+using Reloaded.WPF.Utilities.Animation.Manual;
 
 namespace Reloaded.WPF.Theme.Default.ViewModels
 {
@@ -53,8 +55,8 @@ namespace Reloaded.WPF.Theme.Default.ViewModels
         /* Note: All sizes are in points, not pixels. */
         public WindowViewModel(Window window) : base(window)
         {
-            LoadStyle();
-            LoadFonts();
+            // Load window style.
+            Loader.Load(window);
 
             // Notify drop shadow/border on change of state
             // or window dock position.
@@ -340,10 +342,10 @@ namespace Reloaded.WPF.Theme.Default.ViewModels
         /// </summary>
         private void GlowStateChanged()
         {
-            NotifyPropertyChanged(nameof(DropShadowBorderSize));
-            NotifyPropertyChanged(nameof(DropShadowSize));
-            NotifyPropertyChanged(nameof(ResizeBorderThickness));
-            NotifyPropertyChanged(nameof(WindowChromeTitleBarHeight));
+            RaisePropertyChangedEvent(nameof(DropShadowBorderSize));
+            RaisePropertyChangedEvent(nameof(DropShadowSize));
+            RaisePropertyChangedEvent(nameof(ResizeBorderThickness));
+            RaisePropertyChangedEvent(nameof(WindowChromeTitleBarHeight));
         }
 
         /* Helpers */
@@ -363,46 +365,6 @@ namespace Reloaded.WPF.Theme.Default.ViewModels
         public void Dispose()
         {
             _cycleDropShadow = null;
-        }
-
-        /// <summary>
-        /// Loads all OTF and TTF fonts by file names matching their resource
-        /// </summary>
-        private void LoadFonts()
-        {
-            string fontDirectory = AppDomain.CurrentDomain.BaseDirectory + "Theme/Default/Fonts";
-            if (Directory.Exists(fontDirectory))
-            {
-                List<string> fontFiles = Directory.GetFiles(fontDirectory, "*.otf").ToList();
-                fontFiles.AddRange(Directory.GetFiles(fontDirectory, "*.ttf"));
-
-                foreach (var fontFileLocation in fontFiles)
-                {
-                    try
-                    {
-                        foreach (var fontFamily in Fonts.GetFontFamilies(fontFileLocation))
-                        {
-                            Resources.Set(Path.GetFileNameWithoutExtension(fontFileLocation), fontFamily);
-                        }
-                    }
-                    catch { /* Ignored*/ }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Loads a custom WPF style from the filesystem.
-        /// </summary>
-        private void LoadStyle()
-        {
-            string themeDirectory = AppDomain.CurrentDomain.BaseDirectory + "Theme";
-            if (Directory.Exists(themeDirectory))
-            {
-                string themeRoot = themeDirectory + "/Default/Root.xaml";
-                if (File.Exists(themeRoot))
-                    TargetWindow.Resources.MergedDictionaries.Add(
-                        new ResourceDictionary() { Source = new Uri(themeRoot, UriKind.Absolute) } );
-            }
         }
     }
 }
