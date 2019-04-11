@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using PropertyChanged;
-using Reloaded.WPF;
+using Reloaded.WPF.Pages;
 using Reloaded.WPF.Utilities;
-using Reloaded.WPF.Utilities.Animation;
 using Reloaded.WPF.Utilities.Animation.Manual;
 
-namespace Reloaded.WPF.Theme.Default.ViewModels
+namespace Reloaded.WPF.Theme.Default
 {
-    [AddINotifyPropertyChangedInterface]
-    public class WindowViewModel : BaseViewModel, IDisposable
+    public class WindowViewModel : BaseWindowViewModel, IDisposable
     {
         #region XAML Key Names
         // ReSharper disable InconsistentNaming

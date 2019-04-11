@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Reloaded.WPF
+namespace Reloaded.WPF.MVVM
 {
     /// <summary>
     /// Simple WPF command that executes an <see cref="Action"/>.

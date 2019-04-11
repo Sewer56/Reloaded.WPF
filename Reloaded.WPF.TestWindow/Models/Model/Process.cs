@@ -1,31 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Net.Cache;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Reloaded.WPF.Resources;
 
-namespace Reloaded.WPF.TestWindow.Models
+namespace Reloaded.WPF.TestWindow.Models.Model
 {
-    public class ProcessModel
+    public class Process
     {
         /// <summary> The ID of this individual process. </summary>
         private System.Diagnostics.Process _process;
 
         /// <summary> A persistent cache of all the icons of executables. </summary>
-        private static Dictionary<String, BitmapSource> _iconCache = new Dictionary<string, BitmapSource>();
+        private static Dictionary<string, BitmapSource> _iconCache = new Dictionary<string, BitmapSource>();
 
         /// <summary>
         /// Creates a process given a process ID.
         /// </summary>
         /// <param name="process">The individual process instance representing the process.</param>
-        public ProcessModel(Process process)
+        public Process(System.Diagnostics.Process process)
         {
             _process = process;
         }
@@ -38,7 +34,7 @@ namespace Reloaded.WPF.TestWindow.Models
                 {
                     return _process.ProcessName;
                 }
-                catch (Exception e) { return "";  }
+                catch (Exception) { return "Failed to Get Process Name";  }
             }
         }
 
@@ -63,24 +59,20 @@ namespace Reloaded.WPF.TestWindow.Models
                         return bitmapImage;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    string defaultIconPath = "pack://application:,,,/Reloaded.WPF;Component/Images/Reloaded_Icon.png";
-
                     // Try to retrieve from cache.
-                    if (_iconCache.TryGetValue(defaultIconPath, out BitmapSource icon))
+                    if (_iconCache.TryGetValue(Paths.PLACEHOLDER_IMAGE, out BitmapSource icon))
                         return icon;
 
-                    var image = new BitmapImage(new Uri(defaultIconPath, UriKind.RelativeOrAbsolute));
+                    var image = new BitmapImage(new Uri(Paths.PLACEHOLDER_IMAGE, UriKind.RelativeOrAbsolute));
                     var cachedBitmap = new CachedBitmap(image, BitmapCreateOptions.None, BitmapCacheOption.Default);
                     cachedBitmap.Freeze();
 
-                    _iconCache[defaultIconPath] = cachedBitmap;
+                    _iconCache[Paths.PLACEHOLDER_IMAGE] = cachedBitmap;
                     return image;
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

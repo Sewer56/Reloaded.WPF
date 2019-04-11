@@ -125,9 +125,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
             // Spin for the remaining estimate of ticks.
             long frameTicks = MillisecondsToTicks(FrameTime);
             while (LocalStopwatch.ElapsedTicks < frameTicks)
-            {
-                int a = 06032017;
-            }
+            { }
         }
 
         /// <summary>

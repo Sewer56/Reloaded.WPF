@@ -1,111 +1,45 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Management;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ORMi;
+using Reloaded.WPF.Controls;
 using Reloaded.WPF.TestWindow.Models;
+using Reloaded.WPF.TestWindow.Models.Model;
+using Reloaded.WPF.TestWindow.Models.ViewModel;
 using Reloaded.WPF.Theme.Default;
-using Reloaded.WPF.Utilities;
+using Process = Reloaded.WPF.TestWindow.Models.Model.Process;
 
 namespace Reloaded.WPF.TestWindow.Pages
 {
     /// <summary>
     /// The main page of the application.
     /// </summary>
-    public partial class MainPage : System.Windows.Controls.Page
+    public partial class MainPage : ReloadedPage
     {
-        /// <summary>
-        /// The currently displayed page on this window.
-        /// </summary>
-        public Pages.Page GamePage { get; set; } = Page.Game;
-
-        /// <summary>
-        /// A list of all process models available on the sidebar.
-        /// </summary>
-        public ObservableConcurrentDictionary<int, ProcessModel> ProcessModels { get; set; } = new ObservableConcurrentDictionary<int, ProcessModel>();
-
-        private WMIWatcher _startWatcher;
-        private WMIWatcher _stopWatcher;
-
-        public MainPage()
+        public MainPage() : base()
         {  
             InitializeComponent();
-            Loader.Load(this);
-
-            // Populate bindings.
-            PopulateProcesses();
-            _startWatcher = new WMIWatcher("root\\CimV2", "SELECT * FROM Win32_ProcessStartTrace", typeof(WMIProcess));
-            _stopWatcher = new WMIWatcher("root\\CimV2", "SELECT * FROM Win32_ProcessStopTrace", typeof(WMIProcess));
-            _startWatcher.WMIEventArrived += ApplicationLaunched;
-            _stopWatcher.WMIEventArrived += ApplicationExited;
+            this.DataContext = IoC.Get<SidebarViewModel>();
         }
 
-        /// <summary>
-        /// Initially populates a list of processes.
-        /// </summary>
-        private void PopulateProcesses()
+        private void CircleButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            foreach (int key in ProcessModels.Keys)
-                ProcessModels.Remove(key);
-
-            foreach (Process process in Process.GetProcesses())
-                AddProcess(process);
-        }
-
-        /// <summary>
-        /// Adds a process to the ObservableCollection of Processes.
-        /// </summary>
-        private void AddProcess(Process process)
-        {
-            var model = new ProcessModel(process);
-            this.ProcessesPanel.Dispatcher.Invoke(() => {
-                ProcessModels.Add(process.Id, model);
-            });
-        }
-
-        /// <summary>
-        /// Adds a process to the ObservableCollection when it is launched.
-        /// </summary>
-        private void ApplicationLaunched(object sender, WMIEventArgs e)
-        {
-            WMIProcess process = (WMIProcess)e.Object;
-            try
+            // Prepare for parameter transfer.
+            if (sender is FrameworkElement element)
             {
-                AddProcess(Process.GetProcessById(process.ProcessID));
+                var process = ((KeyValuePair<int, Process>)element.DataContext).Value;
+
+                // Bind default process (store for other page to pick up).
+                IoC.Kernel.Unbind<Process>();
+                IoC.Kernel.Bind<Process>().ToConstant(process);
             }
-            catch (Exception) { /* ignored */ }
-        }
 
-        /// <summary>
-        /// Executed when one of the applications exits.
-        /// </summary>
-        private void ApplicationExited(object sender, WMIEventArgs e)
-        {
-            WMIProcess process = (WMIProcess)e.Object;
-            ProcessModels.Remove(process.ProcessID);
-        }
-
-        /// <summary>
-        /// Represents a singular instance of a process as defined by the Windows Management Instrumentation.
-        /// </summary>
-        [WMIClass("Win32_ProcessStartTrace")]
-        public class WMIProcess
-        {
-            public string ProcessName { get; set; }
-            public int ProcessID { get; set; }
+            // Set the sidebar current game for page switch and re-set binding for new page.
+            var viewModel = IoC.Get<SidebarViewModel>();
+            viewModel.Page = Page.Process;
         }
     }
 }

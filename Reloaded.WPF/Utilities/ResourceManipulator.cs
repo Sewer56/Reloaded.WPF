@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Reloaded.WPF
+namespace Reloaded.WPF.Utilities
 {
     /// <summary>
     /// A helper class which lets you access the XAML Resources

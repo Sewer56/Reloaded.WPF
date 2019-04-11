@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Reloaded.WPF.Utilities;
 
 namespace Reloaded.WPF.Theme.Default
 {
@@ -14,20 +13,31 @@ namespace Reloaded.WPF.Theme.Default
     /// </summary>
     public static class Loader
     {
+        /// <summary> Shared instance of the load once dictionary. </summary>
+        private static ResourceDictionary _dictionary;
+
         /* Location of Font Set and XAML Styles */
         public const string RelativeRootXamlFileLocation    = "Theme/Default/Root.xaml";
         public const string RelativeFontLocation            = "Theme/Default/Fonts";
 
         public static void Load(FrameworkElement element)
         {
-            LoadFonts(new ResourceManipulator(element));
-            LoadStyle(element);
+            // Instantiate dictionary if not created.
+            if (_dictionary == null)
+            {
+                _dictionary = new ResourceDictionary();
+                LoadStyle();
+                LoadFonts();
+            }
+
+            // Merge the dictionary in.
+            element.Resources.MergedDictionaries.Add(_dictionary);
         }
 
         /// <summary>
         /// Loads all OTF and TTF fonts by file names matching their resource
         /// </summary>
-        private static void LoadFonts(ResourceManipulator resources)
+        private static void LoadFonts()
         {
             string fontDirectory = AppDomain.CurrentDomain.BaseDirectory + RelativeFontLocation;
             if (Directory.Exists(fontDirectory))
@@ -41,7 +51,7 @@ namespace Reloaded.WPF.Theme.Default
                     {
                         foreach (var fontFamily in Fonts.GetFontFamilies(fontFileLocation))
                         {
-                            resources.Set(Path.GetFileNameWithoutExtension(fontFileLocation), fontFamily);
+                            _dictionary[Path.GetFileNameWithoutExtension(fontFileLocation)] = fontFamily;
                         }
                     }
                     catch { /* Ignored*/ }
@@ -52,12 +62,11 @@ namespace Reloaded.WPF.Theme.Default
         /// <summary>
         /// Loads a custom WPF style from the filesystem.
         /// </summary>
-        private static void LoadStyle(FrameworkElement element)
+        private static void LoadStyle()
         {
             string themeRootXamlFile = AppDomain.CurrentDomain.BaseDirectory + RelativeRootXamlFileLocation;
             if (File.Exists(themeRootXamlFile))
-                element.Resources.MergedDictionaries.Add(
-                    new ResourceDictionary() { Source = new Uri(themeRootXamlFile, UriKind.Absolute) });
+                _dictionary.MergedDictionaries.Add( new ResourceDictionary() { Source = new Uri(themeRootXamlFile, UriKind.Absolute) } );
         }
     }
 }

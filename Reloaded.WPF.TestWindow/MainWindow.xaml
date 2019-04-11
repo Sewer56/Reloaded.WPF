@@ -1,4 +1,4 @@
-﻿<Window x:Class="Reloaded.WPF.TestWindow.MainWindow"
+﻿<default:ReloadedWindow x:Class="Reloaded.WPF.TestWindow.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,12 +7,15 @@
         xmlns:converters="clr-namespace:Reloaded.WPF.TestWindow.Converter"
         xmlns:controls="clr-namespace:Reloaded.WPF.Controls;assembly=Reloaded.WPF"
         xmlns:utilities="clr-namespace:Reloaded.WPF.Utilities;assembly=Reloaded.WPF"
+        xmlns:default="clr-namespace:Reloaded.WPF.Theme.Default;assembly=Reloaded.WPF.Theme.Default"
+        xmlns:properties="clr-namespace:Reloaded.WPF.MVVM.Properties;assembly=Reloaded.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Style="{DynamicResource ReloadedWindow}">
 
     <!-- Window Content -->
-    <Frame Content="{Binding Path=CurrentPage, 
+    <controls:PageHost
+           CurrentPage = "{Binding Path=CurrentPage, 
                              RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, 
                              Converter={x:Static converters:ApplicationPageToPageConverter.Instance}}"/>
-</Window>
+</default:ReloadedWindow>

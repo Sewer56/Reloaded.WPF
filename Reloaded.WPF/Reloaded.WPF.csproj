@@ -12,12 +12,13 @@
 
   <ItemGroup>
     <None Remove="Controls\CircleButton.xaml" />
-    <None Remove="Images\Mania_Icon.jpg" />
-    <None Remove="Images\Reloaded_Icon.png" />
+    <None Remove="Controls\PageHost.xaml" />
+    <None Remove="Resources\Mania_Icon.jpg" />
+    <None Remove="Resources\Reloaded_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Reloaded_Icon.png">
+    <Resource Include="Resources\Reloaded_Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -35,10 +36,15 @@
     <Compile Update="Controls\CircleButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\PageHost.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controls\Page\Animations\" />
+    <Page Update="Controls\PageHost.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
 </Project>

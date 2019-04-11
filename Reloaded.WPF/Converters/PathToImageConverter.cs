@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,8 +16,10 @@ namespace Reloaded.WPF.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            /*
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
                 return null;
+            */
 
             if (value is string uriString)
             {

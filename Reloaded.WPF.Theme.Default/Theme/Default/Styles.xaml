@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:utilities="clr-namespace:Reloaded.WPF.Utilities;assembly=Reloaded.WPF">
 
-    <!-- For IntelliSense -->
+    <!-- For IntelliSense: Uncomment only when editing. -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="Settings.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary.MergedDictionaries>    
 
     <!-- Animations -->
 
@@ -135,6 +135,19 @@
                     <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{TemplateBinding Content}"></TextBlock>
                     </Border>
+
+                    <!-- Mouseover Color Switch -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource BackgroundFadeDarkerAnimation}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource BackgroundFadeLighterAnimation}"/>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

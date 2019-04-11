@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Import Other Dependent ResourceDictionaries etc. -->
+    <!-- For IntelliSense: Uncomment only when editing. -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -9,7 +9,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-
+    
     <!-- The code below expects the Window's DataContext to be set to WindowViewModel -->
     <!-- Style the Window. -->
     <Style x:Key="ReloadedWindow" TargetType="{x:Type Window}">
@@ -27,12 +27,15 @@
                             <Border x:Name="ClipBorder" Background="Black" 
                                     CornerRadius="{DynamicResource CornerRadius}"/>
 
-                            <!-- This is our window background and drop shadow generator. -->
-                            <Border x:Name="DropShadowBorder" Background="{Binding Path=Background, 
+                            <!-- The glowing border of the Window.
+                                 The important thing is that this must be separate and not nest the content below!
+                                 The DropShadowEffect uses all descendant objects to calculate the shape of the shadow. 
+                                 which means that every time any children are updated the shadow is recalculated. -->
+                            <Border x:Name="DropShadowBorder"
+                                    CornerRadius="{DynamicResource CornerRadius}" 
+                                    Background="{Binding Path=Background, 
                                                          RelativeSource={RelativeSource AncestorType={x:Type Window}}, 
-                                                         FallbackValue=#181818}"
-                                    CornerRadius="{DynamicResource CornerRadius}">
-
+                                                         FallbackValue=#181818}">
                                 <Border.Effect>
                                     <DropShadowEffect
                                         ShadowDepth="{DynamicResource GlowDepth}"
@@ -42,6 +45,10 @@
                                         BlurRadius="{Binding Path=DropShadowSize}"
                                         Opacity="{DynamicResource GlowOpacity}" />
                                 </Border.Effect>
+                            </Border>
+
+                            <!-- This is our window background and the owner of what we see onscreen. -->
+                            <Border x:Name="ContentBorder" CornerRadius="{DynamicResource CornerRadius}">
 
                                 <!-- Main Window Content -->
                                 <Grid>

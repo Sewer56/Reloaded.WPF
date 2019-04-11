@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Reloaded.WPF.Controls"
              xmlns:converters="clr-namespace:Reloaded.WPF.Converters"
+             xmlns:resources="clr-namespace:Reloaded.WPF.Resources"
+             xmlns:designTimeModels="clr-namespace:Reloaded.WPF.Controls.DesignTimeModels"
              mc:Ignorable="d"
              Height="50"
-             Width="50">
+             Width="50"
+             IsHitTestVisible="True"
+             >
     <UserControl.Resources>
         <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}">
 
@@ -20,9 +24,10 @@
                              This allows for all templated controls inside to scale themselves relative to each other and
                              not to the size of the window. -->
                         <Viewbox Height="50" Width="50">
-                            <Image IsHitTestVisible="True" 
-                                   x:Name="CircleImage" 
-                                   Source="{Binding Path=ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                            <Image x:Name="CircleImage"
+                                   Source="{Binding Path=ImageSource}" 
+                                   DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                   d:DataContext="{x:Static designTimeModels:CircleButtonModel.Instance}"
                                    RenderOptions.BitmapScalingMode="HighQuality"
                                    RenderOptions.EdgeMode="Aliased"
                                    RenderOptions.CachingHint="Cache"
@@ -49,6 +54,8 @@
         <Button Style="{DynamicResource CircleButtonStyle}" 
                 x:Name="_button"
                 ToolTipService.InitialShowDelay="0"
-                ToolTip="{Binding Path=TooltipText, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                ToolTip="{Binding Path=TooltipText}"
+                DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
+                />
     </Grid>
 </UserControl>

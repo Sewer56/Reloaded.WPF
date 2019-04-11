@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows.Media;
 
@@ -25,6 +26,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
                 double frameTimeMs  = 1000.0 / framesPerSecond;
                 int colors          = (int)Math.Round(duration / frameTimeMs);
                 var rainbowColors   = ColorInterpolator.GetRainbowColors(chroma, lightness, colors);
+                var rainbowColorsNative = rainbowColors.Select((x) => x.ToColor()).ToArray();
 
                 int currentColor    = 0;
                 int maxColor        = rainbowColors.Count;
@@ -32,7 +34,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
                 while (true)
                 {
                     fps.StartFrame();
-                    setColorFunction(rainbowColors[currentColor].ToColor());
+                    setColorFunction(rainbowColorsNative[currentColor]);
 
                     currentColor++;
                     currentColor %= maxColor;

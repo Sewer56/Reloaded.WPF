@@ -35,8 +35,8 @@
     <Visibility x:Key="MaximizeButtonVisibility">Visible</Visibility>
 
     <!-- Glow Properties -->
-    <sys:Boolean x:Key="EnableGlowHueCycle">False</sys:Boolean>
-    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">30</sys:Int32>
+    <sys:Boolean x:Key="EnableGlowHueCycle">True</sys:Boolean>
+    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">60</sys:Int32>
     <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
     <sys:Single x:Key="GlowHueCycleChroma">52.44212324580516</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
     <sys:Single x:Key="GlowHueCycleLightness">79.22796277336843</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
@@ -47,6 +47,13 @@
     <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>
 
     <!-- Animation Properties -->
-    <sys:Double x:Key="BackgroundFadeAnimationDuration">1.0</sys:Double>
+    <sys:Double x:Key="EntrySlideAnimationDuration">0.666</sys:Double>
+    <sys:Double x:Key="EntryFadeAnimationDuration">0.666</sys:Double>
+    <sys:Double x:Key="EntryFadeOpacityStart">0.0</sys:Double>
+
+    <sys:Double x:Key="ExitSlideAnimationDuration">0.666</sys:Double>
+    <sys:Double x:Key="ExitFadeAnimationDuration">0.666</sys:Double>
+    <sys:Double x:Key="ExitFadeOpacityEnd">0.0</sys:Double>
+
 
 </ResourceDictionary>

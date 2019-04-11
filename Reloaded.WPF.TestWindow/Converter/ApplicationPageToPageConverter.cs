@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.Windows.Controls;
 using System.Windows.Data;
 using Reloaded.WPF.TestWindow.Pages;
 using Page = Reloaded.WPF.TestWindow.Pages.Page;
@@ -17,10 +16,13 @@ namespace Reloaded.WPF.TestWindow.Converter
         {
             switch ((Page)value)
             {
+                case Page.None:
+                    return null;
+
                 case Page.Base:
                     return new MainPage();
 
-                case Page.Game:
+                case Page.Process:
                     return new GamePortal();
 
                 default:
