@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using PropertyChanged;
 using Reloaded.WPF.Pages;
@@ -16,7 +17,7 @@ namespace Reloaded.WPF.Theme.Default
         #region XAML Key Names
         // ReSharper disable InconsistentNaming
         private const string XAML_DropShadowBorderName  = "DropShadowBorder";
-        private const string XAML_DropShadowColor       = "DropShadowColor";
+        private const string XAML_GlowColor             = "GlowColor";
         private const string XAML_CornerRadius          = "CornerRadius";
         private const string XAML_TitleBarHeight        = "TitleBarHeight";
         
@@ -29,6 +30,11 @@ namespace Reloaded.WPF.Theme.Default
         private const string XAML_GlowOpacity           = "GlowOpacity";
         private const string XAML_GlowDirection         = "GlowDirection";
         private const string XAML_GlowDepth             = "GlowDepth";
+
+        private const string XAML_AllowGlowStateChange  = "AllowGlowStateChange";
+        private const string XAML_GlowColorInactive     = "GlowColorInactive";
+        private const string XAML_GlowColorDefault      = "GlowColorDefault";
+        private const string XAML_GlowColorEngaged      = "GlowColorEngaged";
 
         private const string XAML_DefaultMinWidth       = "DefaultMinWidth";
         private const string XAML_DefaultMinHeight      = "DefaultMinHeight";
@@ -71,6 +77,19 @@ namespace Reloaded.WPF.Theme.Default
 
             if (Math.Abs(TargetWindow.MinWidth) < 0.1F)
                 TargetWindow.MinWidth  = Resources.Get<double>(XAML_DefaultMinWidth);
+
+            // Handle window out of focus.
+            TargetWindow.Deactivated += (sender, args) =>
+            {
+                if (AllowGlowStateChange)
+                    GlowColor = GlowColorInactive;
+            };
+
+            TargetWindow.Activated += (sender, args) =>
+            {
+                if (AllowGlowStateChange)
+                    GlowColor = GlowColorDefault;
+            };
 
             // Fun
             if (Resources.Get<bool>(XAML_EnableGlowHueCycle))
@@ -143,12 +162,52 @@ namespace Reloaded.WPF.Theme.Default
         }
 
         /// <summary>
-        /// The colour of the drop shadow (glow) effect around the window.
+        /// The active colour of the drop shadow (glow) effect around the window.
         /// </summary>
-        public Color DropShadowColor
+        public Color GlowColor
         {
-            get => Resources.Get<Color>(XAML_DropShadowColor);
-            set => Resources.Set(XAML_DropShadowColor, value);
+            get => Resources.Get<Color>(XAML_GlowColor);
+            set => Resources.Set(XAML_GlowColor, value);
+        }
+
+        /// <summary>
+        /// Allows or disallows the active changing of window colour based on whether
+        /// the window is busy.
+        /// </summary>
+        public bool AllowGlowStateChange
+        {
+            get => Resources.Get<bool>(XAML_AllowGlowStateChange);
+            set => Resources.Set(XAML_AllowGlowStateChange, value);
+        }
+
+        /// <summary>
+        /// The colour of the drop shadow (glow) effect around the window
+        /// when the window is out of focus.
+        /// </summary>
+        public Color GlowColorInactive
+        {
+            get => Resources.Get<Color>(XAML_GlowColorInactive);
+            set => Resources.Set(XAML_GlowColorInactive, value);
+        }
+
+        /// <summary>
+        /// The colour of the drop shadow (glow) effect around the window
+        /// when the window is working.
+        /// </summary>
+        public Color GlowColorEngaged
+        {
+            get => Resources.Get<Color>(XAML_GlowColorEngaged);
+            set => Resources.Set(XAML_GlowColorEngaged, value);
+        }
+
+        /// <summary>
+        /// The colour of the drop shadow (glow) effect around the window
+        /// when the window is out of focus.
+        /// </summary>
+        public Color GlowColorDefault
+        {
+            get => Resources.Get<Color>(XAML_GlowColorDefault);
+            set => Resources.Set(XAML_GlowColorDefault, value);
         }
 
         /// <summary>
@@ -267,10 +326,10 @@ namespace Reloaded.WPF.Theme.Default
             _cycleDropShadow = Fun.HueCycleColor(color =>
             {
                 if (_cycleDropShadow != null)
-                    DropShadowColor = color;
+                    GlowColor = color;
             }, framesPerSecond, duration, chroma, lightness);
 
-            _cycleDropShadow.IsBackground = true;
+            _cycleDropShadow.IsBackground = true;   
         }
 
         /// <summary>

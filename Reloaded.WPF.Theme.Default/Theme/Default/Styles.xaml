@@ -151,12 +151,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource AccentColorBrush}"></Setter>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
     <!-- Dark Style Tooltips -->

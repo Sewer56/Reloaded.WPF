@@ -6,7 +6,6 @@
     <Color x:Key="BorderColor">#4c4c4c</Color>
     <Color x:Key="TextColor">#ffffff</Color>
     <Color x:Key="BackgroundColor">#181818</Color>
-    <Color x:Key="DropShadowColor">#FFFFFF</Color>
     <Color x:Key="TooltipBackgroundColor">#000000</Color>
 
     <SolidColorBrush x:Key="AccentColorLightBrush" Color="{DynamicResource AccentColorLight}"/>

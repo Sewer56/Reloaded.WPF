@@ -12,20 +12,28 @@
     <sys:Boolean x:Key="BorderlessOnDock">True</sys:Boolean>
 
     <!-- The size of the drop shadow effect used for glow/drop shadow. -->
-    <sys:Double x:Key="DropShadowSize">20</sys:Double>
+    <sys:Double x:Key="DropShadowSize">5</sys:Double>
 
     <!-- The size of the invisible transparent border acting as the space for the glow effect to render. -->
-    <Thickness x:Key="DropShadowBorderSize">20</Thickness>
+    <Thickness x:Key="DropShadowBorderSize">5</Thickness>
 
     <!-- The size of the resize border at the edge of the window. -->
-    <Thickness x:Key="ResizeBorderThickness">0</Thickness>
+    <Thickness x:Key="ResizeBorderThickness">5</Thickness>
 
     <!-- Enables the glow effect around the window. -->
     <sys:Boolean x:Key="EnableGlow">True</sys:Boolean>
+    <Color x:Key="GlowColor">#ffffff</Color>           <!-- Container for the actual colour displayed on the screen. -->
     <sys:Double x:Key="GlowOpacity">1</sys:Double>
     <sys:Double x:Key="GlowDirection">315</sys:Double> <!-- Gets or sets the direction of the drop shadow. -->
     <sys:Double x:Key="GlowDepth">0</sys:Double>       <!-- Gets or sets the distance of the drop shadow at the given direction below the window. -->
-    <RenderingBias x:Key="GlowRenderBias">1</RenderingBias>  <!-- 0 = Performance, 1 = Quality -->
+    <RenderingBias x:Key="GlowRenderBias">0</RenderingBias>  <!-- 0 = Performance, 1 = Quality -->
+
+    <!-- Default Glow Colors -->
+    <sys:Boolean x:Key="AllowGlowStateChange">True</sys:Boolean> <!-- Enables the following colours below to be changed by the program
+                                                                  manually. Otherwise GlowColor sticks to one colour only. -->
+    <Color x:Key="GlowColorInactive">#434346</Color>             <!-- Intended to be used when the window is out of focus. -->
+    <Color x:Key="GlowColorDefault">#ffffff</Color>              <!-- Intended to be used when the window is in focus -->
+    <Color x:Key="GlowColorEngaged">#ff9b91</Color>              <!-- Intended to be used when the window is in focus and working. -->
 
     <!-- Window Properties -->
     <sys:Double x:Key="DefaultMinWidth">210</sys:Double>
@@ -34,9 +42,10 @@
     <Visibility x:Key="MinimizeButtonVisibility">Visible</Visibility>
     <Visibility x:Key="MaximizeButtonVisibility">Visible</Visibility>
 
-    <!-- Glow Properties -->
-    <sys:Boolean x:Key="EnableGlowHueCycle">True</sys:Boolean>
-    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">60</sys:Int32>
+    <!-- Glow: Hue Cycle -->
+    <!-- I would love to leave this on by default but the performance implications are unjustifiable. -->
+    <sys:Boolean x:Key="EnableGlowHueCycle">False</sys:Boolean>
+    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">30</sys:Int32>
     <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
     <sys:Single x:Key="GlowHueCycleChroma">52.44212324580516</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
     <sys:Single x:Key="GlowHueCycleLightness">79.22796277336843</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
