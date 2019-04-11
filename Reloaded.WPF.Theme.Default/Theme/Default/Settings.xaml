@@ -44,11 +44,11 @@
 
     <!-- Glow: Hue Cycle -->
     <!-- I would love to leave this on by default but the performance implications are unjustifiable. -->
-    <sys:Boolean x:Key="EnableGlowHueCycle">False</sys:Boolean>
-    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">30</sys:Int32>
+    <sys:Boolean x:Key="EnableGlowHueCycle">True</sys:Boolean>
+    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">60</sys:Int32>
     <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
-    <sys:Single x:Key="GlowHueCycleChroma">52.44212324580516</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
-    <sys:Single x:Key="GlowHueCycleLightness">79.22796277336843</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
+    <sys:Single x:Key="GlowHueCycleChroma">75.830198386817237</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
+    <sys:Single x:Key="GlowHueCycleLightness">75.450675748060505</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
 
     <!-- Control Properties: Tooltips -->
     <CornerRadius x:Key="TooltipCornerRadius">10</CornerRadius>

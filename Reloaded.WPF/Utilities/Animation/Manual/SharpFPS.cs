@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Reloaded.WPF.Utilities.Animation.Manual
 {
@@ -112,9 +113,13 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         }
 
         /// <summary>
-        /// Pauses execution for the remaining of the time until the next frame for a set desired framerate.
+        /// Pauses execution for the remaining of the time until the next frame begins.
         /// </summary>
-        public void Sleep()
+        /// <param name="spin">
+        ///     If true, briefly spins after sleeping (blocks using a while loop) until it is precisely the time to start the next frame.
+        ///     Increases accuracy at the expense of CPU load.
+        /// </param>
+        public void Sleep(bool spin = true)
         {
             int sleepMilliseconds = (int)Math.Floor(SleepTime);
 
@@ -123,6 +128,33 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
                 Thread.Sleep(sleepMilliseconds);
 
             // Spin for the remaining estimate of ticks.
+            if (spin)
+                Spin();
+        }
+
+        /// <summary>
+        /// Pauses execution for the remaining of the time until the next frame begins.
+        /// </summary>
+        /// <param name="spin">
+        ///     If true, briefly spins after sleeping (blocks using a while loop) until it is precisely the time to start the next frame.
+        ///     Increases accuracy at the expense of CPU load.
+        /// </param>
+        public async Task SleepAsync(bool spin = true)
+        {
+            int sleepMilliseconds = (int)Math.Floor(SleepTime);
+
+            // Sleep down to the nearest millisecond.
+            if (sleepMilliseconds >= 1)
+                await Task.Delay(sleepMilliseconds);
+
+            // Spin for the remaining estimate of ticks.
+            if (spin)
+                Spin();
+        }
+
+
+        private void Spin()
+        {
             long frameTicks = MillisecondsToTicks(FrameTime);
             while (LocalStopwatch.ElapsedTicks < frameTicks)
             { }

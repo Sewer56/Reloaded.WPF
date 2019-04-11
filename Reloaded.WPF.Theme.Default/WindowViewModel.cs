@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -52,7 +53,7 @@ namespace Reloaded.WPF.Theme.Default
 
         private State _windowState = State.Normal;
         private Effect _oldDropShadowEffect;
-        private Thread _cycleDropShadow;
+        private CancellationTokenSource _hueCycleDropShadowToken;
 
         /* Note: All sizes are in points, not pixels. */
         public WindowViewModel(Window window) : base(window)
@@ -80,16 +81,18 @@ namespace Reloaded.WPF.Theme.Default
                 TargetWindow.MinWidth  = Resources.Get<double>(XAML_DefaultMinWidth);
 
             // Handle window out of focus.
-            TargetWindow.Deactivated += (sender, args) => GlowColor = GetGlowColor();
-            TargetWindow.Activated += (sender, args) => GlowColor = GetGlowColor(); 
+            TargetWindow.Deactivated += (sender, args) => UpdateGlowColor();
+            TargetWindow.Activated += (sender, args) => UpdateGlowColor(); 
 
             // Fun
             if (Resources.Get<bool>(XAML_EnableGlowHueCycle))
+            {
                 EnableHueCycleDropShadow(
                     Resources.Get<int>(XAML_GlowHueCycleFramesPerSecond),
                     Resources.Get<int>(XAML_GlowHueCycleLoopDuration),
                     Resources.Get<float>(XAML_GlowHueCycleChroma),
                     Resources.Get<float>(XAML_GlowHueCycleLightness));
+            }
         }
 
         /* Public Tweakables */
@@ -311,7 +314,7 @@ namespace Reloaded.WPF.Theme.Default
             set
             {
                 _windowState = value;
-                GlowColor = GetGlowColor();
+                UpdateGlowColor();
             }
         }
 
@@ -327,13 +330,12 @@ namespace Reloaded.WPF.Theme.Default
         /// <remarks>https://www.harding.edu/gclayton/color/topics/001_huevaluechroma.html</remarks>
         public void EnableHueCycleDropShadow(int framesPerSecond = 30, int duration = 6000, float chroma = 50F, float lightness = 50F)
         {
-            _cycleDropShadow = Fun.HueCycleColor(color =>
+            AllowGlowStateChange = false;
+            if (_hueCycleDropShadowToken == null)
             {
-                if (_cycleDropShadow != null)
-                    GlowColor = color;
-            }, framesPerSecond, duration, chroma, lightness);
-
-            _cycleDropShadow.IsBackground = true;   
+                _hueCycleDropShadowToken = new CancellationTokenSource();
+                Fun.HueCycleColor(color => GlowColor = color, _hueCycleDropShadowToken.Token, framesPerSecond, duration, chroma, lightness);
+            }   
         }
 
         /// <summary>
@@ -341,7 +343,10 @@ namespace Reloaded.WPF.Theme.Default
         /// </summary>
         public void DisableHueCycleDropShadow()
         {
-            _cycleDropShadow = null;
+            _hueCycleDropShadowToken.Cancel();
+            _hueCycleDropShadowToken.Dispose();
+            _hueCycleDropShadowToken = null;
+            AllowGlowStateChange = true;
         }
 
         /* Rendering & Control Shenanigans */
@@ -397,6 +402,18 @@ namespace Reloaded.WPF.Theme.Default
         /// <summary>
         /// Retrieves the glow colour for when the state of the window changes.
         /// </summary>
+        private void UpdateGlowColor()
+        {
+            Color currentColor = GlowColor;
+            Color newColor = GetGlowColor();
+
+            if (currentColor != newColor)
+                Fun.ColorAnimate(x => GlowColor = x, currentColor, newColor, 60, 500);
+        }
+
+        /// <summary>
+        /// Retrieves the new/next glow colour for when the state of the window changes.
+        /// </summary>
         private Color GetGlowColor()
         {
             if (AllowGlowStateChange)
@@ -405,7 +422,7 @@ namespace Reloaded.WPF.Theme.Default
                 {
                     switch (_windowState)
                     {
-                        case State.Normal:  return GlowColorDefault;
+                        case State.Normal: return GlowColorDefault;
                         case State.Engaged: return GlowColorEngaged;
                     }
                 }
@@ -444,7 +461,7 @@ namespace Reloaded.WPF.Theme.Default
 
         public void Dispose()
         {
-            _cycleDropShadow = null;
+            
         }
 
         /* Other classes */
