@@ -55,7 +55,11 @@ namespace Reloaded.WPF.Theme.Default
 
         private State _windowState = State.Normal;
         private Effect _oldDropShadowEffect;
+
         private CancellationTokenSource _hueCycleDropShadowToken;
+        private CancellationTokenSource _glowColorAnimateToken;
+        private Task _glowColorAnimateTask;
+        private Task _hueCycleDropShadowTask;
 
         /* Note: All sizes are in points, not pixels. */
         public WindowViewModel(Window window) : base(window)
@@ -353,14 +357,19 @@ namespace Reloaded.WPF.Theme.Default
         /// <param name="chroma">Range 0 to 100. The quality of a color's purity, intensity or saturation. </param>
         /// <param name="lightness">Range 0 to 100. The quality (chroma) lightness or darkness.</param>
         /// <remarks>https://www.harding.edu/gclayton/color/topics/001_huevaluechroma.html</remarks>
-        public void EnableHueCycleDropShadow(int framesPerSecond = 30, int duration = 6000, float chroma = 50F, float lightness = 50F)
+        public async void EnableHueCycleDropShadow(int framesPerSecond = 30, int duration = 6000, float chroma = 50F,
+            float lightness = 50F)
         {
             AllowGlowStateChange = false;
-            if (_hueCycleDropShadowToken == null)
+
+            if (_hueCycleDropShadowToken != null)
             {
-                _hueCycleDropShadowToken = new CancellationTokenSource();
-                Fun.HueCycleColor(color => GlowColor = color, _hueCycleDropShadowToken.Token, framesPerSecond, duration, chroma, lightness);
-            }   
+                _hueCycleDropShadowToken.Cancel();
+                await _hueCycleDropShadowTask;
+            }
+
+            _hueCycleDropShadowToken = new CancellationTokenSource();
+            _hueCycleDropShadowTask = Fun.HueCycleColor(color => GlowColor = color, _hueCycleDropShadowToken.Token, framesPerSecond, duration, chroma, lightness);
         }
 
         /// <summary>
@@ -369,8 +378,7 @@ namespace Reloaded.WPF.Theme.Default
         public void DisableHueCycleDropShadow()
         {
             _hueCycleDropShadowToken.Cancel();
-            _hueCycleDropShadowToken.Dispose();
-            _hueCycleDropShadowToken = null;
+            _hueCycleDropShadowTask.Wait();
             AllowGlowStateChange = true;
         }
 
@@ -427,17 +435,25 @@ namespace Reloaded.WPF.Theme.Default
         /// <summary>
         /// Retrieves the glow colour for when the state of the window changes.
         /// </summary>
-        private void UpdateGlowColor()
+        private async void UpdateGlowColor()
         {
             Color currentColor = GlowColor;
             Color newColor = GetGlowColor();
 
-
             if (currentColor != newColor)
             {
                 if (GlowColorAnimationEnable)
-                    Fun.ColorAnimate(x => GlowColor = x, currentColor, newColor, GlowColorAnimationFramesPerSecond,
-                        GlowColorAnimationDuration);
+                {
+                    if (_glowColorAnimateToken != null)
+                    {
+                        _glowColorAnimateToken.Cancel();
+                        await _glowColorAnimateTask;
+                    }
+
+                    _glowColorAnimateToken = new CancellationTokenSource();
+                    _glowColorAnimateTask = Fun.ColorAnimate(x => GlowColor = x, _glowColorAnimateToken.Token, currentColor, newColor, GlowColorAnimationFramesPerSecond, GlowColorAnimationDuration);
+                }
+                    
                 else
                     GlowColor = newColor;
             }
