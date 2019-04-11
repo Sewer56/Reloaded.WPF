@@ -15,6 +15,9 @@ namespace Reloaded.WPF.TestWindow
         public MainWindow()
         {
             InitializeComponent();
+
+            // Make viewmodel of this window available.
+            IoC.Kernel.Bind<WindowViewModel>().ToConstant((WindowViewModel)this.DataContext);
         }
     }
 }

@@ -50,6 +50,7 @@ namespace Reloaded.WPF.Theme.Default
         // ReSharper restore InconsistentNaming
         #endregion
 
+        private State _windowState = State.Normal;
         private Effect _oldDropShadowEffect;
         private Thread _cycleDropShadow;
 
@@ -79,17 +80,8 @@ namespace Reloaded.WPF.Theme.Default
                 TargetWindow.MinWidth  = Resources.Get<double>(XAML_DefaultMinWidth);
 
             // Handle window out of focus.
-            TargetWindow.Deactivated += (sender, args) =>
-            {
-                if (AllowGlowStateChange)
-                    GlowColor = GlowColorInactive;
-            };
-
-            TargetWindow.Activated += (sender, args) =>
-            {
-                if (AllowGlowStateChange)
-                    GlowColor = GlowColorDefault;
-            };
+            TargetWindow.Deactivated += (sender, args) => GlowColor = GetGlowColor();
+            TargetWindow.Activated += (sender, args) => GlowColor = GetGlowColor(); 
 
             // Fun
             if (Resources.Get<bool>(XAML_EnableGlowHueCycle))
@@ -295,7 +287,6 @@ namespace Reloaded.WPF.Theme.Default
         /// <summary>
         /// Enables or disables the glow/drop shadow effect.
         /// </summary>
-        [DoNotCheckEquality]
         public bool EnableGlow
         {
             get => Resources.Get<bool>(XAML_EnableGlow);
@@ -308,6 +299,19 @@ namespace Reloaded.WPF.Theme.Default
 
                 Resources.Set(XAML_EnableGlow, value);
                 GlowStateChanged();
+            }
+        }
+
+        /// <summary>
+        /// Defines of the state of the window, which in turn changes the glow colour.
+        /// </summary>
+        public State WindowState
+        {
+            get => _windowState;
+            set
+            {
+                _windowState = value;
+                GlowColor = GetGlowColor();
             }
         }
 
@@ -391,6 +395,28 @@ namespace Reloaded.WPF.Theme.Default
         }
 
         /// <summary>
+        /// Retrieves the glow colour for when the state of the window changes.
+        /// </summary>
+        private Color GetGlowColor()
+        {
+            if (AllowGlowStateChange)
+            {
+                if (TargetWindow.IsActive)
+                {
+                    switch (_windowState)
+                    {
+                        case State.Normal:  return GlowColorDefault;
+                        case State.Engaged: return GlowColorEngaged;
+                    }
+                }
+
+                return GlowColorInactive;
+            }
+
+            return GlowColor;
+        }
+
+        /// <summary>
         /// The event to raise to inform of the possible change of values of other properties
         /// when the glow state of the form may change.
         /// </summary>
@@ -413,12 +439,30 @@ namespace Reloaded.WPF.Theme.Default
 
         private bool IsMaximized()
         {
-            return TargetWindow.WindowState == WindowState.Maximized;
+            return TargetWindow.WindowState == System.Windows.WindowState.Maximized;
         }
 
         public void Dispose()
         {
             _cycleDropShadow = null;
+        }
+
+        /* Other classes */
+
+        /// <summary>
+        /// Describes the current state of the window.
+        /// </summary>
+        public enum State
+        {
+            /// <summary>
+            /// Nothing out of the order is going on.
+            /// </summary>
+            Normal,
+
+            /// <summary>
+            /// Some kind of work is being done.
+            /// </summary>
+            Engaged
         }
     }
 }

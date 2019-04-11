@@ -23,7 +23,7 @@ namespace Reloaded.WPF.TestWindow.Converter
                     return new MainPage();
 
                 case Page.Process:
-                    return new GamePortal();
+                    return new ProcessWindow();
 
                 default:
                     Debugger.Break();
