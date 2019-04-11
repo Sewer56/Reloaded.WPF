@@ -22,7 +22,6 @@
 
     <!-- Enables the glow effect around the window. -->
     <sys:Boolean x:Key="EnableGlow">True</sys:Boolean>
-    <Color x:Key="GlowColor">#ffffff</Color>           <!-- Container for the actual colour displayed on the screen. -->
     <sys:Double x:Key="GlowOpacity">1</sys:Double>
     <sys:Double x:Key="GlowDirection">315</sys:Double> <!-- Gets or sets the direction of the drop shadow. -->
     <sys:Double x:Key="GlowDepth">0</sys:Double>       <!-- Gets or sets the distance of the drop shadow at the given direction below the window. -->

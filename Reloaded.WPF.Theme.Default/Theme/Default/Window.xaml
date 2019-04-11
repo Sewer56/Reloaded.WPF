@@ -38,17 +38,12 @@
                                     Background="{Binding Path=Background, 
                                                          RelativeSource={RelativeSource AncestorType={x:Type Window}}, 
                                                          FallbackValue=#181818}">
-                                <Border.Resources>
-                                    <controls:BindingProxy x:Key="LocalGlowColor" Data="{DynamicResource GlowColor}"/>
-                                </Border.Resources>
-
                                 <Border.Effect>
                                     <DropShadowEffect
                                         ShadowDepth="{DynamicResource GlowDepth}"
                                         Direction="{DynamicResource GlowDirection}"
                                         RenderingBias="{DynamicResource GlowRenderBias}"
-                                        Color="{Binding Path=Data,
-                                                        Source={StaticResource LocalGlowColor},
+                                        Color="{Binding Path=GlowColor,
                                                         Converter={x:Static converter:ColorToShadowColorConverter.Instance}}"
                                         BlurRadius="{Binding Path=DropShadowSize}"
                                         Opacity="{DynamicResource GlowOpacity}" />

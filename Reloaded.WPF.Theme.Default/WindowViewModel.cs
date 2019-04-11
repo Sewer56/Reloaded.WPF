@@ -18,7 +18,6 @@ namespace Reloaded.WPF.Theme.Default
         #region XAML Key Names
         // ReSharper disable InconsistentNaming
         private const string XAML_DropShadowBorderName  = "DropShadowBorder";
-        private const string XAML_GlowColor             = "GlowColor";
         private const string XAML_CornerRadius          = "CornerRadius";
         private const string XAML_TitleBarHeight        = "TitleBarHeight";
         
@@ -159,11 +158,7 @@ namespace Reloaded.WPF.Theme.Default
         /// <summary>
         /// The active colour of the drop shadow (glow) effect around the window.
         /// </summary>
-        public Color GlowColor
-        {
-            get => Resources.Get<Color>(XAML_GlowColor);
-            set => Resources.Set(XAML_GlowColor, value);
-        }
+        public Color GlowColor { get; set; }
 
         /// <summary>
         /// Allows or disallows the active changing of window colour based on whether
