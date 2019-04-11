@@ -35,6 +35,9 @@ namespace Reloaded.WPF.Theme.Default
         private const string XAML_GlowColorInactive     = "GlowColorInactive";
         private const string XAML_GlowColorDefault      = "GlowColorDefault";
         private const string XAML_GlowColorEngaged      = "GlowColorEngaged";
+        private const string XAML_GlowColorAnimationEnable   = "GlowColorAnimationEnable";
+        private const string XAML_GlowColorAnimationDuration = "GlowColorAnimationDuration";
+        private const string XAML_GlowColorAnimationFramesPerSecond = "GlowColorAnimationFramesPerSecond";
 
         private const string XAML_DefaultMinWidth       = "DefaultMinWidth";
         private const string XAML_DefaultMinHeight      = "DefaultMinHeight";
@@ -198,6 +201,33 @@ namespace Reloaded.WPF.Theme.Default
         {
             get => Resources.Get<Color>(XAML_GlowColorDefault);
             set => Resources.Set(XAML_GlowColorDefault, value);
+        }
+
+        /// <summary>
+        /// If true, animates the switches between the different window states.
+        /// </summary>
+        public bool GlowColorAnimationEnable
+        {
+            get => Resources.Get<bool>(XAML_GlowColorAnimationEnable);
+            set => Resources.Set(XAML_GlowColorAnimationEnable, value);
+        }
+
+        /// <summary>
+        /// The duration of the border glow transition between the different Window <see cref="State"/>s.
+        /// </summary>
+        public int GlowColorAnimationDuration
+        {
+            get => Resources.Get<int>(XAML_GlowColorAnimationDuration);
+            set => Resources.Set(XAML_GlowColorAnimationDuration, value);
+        }
+
+        /// <summary>
+        /// If true, animates the switches between the different window states.
+        /// </summary>
+        public int GlowColorAnimationFramesPerSecond
+        {
+            get => Resources.Get<int>(XAML_GlowColorAnimationFramesPerSecond);
+            set => Resources.Set(XAML_GlowColorAnimationFramesPerSecond, value);
         }
 
         /// <summary>
@@ -402,8 +432,15 @@ namespace Reloaded.WPF.Theme.Default
             Color currentColor = GlowColor;
             Color newColor = GetGlowColor();
 
+
             if (currentColor != newColor)
-                Fun.ColorAnimate(x => GlowColor = x, currentColor, newColor, 60, 500);
+            {
+                if (GlowColorAnimationEnable)
+                    Fun.ColorAnimate(x => GlowColor = x, currentColor, newColor, GlowColorAnimationFramesPerSecond,
+                        GlowColorAnimationDuration);
+                else
+                    GlowColor = newColor;
+            }
         }
 
         /// <summary>
@@ -417,7 +454,7 @@ namespace Reloaded.WPF.Theme.Default
                 {
                     switch (_windowState)
                     {
-                        case State.Normal: return GlowColorDefault;
+                        case State.Normal:  return GlowColorDefault;
                         case State.Engaged: return GlowColorEngaged;
                     }
                 }

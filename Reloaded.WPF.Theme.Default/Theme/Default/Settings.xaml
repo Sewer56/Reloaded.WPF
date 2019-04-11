@@ -33,6 +33,9 @@
     <Color x:Key="GlowColorInactive">#434346</Color>             <!-- Intended to be used when the window is out of focus. -->
     <Color x:Key="GlowColorDefault">#ffffff</Color>              <!-- Intended to be used when the window is in focus -->
     <Color x:Key="GlowColorEngaged">#ff9b91</Color>              <!-- Intended to be used when the window is in focus and working. -->
+    <sys:Boolean x:Key="GlowColorAnimationEnable">True</sys:Boolean>   <!-- If true, animates the switches between the above states. -->
+    <sys:Int32 x:Key="GlowColorAnimationDuration">200</sys:Int32> <!-- In milliseconds. -->
+    <sys:Int32 x:Key="GlowColorAnimationFramesPerSecond">60</sys:Int32>
 
     <!-- Window Properties -->
     <sys:Double x:Key="DefaultMinWidth">210</sys:Double>
@@ -43,8 +46,8 @@
 
     <!-- Glow: Hue Cycle -->
     <!-- I would love to leave this on by default but the performance implications are unjustifiable. -->
-    <sys:Boolean x:Key="EnableGlowHueCycle">True</sys:Boolean>
-    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">60</sys:Int32>
+    <sys:Boolean x:Key="EnableGlowHueCycle">False</sys:Boolean>
+    <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">20</sys:Int32>
     <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
     <sys:Single x:Key="GlowHueCycleChroma">75.830198386817237</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
     <sys:Single x:Key="GlowHueCycleLightness">75.450675748060505</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
