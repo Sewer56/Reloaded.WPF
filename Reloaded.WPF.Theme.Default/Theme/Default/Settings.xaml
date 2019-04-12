@@ -27,15 +27,19 @@
     <sys:Double x:Key="GlowDepth">0</sys:Double>       <!-- Gets or sets the distance of the drop shadow at the given direction below the window. -->
     <RenderingBias x:Key="GlowRenderBias">0</RenderingBias>  <!-- 0 = Performance, 1 = Quality -->
 
-    <!-- Default Glow Colors -->
-    <sys:Boolean x:Key="AllowGlowStateChange">True</sys:Boolean> <!-- Enables the following colours below to be changed by the program
-                                                                  manually. Otherwise GlowColor sticks to one colour only. -->
+    <!-- Glow: Colours & Behaviour -->
+    <sys:Boolean x:Key="AllowGlowStateChange">True</sys:Boolean> <!-- If true, automatically changes the glow color based on window state.
+                                                                      Otherwise window glow colour stays fixed to "default" value.  -->
+    <sys:Boolean x:Key="IgnoreInactiveStateWhenSpecialState">False</sys:Boolean> <!-- If true will not set the glow color to GlowColorInactive if the current window state is other than "Normal" -->
+    <sys:Boolean x:Key="IgnoreInactiveState">False</sys:Boolean> <!-- Ignores the "inactive" state altogether. -->
+
     <Color x:Key="GlowColorInactive">#434346</Color>             <!-- Intended to be used when the window is out of focus. -->
     <Color x:Key="GlowColorDefault">#ffffff</Color>              <!-- Intended to be used when the window is in focus -->
     <Color x:Key="GlowColorEngaged">#ff9b91</Color>              <!-- Intended to be used when the window is in focus and working. -->
     <sys:Boolean x:Key="GlowColorAnimationEnable">True</sys:Boolean>   <!-- If true, animates the switches between the above states. -->
     <sys:Int32 x:Key="GlowColorAnimationDuration">200</sys:Int32> <!-- In milliseconds. -->
     <sys:Int32 x:Key="GlowColorAnimationFramesPerSecond">60</sys:Int32>
+
 
     <!-- Window Properties -->
     <sys:Double x:Key="DefaultMinWidth">210</sys:Double>

@@ -37,6 +37,8 @@ namespace Reloaded.WPF.Theme.Default
         private const string XAML_GlowColorAnimationEnable   = "GlowColorAnimationEnable";
         private const string XAML_GlowColorAnimationDuration = "GlowColorAnimationDuration";
         private const string XAML_GlowColorAnimationFramesPerSecond = "GlowColorAnimationFramesPerSecond";
+        private const string XAML_IgnoreInactiveStateWhenSpecialState = "IgnoreInactiveStateWhenSpecialState";
+        private const string XAML_IgnoreInactiveState = "IgnoreInactiveState";
 
         private const string XAML_DefaultMinWidth       = "DefaultMinWidth";
         private const string XAML_DefaultMinHeight      = "DefaultMinHeight";
@@ -87,11 +89,22 @@ namespace Reloaded.WPF.Theme.Default
             if (Math.Abs(TargetWindow.MinWidth) < 0.1F)
                 TargetWindow.MinWidth  = Resources.Get<double>(XAML_DefaultMinWidth);
 
-            // Handle window out of focus.
+            // Set default glow colour.
+            GlowColor = GlowColorDefault;
+
+            // Handle window state changes.
             TargetWindow.Deactivated += (sender, args) =>
             {
-                this._lastState = this.WindowState;
-                this.WindowState = State.Inactive;
+                if (!IgnoreInactiveState)
+                {
+                    this._lastState = this.WindowState;
+
+                    // Ignore if special state and flag set.
+                    if (IgnoreInactiveStateWhenSpecialState && WindowState != State.Normal)
+                        return;
+
+                    this.WindowState = State.Inactive;
+                }
             };
 
             TargetWindow.Activated += (sender, args)   =>
@@ -246,6 +259,24 @@ namespace Reloaded.WPF.Theme.Default
         {
             get => Resources.Get<int>(XAML_GlowColorAnimationFramesPerSecond);
             set => Resources.Set(XAML_GlowColorAnimationFramesPerSecond, value);
+        }
+
+        /// <summary>
+        /// If true will not set the glow color to <see cref="GlowColorInactive"/> if the current <see cref="WindowState"/> is other than <see cref="State.Normal"/>
+        /// </summary>
+        public bool IgnoreInactiveStateWhenSpecialState
+        {
+            get => Resources.Get<bool>(XAML_IgnoreInactiveStateWhenSpecialState);
+            set => Resources.Set(XAML_IgnoreInactiveStateWhenSpecialState, value);
+        }
+
+        /// <summary>
+        /// If true <see cref="State.Inactive"/> (i.e. when the window is out of focus) will not change the border color.
+        /// </summary>
+        public bool IgnoreInactiveState
+        {
+            get => Resources.Get<bool>(XAML_IgnoreInactiveState);
+            set => Resources.Set(XAML_IgnoreInactiveState, value);
         }
 
         /// <summary>
@@ -451,6 +482,18 @@ namespace Reloaded.WPF.Theme.Default
                 else
                     GlowColor = newColor;
             }
+        }
+
+        /// <summary>
+        /// Automatically sets the window state to an appropriate value.
+        /// This will set the <see cref="WindowState"/> to either a value of <see cref="State.Inactive"/> or <see cref="State.Normal"/>.
+        /// </summary>
+        public void ResetState()
+        {
+            if (TargetWindow.IsActive)
+                this.WindowState = State.Normal;
+
+            this.WindowState = State.Inactive;
         }
 
         /// <summary>
