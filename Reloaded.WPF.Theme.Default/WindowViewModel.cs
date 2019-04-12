@@ -87,8 +87,8 @@ namespace Reloaded.WPF.Theme.Default
                 TargetWindow.MinWidth  = Resources.Get<double>(XAML_DefaultMinWidth);
 
             // Handle window out of focus.
-            TargetWindow.Deactivated += (sender, args) => UpdateGlowColor();
-            TargetWindow.Activated += (sender, args) => UpdateGlowColor(); 
+            TargetWindow.Deactivated += (sender, args) => SetGlowColor(GetGlowColorFromState());
+            TargetWindow.Activated += (sender, args) => SetGlowColor(GetGlowColorFromState()); 
 
             // Fun
             if (Resources.Get<bool>(XAML_EnableGlowHueCycle))
@@ -164,6 +164,8 @@ namespace Reloaded.WPF.Theme.Default
 
         /// <summary>
         /// The active colour of the drop shadow (glow) effect around the window.
+        /// Note: Setting this will not animate the transition, if you would like for the transition to be animated
+        /// make sure that <see cref="GlowColorAnimationEnable"/> is set to "true" and that you use <see cref="SetGlowColor"/> instead.
         /// </summary>
         public Color GlowColor { get; set; }
 
@@ -343,7 +345,7 @@ namespace Reloaded.WPF.Theme.Default
             set
             {
                 _windowState = value;
-                UpdateGlowColor();
+                SetGlowColor(GetGlowColorFromState());
             }
         }
 
@@ -409,6 +411,58 @@ namespace Reloaded.WPF.Theme.Default
         }
 
         /* Core Logic */
+
+
+        /// <summary>
+        /// Sets a new glow colour for the window.
+        /// The change will be animated if <see cref="GlowColorAnimationEnable"/> is set to "true".
+        /// </summary>
+        /// <param name="newColor">The new glow colour.</param>
+        public async void SetGlowColor(Color newColor)
+        {
+            Color currentColor = GlowColor;
+
+            if (currentColor != newColor)
+            {
+                if (GlowColorAnimationEnable)
+                {
+                    if (_glowColorAnimateToken != null)
+                    {
+                        _glowColorAnimateToken.Cancel();
+                        await _glowColorAnimateTask;
+                    }
+
+                    _glowColorAnimateToken = new CancellationTokenSource();
+                    _glowColorAnimateTask = Fun.ColorAnimate(x => GlowColor = x, _glowColorAnimateToken.Token, currentColor, newColor, GlowColorAnimationFramesPerSecond, GlowColorAnimationDuration);
+                }
+
+                else
+                    GlowColor = newColor;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the new/next glow colour for when the state of the window changes.
+        /// </summary>
+        private Color GetGlowColorFromState()
+        {
+            if (AllowGlowStateChange)
+            {
+                if (TargetWindow.IsActive)
+                {
+                    switch (_windowState)
+                    {
+                        case State.Normal: return GlowColorDefault;
+                        case State.Engaged: return GlowColorEngaged;
+                    }
+                }
+
+                return GlowColorInactive;
+            }
+
+            return GlowColor;
+        }
+
         private void DisableDropShadow()
         {
             TargetWindow.Dispatcher.Invoke(() =>
@@ -430,55 +484,6 @@ namespace Reloaded.WPF.Theme.Default
                 if (_oldBorder != null && _oldDropShadowEffect != null)
                     _oldBorder.Effect = _oldDropShadowEffect;
             });
-        }
-
-        /// <summary>
-        /// Retrieves the glow colour for when the state of the window changes.
-        /// </summary>
-        private async void UpdateGlowColor()
-        {
-            Color currentColor = GlowColor;
-            Color newColor = GetGlowColor();
-
-            if (currentColor != newColor)
-            {
-                if (GlowColorAnimationEnable)
-                {
-                    if (_glowColorAnimateToken != null)
-                    {
-                        _glowColorAnimateToken.Cancel();
-                        await _glowColorAnimateTask;
-                    }
-
-                    _glowColorAnimateToken = new CancellationTokenSource();
-                    _glowColorAnimateTask = Fun.ColorAnimate(x => GlowColor = x, _glowColorAnimateToken.Token, currentColor, newColor, GlowColorAnimationFramesPerSecond, GlowColorAnimationDuration);
-                }
-                    
-                else
-                    GlowColor = newColor;
-            }
-        }
-
-        /// <summary>
-        /// Retrieves the new/next glow colour for when the state of the window changes.
-        /// </summary>
-        private Color GetGlowColor()
-        {
-            if (AllowGlowStateChange)
-            {
-                if (TargetWindow.IsActive)
-                {
-                    switch (_windowState)
-                    {
-                        case State.Normal:  return GlowColorDefault;
-                        case State.Engaged: return GlowColorEngaged;
-                    }
-                }
-
-                return GlowColorInactive;
-            }
-
-            return GlowColor;
         }
 
         /// <summary>
