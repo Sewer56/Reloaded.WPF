@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using PropertyChanged;
 using Reloaded.WPF.Pages;
@@ -61,6 +60,8 @@ namespace Reloaded.WPF.Theme.Default
         private Task _glowColorAnimateTask;
         private Task _hueCycleDropShadowTask;
 
+        private State _lastState;
+
         /* Note: All sizes are in points, not pixels. */
         public WindowViewModel(Window window) : base(window)
         {
@@ -87,8 +88,19 @@ namespace Reloaded.WPF.Theme.Default
                 TargetWindow.MinWidth  = Resources.Get<double>(XAML_DefaultMinWidth);
 
             // Handle window out of focus.
-            TargetWindow.Deactivated += (sender, args) => SetGlowColor(GetGlowColorFromState());
-            TargetWindow.Activated += (sender, args) => SetGlowColor(GetGlowColorFromState()); 
+            TargetWindow.Deactivated += (sender, args) =>
+            {
+                this._lastState = this.WindowState;
+                this.WindowState = State.Inactive;
+            };
+
+            TargetWindow.Activated += (sender, args)   =>
+            {
+                if (this._lastState == State.Inactive)
+                    this.WindowState = State.Normal;
+                else
+                    this.WindowState = this._lastState;
+            }; 
 
             // Fun
             if (Resources.Get<bool>(XAML_EnableGlowHueCycle))
@@ -448,16 +460,12 @@ namespace Reloaded.WPF.Theme.Default
         {
             if (AllowGlowStateChange)
             {
-                if (TargetWindow.IsActive)
+                switch (_windowState)
                 {
-                    switch (_windowState)
-                    {
-                        case State.Normal: return GlowColorDefault;
-                        case State.Engaged: return GlowColorEngaged;
-                    }
+                    case State.Inactive: return GlowColorInactive;
+                    case State.Normal:   return GlowColorDefault;
+                    case State.Engaged:  return GlowColorEngaged;
                 }
-
-                return GlowColorInactive;
             }
 
             return GlowColor;
@@ -525,7 +533,12 @@ namespace Reloaded.WPF.Theme.Default
         public enum State
         {
             /// <summary>
-            /// Nothing out of the order is going on.
+            /// The window is out of focus.
+            /// </summary>
+            Inactive,
+
+            /// <summary>
+            /// The window is in focus but. Nothing out of the order is going on.
             /// </summary>
             Normal,
 
