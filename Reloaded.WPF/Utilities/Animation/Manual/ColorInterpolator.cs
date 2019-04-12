@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Colourful;
+using ColorMine.ColorSpaces;
 
 namespace Reloaded.WPF.Utilities.Animation.Manual
 {
@@ -12,15 +12,15 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         /// <param name="destinationColor">Colour interpolation ends up.</param>
         /// <param name="iterations">Colours to calculate between X and Y.</param>
         /// <remarks>Final list of colours includes both source and destination colours at first and last element.</remarks>
-        public static List<LChabColor> CalculateIntermediateColours(LChabColor sourceColor, LChabColor destinationColor, int iterations)
+        public static List<Lch> CalculateIntermediateColours(Lch sourceColor, Lch destinationColor, int iterations)
         {
             // Calculate the differences of LCH from source to destination.
-            double hDelta = destinationColor.h - sourceColor.h;
+            double hDelta = destinationColor.H - sourceColor.H;
             double cDelta = destinationColor.C - sourceColor.C;
             double lDelta = destinationColor.L - sourceColor.L;
 
             // Store list of colours.
-            List<LChabColor> colours = new List<LChabColor>(iterations);
+            List<Lch> colours = new List<Lch>(iterations);
             colours.Add(sourceColor);
 
             // Calculate all intermediate colours.
@@ -36,12 +36,12 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
                 // Add a new colour which is a combination of the source value with added scaled delta
                 colours.Add
                 (
-                    new LChabColor
-                    (
-                        sourceColor.L + lScaled,
-                        sourceColor.C + cScaled,
-                        sourceColor.h + hScaled
-                    )
+                    new Lch
+                    {
+                        L = sourceColor.L + lScaled,
+                        C = sourceColor.C + cScaled,
+                        H = sourceColor.H + hScaled
+                    }
                 );
             }
 
@@ -55,14 +55,14 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         /// <param name="chroma">Range 0 to 100. The quality of a color's purity, intensity or saturation. </param>
         /// <param name="lightness">Range 0 to 100. The quality (chroma) lightness or darkness.</param>
         /// <remarks>https://www.harding.edu/gclayton/color/topics/001_huevaluechroma.html</remarks>
-        public static List<LChabColor> GetRainbowColors(float chroma = 50F, float lightness = 50F, int colors = 360)
+        public static List<Lch> GetRainbowColors(float chroma = 50F, float lightness = 50F, int colors = 360)
         {
-            var lchColorList = new List<LChabColor>(colors);
+            var lchColorList = new List<Lch>(colors);
             double hStepDelta = 360.0 / colors;
 
             // H = 360 and H = 0 will be the same.
             for (double i = 0; i < colors; i += 1)
-                lchColorList.Add(new LChabColor(lightness, chroma, i * hStepDelta));
+                lchColorList.Add(new Lch { L = lightness, C = chroma, H = i * hStepDelta });
 
             return lchColorList;
         }
