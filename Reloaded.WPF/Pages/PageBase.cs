@@ -1,6 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Animation;
+using Reloaded.WPF.Pages.Animations;
+using Reloaded.WPF.Pages.Animations.Enum;
+using Reloaded.WPF.Utilities;
 
 namespace Reloaded.WPF.Pages
 {
@@ -9,15 +14,51 @@ namespace Reloaded.WPF.Pages
     /// </summary>
     public abstract class PageBase : System.Windows.Controls.Page
     {
+        protected PageBase()
+        {
+            this.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creates instances of the animations that are ran on entering the page.
+        /// Note: Override this to modify animations used by page.
+        /// </summary>
+        protected abstract Animation[] MakeEntryAnimations();
+
+        /// <summary>
+        /// Creates instances of the animations that are ran on exiting the page.
+        /// Note: Override this to modify animations used by page.
+        /// </summary>
+        protected abstract Animation[] MakeExitAnimations();
+
         /// <summary>
         /// Plays the entry animation for this page.
         /// </summary>
-        public abstract Task AnimateIn();
+        public virtual async Task AnimateIn()
+        {
+            this.Visibility = Visibility.Visible;
+
+            /* Create Storyboard consisting of all animations. */
+            var storyBoard = new Storyboard();
+            var animations = MakeEntryAnimations();
+            Animation.AddAnimations(storyBoard, animations, this);
+            storyBoard.Begin(this);
+
+            await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
+        }
 
         /// <summary>
         /// Plays the exit animation for this page.
         /// </summary>
-        public abstract Task AnimateOut();
+        public virtual async Task AnimateOut()
+        {
+            var storyBoard = new Storyboard();
+            var animations = MakeExitAnimations();
+            Animation.AddAnimations(storyBoard, animations, this);
+            storyBoard.Begin(this);
+
+            await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
+        }
 
         /// <summary>
         /// Retrieves the longest animation assigned to a storyboard in seconds.

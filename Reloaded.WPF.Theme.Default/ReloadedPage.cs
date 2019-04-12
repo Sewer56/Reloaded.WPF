@@ -23,14 +23,11 @@ namespace Reloaded.WPF.Theme.Default
 
         private ResourceManipulator ResourceManipulator { get; }
 
-        #region Animations
-
         public ReloadedPage()
         {
             // We play the animation once the content is rendered.
             // So before we play the animation, we must hide it so the first frame is not seen.
 
-            this.Visibility = Visibility.Hidden;
             this.Loaded += (sender, args) => Loader.Load(this);
             ResourceManipulator = new ResourceManipulator(this);
         }
@@ -39,7 +36,7 @@ namespace Reloaded.WPF.Theme.Default
         /// Creates instances of the animations that are ran on entering the page.
         /// Note: Override this to modify animations used by page.
         /// </summary>
-        protected Animation[] MakeEntryAnimations()
+        protected override Animation[] MakeEntryAnimations()
         {
             return new Animation[]
             {
@@ -52,7 +49,7 @@ namespace Reloaded.WPF.Theme.Default
         /// Creates instances of the animations that are ran on exiting the page.
         /// Note: Override this to modify animations used by page.
         /// </summary>
-        protected Animation[] MakeExitAnimations()
+        protected override Animation[] MakeExitAnimations()
         {
             return new Animation[]
             {
@@ -60,30 +57,5 @@ namespace Reloaded.WPF.Theme.Default
                 new OpacityAnimation(ResourceManipulator.Get<double>(XAML_EXITFADEANIMATIONDURATION), 1, ResourceManipulator.Get<double>(XAML_EXITFADEOPACITYEND))
             };
         }
-
-        public override async Task AnimateIn()
-        {
-            this.Visibility = Visibility.Visible;
-
-            /* Create Storyboard consisting of all animations. */
-            var storyBoard = new Storyboard();
-            var animations = MakeEntryAnimations();
-            Animation.AddAnimations(storyBoard, animations, this);
-            storyBoard.Begin(this);
-
-            await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
-        }
-
-        public override async Task AnimateOut()
-        {
-            var storyBoard = new Storyboard();
-            var animations = MakeExitAnimations();
-            Animation.AddAnimations(storyBoard, animations, this);
-            storyBoard.Begin(this);
-
-            await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
-        }
-
-        #endregion
     }
 }
