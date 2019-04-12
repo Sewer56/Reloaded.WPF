@@ -58,8 +58,8 @@
     <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>
 
     <!-- Animation Properties -->
-    <sys:Double x:Key="EntrySlideAnimationDuration">0.666</sys:Double>
-    <sys:Double x:Key="EntryFadeAnimationDuration">0.666</sys:Double>
+    <sys:Double x:Key="EntrySlideAnimationDuration">0.250</sys:Double>
+    <sys:Double x:Key="EntryFadeAnimationDuration">0.366</sys:Double>
     <sys:Double x:Key="EntryFadeOpacityStart">0.0</sys:Double>
 
     <sys:Double x:Key="ExitSlideAnimationDuration">0.666</sys:Double>
