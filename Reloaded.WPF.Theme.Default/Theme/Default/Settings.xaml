@@ -40,7 +40,6 @@
     <sys:Int32 x:Key="GlowColorAnimationDuration">200</sys:Int32> <!-- In milliseconds. -->
     <sys:Int32 x:Key="GlowColorAnimationFramesPerSecond">60</sys:Int32>
 
-
     <!-- Window Properties -->
     <sys:Double x:Key="DefaultMinWidth">210</sys:Double>
     <sys:Double x:Key="DefaultMinHeight">150</sys:Double>

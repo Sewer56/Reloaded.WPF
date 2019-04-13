@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using ColorMine.ColorSpaces;
 
-namespace Reloaded.WPF.Utilities.Animation.Manual
+namespace Reloaded.WPF.Utilities.Animation.Manual.Utilities
 {
     /// <summary>
     /// Colour c, suitable for HUE cycling and interpolation

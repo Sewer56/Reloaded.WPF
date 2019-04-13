@@ -414,7 +414,7 @@ namespace Reloaded.WPF.Theme.Default
             }
 
             _hueCycleDropShadowToken = new CancellationTokenSource();
-            _hueCycleDropShadowTask = Fun.HueCycleColor(color => GlowColor = color, _hueCycleDropShadowToken.Token, framesPerSecond, duration, chroma, lightness);
+            _hueCycleDropShadowTask = ManualAnimations.HueCycleColor(color => GlowColor = color, _hueCycleDropShadowToken.Token, framesPerSecond, duration, chroma, lightness);
         }
 
         /// <summary>
@@ -476,7 +476,7 @@ namespace Reloaded.WPF.Theme.Default
                     }
 
                     _glowColorAnimateToken = new CancellationTokenSource();
-                    _glowColorAnimateTask = Fun.ColorAnimate(x => GlowColor = x, _glowColorAnimateToken.Token, currentColor, newColor, GlowColorAnimationFramesPerSecond, GlowColorAnimationDuration);
+                    _glowColorAnimateTask = ManualAnimations.ColorAnimate(x => GlowColor = x, _glowColorAnimateToken.Token, currentColor, newColor, GlowColorAnimationFramesPerSecond, GlowColorAnimationDuration);
                 }
 
                 else
