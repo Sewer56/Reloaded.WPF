@@ -23,21 +23,25 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         /// <remarks>https://www.harding.edu/gclayton/color/topics/001_huevaluechroma.html</remarks>
         public static async Task HueCycleColor(Action<Color> setColorFunction, CancellationToken token, int framesPerSecond = 30, int duration = 6000, float chroma = 50F, float lightness = 50F)
         {
-            bool executionMethod(Color color)
+            await Task.Run(() =>
             {
-                // Exit if requested.
-                if (token.IsCancellationRequested)
-                    return false;
+                bool executionMethod(Color color)
+                {
+                    // Exit if requested.
+                    if (token.IsCancellationRequested)
+                        return false;
 
-                setColorFunction(color);
-                return true;
-            }
+                    setColorFunction(color);
+                    return true;
+                }
 
-            var animation = new ManualAnimation<Color>(duration, framesPerSecond, 
-                                                       time => ColorInterpolator.GetRainbowColor(chroma, lightness, time).ToColor(), 
-                                                       executionMethod);
-            animation.Repeat = ulong.MaxValue;
-            await animation.AnimateAsync();
+                var animation = new ManualAnimation<Color>(duration, framesPerSecond,
+                    time => ColorInterpolator.GetRainbowColor(chroma, lightness, time).ToColor(),
+                    executionMethod);
+
+                animation.Repeat = ulong.MaxValue;
+                animation.Animate();
+            });
         }
 
         /// <summary>
@@ -52,23 +56,27 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         /// <remarks>https://www.harding.edu/gclayton/color/topics/001_huevaluechroma.html</remarks>
         public static async Task ColorAnimate(Action<Color> setColorFunction, CancellationToken token, Color sourceColor, Color targetColor, int framesPerSecond = 30, int duration = 6000)
         {
-            bool executionMethod(Color color)
+            await Task.Run(() =>
             {
-                // Exit if requested.
-                if (token.IsCancellationRequested)
-                    return false;
+                bool executionMethod(Color color)
+                {
+                    // Exit if requested.
+                    if (token.IsCancellationRequested)
+                        return false;
 
-                setColorFunction(color);
-                return true;
-            }
+                    setColorFunction(color);
+                    return true;
+                }
 
-            var lchSourceColor = sourceColor.ToLch();
-            var lchTargetColor = targetColor.ToLch();
+                var lchSourceColor = sourceColor.ToLch();
+                var lchTargetColor = targetColor.ToLch();
 
-            var animation = new ManualAnimation<Color>(duration, framesPerSecond,
-                                                       time => ColorInterpolator.CalculateIntermediateColour(lchSourceColor, lchTargetColor, time).ToColor(),
-                                                       executionMethod);
-            await animation.AnimateAsync();
+                var animation = new ManualAnimation<Color>(duration, framesPerSecond,
+                    time => ColorInterpolator.CalculateIntermediateColour(lchSourceColor, lchTargetColor, time).ToColor(),
+                    executionMethod);
+
+                animation.Animate();
+            });
         }
     }
 }

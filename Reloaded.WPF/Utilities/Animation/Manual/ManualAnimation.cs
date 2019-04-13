@@ -75,7 +75,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         /// <summary>
         /// Plays the <see cref="ManualAnimation{T}"/>.
         /// </summary>
-        public async Task AnimateAsync()
+        public void Animate()
         {
             if (InterpolationMethod == null || ExecutionMethod == null)
                 throw new Exception($"{nameof(InterpolationMethod)} or {nameof(ExecutionMethod)} is null. Both execution and interpolation method must be specified.");
@@ -124,7 +124,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
 
                     // Sleep
                     fps.EndFrame();
-                    await fps.SleepAsync();
+                    fps.Sleep();
                 }
 
                 // Increment and reset if going to hit max value.
