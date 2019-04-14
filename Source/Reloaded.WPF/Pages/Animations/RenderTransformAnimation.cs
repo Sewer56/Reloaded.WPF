@@ -47,6 +47,8 @@ namespace Reloaded.WPF.Pages.Animations
             EasingFunction = easingFunction;
         }
 
+
+        /// </inheritdoc>
         public override AnimationTimeline Get()
         {
             var slideAnimation = new DoubleAnimation();
@@ -68,6 +70,8 @@ namespace Reloaded.WPF.Pages.Animations
             return slideAnimation;
         }
 
+
+        /// </inheritdoc>
         public override void AddToStoryboard(Storyboard storyBoard, AnimationTimeline timeline = null)
         {
             var animation = timeline ?? Get();
@@ -77,6 +81,7 @@ namespace Reloaded.WPF.Pages.Animations
             storyBoard.Children.Add(animation);
         }
 
+        /// </inheritdoc>
         public override void PrepareElement(FrameworkElement element)
         {
             // If it does not, add one to existing group or make one if no transform exists.

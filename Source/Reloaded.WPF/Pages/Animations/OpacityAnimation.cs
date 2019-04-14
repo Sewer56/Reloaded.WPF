@@ -42,7 +42,7 @@ namespace Reloaded.WPF.Pages.Animations
             EasingFunction = easingFunction;
         }
 
-
+        /// </inheritdoc>
         public override AnimationTimeline Get()
         {
             var opacityAnimation = new DoubleAnimation();
@@ -54,20 +54,14 @@ namespace Reloaded.WPF.Pages.Animations
             return opacityAnimation;
         }
 
+
+        /// </inheritdoc>
         public override void AddToStoryboard(Storyboard storyBoard, AnimationTimeline timeline = null)
         {
             var animation = timeline ?? Get();
             Storyboard.SetTargetProperty(animation, new PropertyPath("Opacity"));
 
             storyBoard.Children.Add(animation);
-        }
-
-        /// <summary>
-        /// This method is unused.
-        /// </summary>
-        public override void PrepareElement(FrameworkElement element)
-        {
-
         }
     }
 }

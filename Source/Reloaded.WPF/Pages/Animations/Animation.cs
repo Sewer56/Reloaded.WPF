@@ -29,7 +29,7 @@ namespace Reloaded.WPF.Pages.Animations
         /// This should be specified in XML documentation as not necessary if not required.
         /// Example usages: Add transform to element if not exists.
         /// </summary>
-        public abstract void PrepareElement(FrameworkElement element);
+        public virtual void PrepareElement(FrameworkElement element) { }
 
         /// <summary>
         /// Shorthand for calling <see cref="Animation.PrepareElement"/> and <see cref="Animation.AddToStoryboard"/>.
