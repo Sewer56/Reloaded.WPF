@@ -15,7 +15,7 @@ namespace Reloaded.WPF.TestWindow
             if (!IsElevated)
             {
                 MessageBox.Show("You need to run this application/demo as administrator.\n" +
-                                "Administrative priviledges are needed to receive application launch/exit events" +
+                                "Administrative privileges are needed to receive application launch/exit events " +
                                 "from Windows Management Instrumentation (WMI).\n" +
                                 "Developers: Run your favourite IDE e.g. Visual Studio as Admin.");
                 Environment.Exit(0);
