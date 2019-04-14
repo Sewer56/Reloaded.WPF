@@ -18,9 +18,13 @@ Reloaded.WPF is a miniature WPF library/toolkit made for personal use, featuring
 
 The toolkit consists of basic controls, animations, base classes for implementing e.g. AttachedProperties and utilities as well as a custom from the ground up theme resembling that of the original [Reloaded Mod Loader](https://github.com/Sewer56/Reloaded-Mod-Loader).
 
-Features/controls/styles to this project are added as "Reloaded", both the mod loader *Reloaded II* and various other utilities require them.
-
 *Reloaded.WPF supports .NET Core 3.X+ as well as .NET Framework.*
+
+## Disclaimer
+
+This repository/toolkit is currently in active early development and at the time of writing, the custom theme does not yet even cover the full set of common basic controls.
+
+Features/controls/styles to this project are added as "Reloaded", both the mod loader *Reloaded II* and various other utilities require them.
 
 ## Style/Theme Preview
 
