@@ -9,27 +9,35 @@ using Reloaded.WPF.Utilities.Animation.Manual.Dependencies;
 namespace Reloaded.WPF.Utilities.Animation.Manual
 {
     /// <summary>
-    /// The SharpFPS class is a simple class that automatically calculates the current rendered amount of frames per second
-    /// using Windows' high resolution event timer.
+    /// The <see cref="SharpFPS"/> class is a simple class that allows for control of frame pacing
+    /// of an arbitrary function loop, such as a graphics or game logic loop.
+    /// 
+    /// Intended for graphics, it allows for function loops to run at regular time intervals by 
+    /// allowing you to specify a specific frequency to run the loops at in terms of frames per second
+    /// (hertz/how many times to execute a second).
+    ///
+    /// To use this method, simply place <see cref="EndFrame"/> at the end/exit points of a recurring logic
+    /// loop.
     /// </summary>
     public class SharpFPS
     {
         private const double MillisecondsInSecond = 1000.0D;
+        private const int StopwatchSamples = 100;
 
         /// <summary>
         /// Contains the stopwatch used for timing the frame time.
         /// </summary>
-        public Stopwatch FrameTimeWatch { get; private set; }
+        private Stopwatch _frameTimeWatch;
 
         /// <summary>
         /// Contains the stopwatch used for timing sleep periods.
         /// </summary>
-        private Stopwatch SleepWatch;
+        private Stopwatch _sleepWatch;
 
         /// <summary>
         /// Contains a history of frame times of the recent <see cref="FPSLimit"/> frames.
         /// </summary>
-        private CircularBuffer<double> frameTimeBuffer;
+        private CircularBuffer<double> _frameTimeBuffer;
 
         // ----------------------------------------------------
         // User configurable
@@ -43,7 +51,6 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
             set
             {
                 FrameTimeTarget = MillisecondsInSecond / value;
-                frameTimeBuffer = new CircularBuffer<double>((int)value);
                 _FPSLimit = value;
             }
         }
@@ -67,11 +74,11 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         /// <summary>
         /// Contains the current amount of frames per second.
         /// </summary>
-        public double StatFPS => (frameTimeBuffer.Sum() / MillisecondsInSecond) * FPSLimit;
+        public double StatFPS => (MillisecondsInSecond / _frameTimeBuffer.Average());
 
         /// <summary>
         /// Contains the number of frames per second that would be rendered if all of the
-        /// remaining frames were to take as long as the last to render.
+        /// remaining frames were to take as long as the last.
         /// </summary>
         public double StatFrameFPS { get; private set; }
 
@@ -83,7 +90,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
 
         /// <summary>
         /// [Milliseconds]
-        /// Stores how much more time the CPU has spent sleeping than requested on the last frame.
+        /// Stores how much more time the CPU has spent sleeping than requested (by <see cref="StatSleepTime"/>) on the last frame.
         /// </summary>
         public double StatOverslept { get; private set; }
 
@@ -98,81 +105,93 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         public double StatRenderTime { get; private set; }
 
         /// <summary>
-        /// [Milliseconds] The time that will be spent sleeping should <see cref="Sleep"/> be called until the next frame will be rendered.
+        /// [Milliseconds] The time that will be spent sleeping during the last frame.
+        /// Note: Actual time slept is <see cref="StatSleepTime"/> + <see cref="StatOverslept"/>.
         /// </summary>
         public double StatSleepTime { get; private set; }
 
         /// <summary>
-        /// The SharpFPS class is a simple class that automatically calculates the current rendered amount of frames per second
-        /// using Windows' high resolution event timer.
-        /// To use this class, call "StartFrame" at the start of your render loop, and EndFrame at the end of your render loop.
+        /// See summary of <see cref="SharpFPS"/>.
         /// </summary>
         public SharpFPS()
         {
-            FrameTimeWatch = new Stopwatch();
-            SleepWatch = new Stopwatch();
+            _frameTimeWatch = new Stopwatch();
+            _sleepWatch = new Stopwatch();
+            _frameTimeBuffer = new CircularBuffer<double>(StopwatchSamples);
             FPSLimit = 144;
         }
 
         /// <summary>
-        /// Updates the current internal FPS counter of the <see cref="SharpFPS"/> class.
-        /// You should call this after every frame.
+        /// Marks the end of an individual frame/recurring piece of logic to be performed/executed.
+        /// You should put this at the end of a reoccuring loop.
         /// </summary>
-        /// <returns>The current estimated amount of frames per second.</returns>
-        public void StartFrame()
+        /// <param name="spin">
+        ///     If true, uses an alternative timing method where CPU briefly spins (performs junk calculations) after sleeping slightly less time until it is precisely the time to start the next frame.
+        ///     Increases accuracy at the expense of CPU load.
+        /// 
+        ///     See: <see cref="SpinTimeRemaining"/> to control the time in milliseconds left to sleep at which to start spinning at.
+        /// </param>
+        public void EndFrame(bool spin = false)
         {
-            // Calculate FPS at start of frame.
-            StatFrameTime = FrameTimeWatch.Elapsed.TotalMilliseconds;
-            StatFrameFPS = MillisecondsInSecond / FrameTimeWatch.Elapsed.TotalMilliseconds;
-            frameTimeBuffer.PushBack(FrameTimeWatch.Elapsed.TotalMilliseconds);
-
-            #if DEBUG
-            Debug.WriteLine($"Overslept: {StatOverslept:000.00} | SleepTime: {StatSleepTime:+000.00;-000.00} | FrameTime: {StatFrameTime:000.00} | RenderTime: {StatRenderTime:000.00} | FPS: {StatFPS:000.00}");
-            #endif
-
-            // Restart the stopwatch.
-            FrameTimeWatch.Restart();
-        }
-
-        /// <summary>
-        /// Updates the current internal FPS counter of the <see cref="SharpFPS"/> class.
-        /// You should call this after every frame and right before sleep.
-        /// </summary>
-        public void EndFrame()
-        {
-            // Calculate the various times.
-            StatRenderTime = FrameTimeWatch.Elapsed.TotalMilliseconds;
+            // Summarize stats for the current frame.
+            StatRenderTime = _frameTimeWatch.Elapsed.TotalMilliseconds;
             StatPotentialFPS = MillisecondsInSecond / StatRenderTime;
             StatSleepTime = FrameTimeTarget - StatOverslept - StatRenderTime;
 
-            // Overslept is multiplied by 2 as we need to compensate for sleeping too much not
-            // by just sleeping the right amount but by not sleeping enough to balance
-            // sleeping too much and sleeping not enough.
+            // We are not rendering fast enough! FPS cap not reached!
+            if (StatSleepTime < 0)
+                StatSleepTime = 0;
+
+            // Sleep
+            Sleep(spin);
+
+            // Restart calculation for new frame.
+            StartFrame();
         }
+
+        /// <summary>
+        /// Calculates statistics for the previous frame and resets the timers to begin a new frame.
+        /// </summary>
+        private void StartFrame()
+        {
+            // Calculate FPS at start of frame.
+            StatFrameTime = _frameTimeWatch.Elapsed.TotalMilliseconds;
+            StatFrameFPS = MillisecondsInSecond / StatFrameTime;
+            _frameTimeBuffer.PushBack(StatFrameTime);
+
+            // Restart the stopwatch.
+            _frameTimeWatch.Restart();
+
+#if DEBUG
+            Debug.WriteLine($"Overslept: {StatOverslept:+000.00;-000.00} | SleepTime: {StatSleepTime:+000.00;-000.00} | FrameTime: {StatFrameTime:000.00} | RenderTime: {StatRenderTime:000.00} | FPS: {StatFPS:000.00}");
+#endif
+        }
+
 
         /// <summary>
         /// Pauses execution for the remaining of the time until the next frame begins.
         /// </summary>
         /// <param name="spin">
-        ///     If true, uses an alternative timing method where CPU briefly spins after sleeping slightly less time until it is precisely the time to start the next frame.
+        ///     If true, uses an alternative timing method where CPU briefly spins (performs junk calculations) after sleeping slightly less time until it is precisely the time to start the next frame.
         ///     Increases accuracy at the expense of CPU load.
+        /// 
         ///     See: <see cref="SpinTimeRemaining"/> to control the time in milliseconds left to sleep at which to start spinning at.
         /// </param>
-        public void Sleep(bool spin = false)
+        private void Sleep(bool spin = false)
         {
-            double sleepStart = FrameTimeWatch.Elapsed.TotalMilliseconds;
+            double sleepStart = _frameTimeWatch.Elapsed.TotalMilliseconds;
 
-            SleepWatch.Restart();
-            while (SleepWatch.Elapsed.TotalMilliseconds < StatSleepTime)
+            _sleepWatch.Restart();
+            while (_sleepWatch.Elapsed.TotalMilliseconds < StatSleepTime)
             {
                 Thread.Sleep(1);
 
                 if (spin)
-                    if (StatSleepTime - SleepWatch.Elapsed.TotalMilliseconds < SpinTimeRemaining)
+                    if (StatSleepTime - _sleepWatch.Elapsed.TotalMilliseconds < SpinTimeRemaining)
                         Spin();
             }
 
-            double timeSlept = (FrameTimeWatch.Elapsed.TotalMilliseconds - sleepStart);
+            double timeSlept = (_frameTimeWatch.Elapsed.TotalMilliseconds - sleepStart);
             StatOverslept = timeSlept - StatSleepTime;
         }
 
@@ -181,7 +200,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         /// </summary>
         private void Spin()
         {
-            while (SleepWatch.Elapsed.TotalMilliseconds < StatSleepTime)
+            while (_sleepWatch.Elapsed.TotalMilliseconds < StatSleepTime)
             { int a = 1337; }
         }
     }

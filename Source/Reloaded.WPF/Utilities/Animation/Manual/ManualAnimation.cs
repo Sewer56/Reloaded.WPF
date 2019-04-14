@@ -104,9 +104,6 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
 
                 while (watch.ElapsedMilliseconds < duration)
                 {
-                    // Start frame.
-                    fps.StartFrame();
-
                     // Do animation and terminate if requested.
                     float normalizedTime = watch.ElapsedMilliseconds / duration;
                     float elapsedTime;
@@ -124,7 +121,6 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
 
                     // Sleep
                     fps.EndFrame();
-                    fps.Sleep();
                 }
 
                 // Increment and reset if going to hit max value.
