@@ -49,23 +49,29 @@ If you would wish for your window to inherit the base Reloaded style, *including
 public partial class MainWindow : ReloadedWindow
 ```
 
+**Warning**
+
+Inheriting from `ReloadedWindow` will replace your window's `DataContext`, which is used by the underlying base window theme to style the window.
+
+For now, Reloaded.WPF expects that you implement all your functionality in pages, (which can be hosted inside a singular `PageHost` in the main window) although this may change in the future.
+
 ### Pages
 
 ![Page Theme](https://i.imgur.com/ZRfoldh.png)
 
 Inheriting pages is the same as inheriting windows, in this case, you should make the pages inherit `ReloadedPage` instead.
 
-#### e.g. ProcessWindow.xaml
+#### e.g. ProcessPage.xaml
 
 ```xml
 <default:ReloadedPage 
-	x:Class="Reloaded.WPF.TestWindow.Pages.ProcessWindow"
+	x:Class="Reloaded.WPF.TestWindow.Pages.ProcessPage"
     xmlns:default="clr-namespace:Reloaded.WPF.Theme.Default;assembly=Reloaded.WPF.Theme.Default">
 ```
 
-#### e.g. ProcessWindow.xaml.cs
+#### e.g. ProcessPage.xaml.cs
 ```
-public partial class ProcessWindow : ReloadedPage
+public partial class ProcessPage : ReloadedPage
 ```
 
 If you do not wish to inherit the Reloaded theme, then simply instead inherit from `PageBase` *(in Reloaded.WPF.Pages)* and override `MakeEntryAnimations` and `MakeExitAnimations` which will allow you to retain animation support.
