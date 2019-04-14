@@ -83,7 +83,7 @@ Fork this repo! Forks are encouraged!
 
 ## Resources
 - [Getting Started](Docs/Getting-Started.md)
-
+- [Controls, Utilities & Attached Properties](Docs/Controls-Utilities-AttachedProperties.md)
 
 ## Contributions
 As with the standard for all of the  `Reloaded-Project`, repositories; contributions are very welcome and encouraged.
