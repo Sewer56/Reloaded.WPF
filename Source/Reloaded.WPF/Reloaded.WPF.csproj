@@ -8,6 +8,20 @@
     <StartupObject />
     <RootNamespace>Reloaded.WPF</RootNamespace>
     <AssemblyName>Reloaded.WPF</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Authors>Sewer56</Authors>
+    <Company />
+    <Product />
+    <Description>Small WPF toolkit for building WPF Reloaded branded applications.</Description>
+    <Copyright>GNU GPL V3</Copyright>
+    <RepositoryUrl>https://github.com/Sewer56/Reloaded.WPF</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Sewer56/Reloaded.WPF</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIconUrl>https://camo.githubusercontent.com/5dd4af92b8931447e2544de216a239806be096c7/68747470733a2f2f692e696d6775722e636f6d2f426a506e3772552e706e67</PackageIconUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +29,10 @@
     <None Remove="Controls\PageHost.xaml" />
     <None Remove="Resources\Mania_Icon.jpg" />
     <None Remove="Resources\Reloaded_Icon.png" />
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

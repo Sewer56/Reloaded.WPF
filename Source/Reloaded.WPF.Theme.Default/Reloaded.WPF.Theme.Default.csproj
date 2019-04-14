@@ -8,6 +8,19 @@
     <StartupObject />
     <RootNamespace>Reloaded.WPF.Theme.Default</RootNamespace>
     <AssemblyName>Reloaded.WPF.Theme.Default</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Company>Sewer56</Company>
+    <Authors>Sewer56</Authors>
+    <Description>The default "Reloaded" theme inspired by Reloaded Mod Loader.</Description>
+    <Copyright>GNU GPL V3</Copyright>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Sewer56/Reloaded.WPF</PackageProjectUrl>
+    <PackageIconUrl>https://camo.githubusercontent.com/5dd4af92b8931447e2544de216a239806be096c7/68747470733a2f2f692e696d6775722e636f6d2f426a506e3772552e706e67</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Sewer56/Reloaded.WPF</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +35,10 @@
     <None Remove="Theme\Default\Settings.xaml" />
     <None Remove="Theme\Default\Styles.xaml" />
     <None Remove="Theme\Default\Window.xaml" />
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
