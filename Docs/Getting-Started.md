@@ -13,8 +13,6 @@
 
 The following is a small, quick, non-exhaustive resource to help you get started with the *Reloaded.WPF* library - providing an introduction to using the library. This serves as a guide to help you get going, covering the basics and essentials.
 
-Once you read this guide, you may look at the [Utilities](Utilities.md) page.
-
 ## Pre-Prologue: Adding Reloaded.WPF to your project.
 1.  Open/Create project in Visual Studio.
 2.  Right-click your project within the `Solution Explorer` and select `Manage NuGet Packages`.
