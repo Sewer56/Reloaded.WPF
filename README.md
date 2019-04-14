@@ -8,7 +8,7 @@
 	<br/> <br/>
 	<!-- Build Status -->
 	<a href="https://ci.appveyor.com/project/sewer56lol/reloaded-wpf">
-		<img src="" alt="Build Status (Soon)" />
+		<img src="https://ci.appveyor.com/api/projects/status/26icfl39yoa0alvi?svg=true" alt="Build Status" />
 	</a>
 </div>
 
