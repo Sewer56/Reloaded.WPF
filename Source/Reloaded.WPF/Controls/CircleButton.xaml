@@ -54,6 +54,7 @@
         <Button Style="{DynamicResource CircleButtonStyle}" 
                 x:Name="_button"
                 ToolTipService.InitialShowDelay="0"
+                ToolTipService.IsEnabled="{Binding Path=TooltipText, Converter={x:Static converters:IsTextNotEmptyConverter.Instance}}"
                 ToolTip="{Binding Path=TooltipText}"
                 DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
                 />
