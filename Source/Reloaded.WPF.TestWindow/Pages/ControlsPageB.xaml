@@ -1,0 +1,72 @@
+﻿<default:ReloadedPage         
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:default="clr-namespace:Reloaded.WPF.Theme.Default;assembly=Reloaded.WPF.Theme.Default"
+            xmlns:models="clr-namespace:Reloaded.WPF.TestWindow.Models.Model"
+            x:Class="Reloaded.WPF.TestWindow.Pages.ControlsPageB"
+            mc:Ignorable="d" 
+            d:DesignHeight="650" d:DesignWidth="800">
+
+    <!-- Dummy Data -->
+    <default:ReloadedPage.Resources>
+        <ResourceDictionary>
+            <x:Array x:Key="DummyList" Type="{x:Type models:DataGridDummy}">
+                <models:DataGridDummy Type="God" IsAlive="True" Name="Chuck Norris" WeaponId="-1" WeaponRange="99999.9" />
+                <models:DataGridDummy Type="Human" IsAlive="False" Name="Jeanne d'Arc" WeaponId="1" WeaponRange="100" />
+                <models:DataGridDummy Type="Virtual" IsAlive="False" Name="Lianne Sandlot" WeaponId="42" WeaponRange="800"/>
+            </x:Array>
+        </ResourceDictionary>
+    </default:ReloadedPage.Resources>
+
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" 
+                      VerticalScrollBarVisibility="Visible">
+
+            <!-- Control panel. -->
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
+
+                <StackPanel Orientation="Horizontal" Margin="0,10" HorizontalAlignment="Center">
+                    <TextBox Text="We" Margin="10,0" Width="100"/>
+                    <TextBox Text="Are" Margin="10,0" Width="100"/>
+                    <TextBox Text="TextBoxes" Margin="10,0" Width="100"/>
+                </StackPanel>
+
+                <ComboBox Margin="0,10">
+                    <ComboBoxItem Content="Jasmine"/>
+                    <ComboBoxItem Content="Emily"/>
+                    <ComboBoxItem Content="Chuck"/>
+                    <ComboBoxItem Content="ComboBox"/>
+                </ComboBox>
+
+                <DataGrid   Margin="0,10"
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            ItemsSource="{StaticResource DummyList}"
+                            ToolTip="I am a DataGridView"
+                            ToolTipService.InitialShowDelay="500"/>
+
+                <ListView Width="300" 
+                          Margin="0,10"
+                          ToolTip="I am a ListView"
+                          ToolTipService.InitialShowDelay="500">
+                    <ListViewItem>Shadows</ListViewItem>
+                    <ListViewItem>Donuts</ListViewItem>
+                    <ListViewItem>Dreams</ListViewItem>
+                    <ListViewItem>Sewers</ListViewItem>
+                </ListView>
+
+                <ListBox Width="300"
+                         ToolTip="I am a ListBox"
+                         ToolTipService.InitialShowDelay="500">
+                    <ListBoxItem>Shadows</ListBoxItem>
+                    <ListBoxItem>Donuts</ListBoxItem>
+                    <ListBoxItem>Dreams</ListBoxItem>
+                    <ListBoxItem>Sewers</ListBoxItem>
+                </ListBox>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</default:ReloadedPage>

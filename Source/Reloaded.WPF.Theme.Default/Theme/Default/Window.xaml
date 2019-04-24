@@ -22,7 +22,7 @@
                 <ControlTemplate TargetType="{x:Type Window}">
 
                     <!-- Gives us invisible padding space to allow for rendering of drop shadow. -->
-                    <Border Padding="{Binding Path=DropShadowBorderSize}">
+                    <Border Padding="{Binding Path=DropShadowBorderSize}" Background="Transparent">
                         <Grid>
 
                             <!-- Clipping Border, We will use it below to ensure child elements in Window stay within right border. -->
@@ -52,7 +52,8 @@
 
                             <!-- This is our window background and the owner of what we see onscreen. -->
                             <Border x:Name="ContentBorder" 
-                                    CornerRadius="{DynamicResource CornerRadius}">
+                                    CornerRadius="{DynamicResource CornerRadius}"
+                                    Background="Transparent">
 
                                 <!-- Main Window Content -->
                                 <Grid>

@@ -2,72 +2,107 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-    <!-- Radius of the rounded corners of the window -->
-    <CornerRadius x:Key="CornerRadius">10</CornerRadius>
+    <!-- Window: General Properties -->
+    <sys:Double x:Key="DefaultMinWidth">210</sys:Double>                <!-- Minimum window height -->
+    <sys:Double x:Key="DefaultMinHeight">150</sys:Double>               <!-- Minimum window width -->
+    <Visibility x:Key="CloseButtonVisibility">Visible</Visibility>      <!-- Show close button -->
+    <Visibility x:Key="MinimizeButtonVisibility">Visible</Visibility>   <!-- Show minimize button -->
+    <Visibility x:Key="MaximizeButtonVisibility">Visible</Visibility>   <!-- Show maximize button -->
+    <CornerRadius x:Key="CornerRadius">10</CornerRadius>                <!-- Radius of the rounded corners of the window -->
+    <sys:Boolean x:Key="BorderlessOnDock">True</sys:Boolean>            <!-- If true, removes the glow effect when docked or maximized. -->
+    <GridLength x:Key="TitleBarHeight">32</GridLength>                  <!-- Height of the titlebar of the window. -->
+    <sys:Double x:Key="DropShadowSize">5</sys:Double>                   <!-- The size of the drop shadow effect used for glow/drop shadow. -->
+    <Thickness x:Key="DropShadowBorderSize">5</Thickness>               <!-- The size of the invisible transparent border acting as the space for the glow effect to render. -->
+    <Thickness x:Key="ResizeBorderThickness">5</Thickness>              <!-- The size of the resize border at the edge of the window. -->
 
-    <!-- Height of the titlebar of the window. -->
-    <GridLength x:Key="TitleBarHeight">32</GridLength>
-
-    <!-- If true, removes the glow effect when docked or maximized. -->
-    <sys:Boolean x:Key="BorderlessOnDock">True</sys:Boolean>
-
-    <!-- The size of the drop shadow effect used for glow/drop shadow. -->
-    <sys:Double x:Key="DropShadowSize">5</sys:Double>
-
-    <!-- The size of the invisible transparent border acting as the space for the glow effect to render. -->
-    <Thickness x:Key="DropShadowBorderSize">5</Thickness>
-
-    <!-- The size of the resize border at the edge of the window. -->
-    <Thickness x:Key="ResizeBorderThickness">5</Thickness>
-
-    <!-- Enables the glow effect around the window. -->
+    <!-- Window: Glow Effect -->
     <sys:Boolean x:Key="EnableGlow">True</sys:Boolean>
     <sys:Double x:Key="GlowOpacity">1</sys:Double>
     <sys:Double x:Key="GlowDirection">315</sys:Double> <!-- Gets or sets the direction of the drop shadow. -->
     <sys:Double x:Key="GlowDepth">0</sys:Double>       <!-- Gets or sets the distance of the drop shadow at the given direction below the window. -->
     <RenderingBias x:Key="GlowRenderBias">0</RenderingBias>  <!-- 0 = Performance, 1 = Quality -->
 
-    <!-- Glow: Colours & Behaviour -->
-    <sys:Boolean x:Key="AllowGlowStateChange">True</sys:Boolean> <!-- If true, automatically changes the glow color based on window state.
-                                                                      Otherwise window glow colour stays fixed to "default" value.  -->
-    <sys:Boolean x:Key="IgnoreInactiveStateWhenSpecialState">False</sys:Boolean> <!-- If true will not set the glow color to GlowColorInactive if the current window state is other than "Normal" -->
-    <sys:Boolean x:Key="IgnoreInactiveState">False</sys:Boolean> <!-- Ignores the "inactive" state altogether. -->
-
+    <!-- Window: Glow Effect: Colours -->
     <Color x:Key="GlowColorInactive">#434346</Color>             <!-- Intended to be used when the window is out of focus. -->
     <Color x:Key="GlowColorDefault">#ffffff</Color>              <!-- Intended to be used when the window is in focus -->
     <Color x:Key="GlowColorEngaged">#ff9b91</Color>              <!-- Intended to be used when the window is in focus and working. -->
-    <sys:Boolean x:Key="GlowColorAnimationEnable">True</sys:Boolean>   <!-- If true, animates the switches between the above states. -->
-    <sys:Int32 x:Key="GlowColorAnimationDuration">200</sys:Int32> <!-- In milliseconds. -->
+
+    <!-- Window: Glow Effect: Behaviour -->
+    <sys:Boolean x:Key="AllowGlowStateChange">True</sys:Boolean>                    <!-- If true, automatically changes the glow color based on window state. Otherwise window glow colour stays fixed to "default" value.  -->
+    <sys:Boolean x:Key="IgnoreInactiveStateWhenSpecialState">False</sys:Boolean>    <!-- If true will not set the glow color to GlowColorInactive if the current window state is other than "Normal" -->
+    <sys:Boolean x:Key="IgnoreInactiveState">False</sys:Boolean>                    <!-- Ignores the "inactive" state altogether. -->
+    <sys:Boolean x:Key="GlowColorAnimationEnable">True</sys:Boolean>                <!-- If true, animates the switches between the above states. -->
+    <sys:Int32 x:Key="GlowColorAnimationDuration">200</sys:Int32>                   <!-- In milliseconds. -->
     <sys:Int32 x:Key="GlowColorAnimationFramesPerSecond">60</sys:Int32>
 
-    <!-- Window Properties -->
-    <sys:Double x:Key="DefaultMinWidth">210</sys:Double>
-    <sys:Double x:Key="DefaultMinHeight">150</sys:Double>
-    <Visibility x:Key="CloseButtonVisibility">Visible</Visibility>
-    <Visibility x:Key="MinimizeButtonVisibility">Visible</Visibility>
-    <Visibility x:Key="MaximizeButtonVisibility">Visible</Visibility>
-
-    <!-- Glow: Hue Cycle -->
+    <!-- Window: Glow Effect: Hue Cycle Effect -->
     <!-- I would love to leave this on by default but the performance implications are unjustifiable. -->
-    <sys:Boolean x:Key="EnableGlowHueCycle">False</sys:Boolean>
+    <sys:Boolean x:Key="EnableGlowHueCycle">False</sys:Boolean>               <!-- If true, RGB cycles the glow color of the window. -->
     <sys:Int32 x:Key="GlowHueCycleFramesPerSecond">20</sys:Int32>
-    <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>             <!-- In milliseconds. -->
+    <sys:Int32 x:Key="GlowHueCycleLoopDuration">6000</sys:Int32>              <!-- In milliseconds. -->
     <sys:Single x:Key="GlowHueCycleChroma">75.830198386817237</sys:Single>    <!-- Range 0 to 100. The quality of a color's purity, intensity or saturation.-->
     <sys:Single x:Key="GlowHueCycleLightness">75.450675748060505</sys:Single> <!-- Range 0 to 100. The quality (chroma) lightness or darkness. -->
 
+    <!-- Window: Animation -->
+    <sys:Double x:Key="EntrySlideAnimationDuration">0.250</sys:Double>  <!-- Length of the slide in part of the animation in Milliseconds -->
+    <sys:Double x:Key="EntryFadeAnimationDuration">0.366</sys:Double>   <!-- Length of the fade in part of the animation in Milliseconds -->
+    <sys:Double x:Key="EntryFadeOpacityStart">0.0</sys:Double>          <!-- The opacity to start fading in at (0.0 to 1.0). -->
+
+    <sys:Double x:Key="ExitSlideAnimationDuration">0.666</sys:Double>   <!-- Length of the slide out part of the animation in Milliseconds -->
+    <sys:Double x:Key="ExitFadeAnimationDuration">0.666</sys:Double>    <!-- Length of the fade out part of the animation in Milliseconds -->
+    <sys:Double x:Key="ExitFadeOpacityEnd">0.0</sys:Double>             <!-- The opacity to fade out to (from 1.0). -->
+
+    <!-- xxxxxxxxxxxxxxxxxx Controls xxxxxxxxxxxxxxxxxx -->
+
+    <!-- General -->
+    <Duration x:Key="ColorTransitionDuration">0:0:0.15</Duration>   <!-- Length of the color transitions in all of the Reloaded.WPF controls. -->
+
+    <!-- Control Properties: Button -->
+    <Thickness x:Key="ButtonPaddingSize">15,10</Thickness>          <!-- Size between the internal text and rest -->
+
+    <!-- Control Properties: RadioButton -->
+    <sys:Double x:Key="RadioButtonStrokeThickness">4</sys:Double>   <!-- The thickness of the outer ring of the radiobutton. -->
+    <Thickness x:Key="RadioButtonTextOffset">10,0,0,0</Thickness>   <!-- Additional offset between the button and its text. -->
+
+    <!-- Control Properties: Checkbox -->
+    <sys:Double x:Key="CheckboxFontSize">16</sys:Double>            <!-- The size of the font that makes the `+` and `-` symbols in the middle of the checkbox. -->
+    <sys:Double x:Key="CheckboxSize">24</sys:Double>                <!-- The width and height of the checkbox. -->
+    <Thickness x:Key="CheckboxTextOffset">10,0,0,0</Thickness>      <!-- Additional offset between the button and its text. -->
+    <sys:String x:Key="CheckboxEnabledSymbol">+</sys:String>        <!-- Text printed when the checkbox state is set to "on" -->
+    <sys:String x:Key="CheckboxDisabledSymbol">-</sys:String>       <!-- Text printed when the checkbox state is set to "off" -->
+
+    <!-- Control Properties: Progressbar -->
+    <Thickness x:Key="ProgressbarBorderThickness">1</Thickness>   <!-- Thickness of the border around the ProgressBar -->
+
+    <!-- Control Properties: TextBox -->
+    <Thickness x:Key="TextboxBorderThickness">0,0,0,2</Thickness>   <!-- Thickness of the border around the control. -->
+    <sys:Double x:Key="TextboxBorderStrokeThickness">2</sys:Double> <!-- Thickness of the stroke drawing the TextboxBorderThickness -->
+    <Thickness x:Key="TextboxContentMargin">0,0,0,3</Thickness>     <!-- Spacing between the bottom of the Textbox and the text inside. -->
+    <sys:String x:Key="TextboxDisabledSymbol">Not Available</sys:String> <!-- Text printed when the textbox is disabled. -->
+
+    <!-- Control Properties: Combobox -->
+    <sys:Int32 x:Key="ComboboxTextColumnSpan">2</sys:Int32>         <!-- 1: Combobox currently selected item text is centered to left of combobox and left of arrow.
+                                                                         2: Combobox currently selected item text is centered to combobox. -->
+    <Thickness x:Key="ComboboxBorderThickness">0,1,0,1</Thickness>  <!-- Thickness of the border around the control. -->
+    <sys:Double x:Key="ComboboxStrokeThickness">1</sys:Double>      <!-- Thickness of the stroke drawing the ComboboxBorderThickness -->
+
+    <!-- Control Properties: DataGrid -->
+    <Thickness x:Key="DataGridCellPadding">5</Thickness>            <!-- Space between the inner contents of a DataGrid cell and the contents. -->
+    <Thickness x:Key="DataGridHeaderMargin">10,5</Thickness>        <!-- Space between the header columns (header names) of the DataGrid and other items. -->
+
+    <!-- Control Properties: ListView & ListBox -->
+    <Thickness x:Key="ListViewItemPadding">5</Thickness>            <!-- Space between the individual listview items. -->
+    <Thickness x:Key="ListViewBorderThickness">1</Thickness>        <!-- Thickness of the border around the control. -->
+    
+    <!-- Control Properties: Scrollbar -->
+    <sys:Double x:Key="ScrollbarWidth">4</sys:Double>               <!-- Width of the scrollbar. -->
+    <GridLength x:Key="ScrollbarBarMargin">5</GridLength>           <!-- Amount of space between the bottom & top of the scrollbar and the bar border. -->
+    <sys:Double x:Key="ScrollbarRadius">2</sys:Double>              <!-- Radius of the round ends of the scrollbar. -->
+
     <!-- Control Properties: Tooltips -->
-    <CornerRadius x:Key="TooltipCornerRadius">10</CornerRadius>
-    <Thickness x:Key="TooltipPaddingSize">12</Thickness>
-    <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>
-
-    <!-- Animation Properties -->
-    <sys:Double x:Key="EntrySlideAnimationDuration">0.250</sys:Double>
-    <sys:Double x:Key="EntryFadeAnimationDuration">0.366</sys:Double>
-    <sys:Double x:Key="EntryFadeOpacityStart">0.0</sys:Double>
-
-    <sys:Double x:Key="ExitSlideAnimationDuration">0.666</sys:Double>
-    <sys:Double x:Key="ExitFadeAnimationDuration">0.666</sys:Double>
-    <sys:Double x:Key="ExitFadeOpacityEnd">0.0</sys:Double>
-
+    <CornerRadius x:Key="TooltipCornerRadius">10</CornerRadius>     <!-- Radius of the tooltip corners. -->
+    <Thickness x:Key="TooltipPaddingSize">12</Thickness>            <!-- Size between the text and the outer tooltip bubble. -->
+    <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>   <!-- Opacity of the tooltip background -->
+    
 
 </ResourceDictionary>

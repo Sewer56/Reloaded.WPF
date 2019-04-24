@@ -1,20 +1,38 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!-- Main Palette -->
+    <Color x:Key="AccentColorLighter">#B66363</Color>
     <Color x:Key="AccentColorLight">#793939</Color>
     <Color x:Key="AccentColor">#4e2727</Color>
+
+    <Color x:Key="TransparentBorderColor">#004c4c4c</Color>
     <Color x:Key="BorderColor">#4c4c4c</Color>
+    <Color x:Key="BorderColorDark">#333333</Color>
+
     <Color x:Key="TextColor">#ffffff</Color>
     <Color x:Key="BackgroundColor">#181818</Color>
     <Color x:Key="TooltipBackgroundColor">#000000</Color>
 
+    <!-- Palette for specific controls/control locations. -->
+    
+    <!-- For separators present on AccentColor backgrounds. -->
+    <Color x:Key="AltSeparatorColor">#897170</Color>
+
+    <!-- Default brushes. -->
+    <SolidColorBrush x:Key="AccentColorLighterBrush" Color="{DynamicResource AccentColorLighter}"/>
     <SolidColorBrush x:Key="AccentColorLightBrush" Color="{DynamicResource AccentColorLight}"/>
     <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}"/>
     <SolidColorBrush x:Key="BorderColorBrush" Color="{DynamicResource BorderColor}"/>
+    <SolidColorBrush x:Key="BorderColorDarkBrush" Color="{DynamicResource BorderColorDark}"/>
     <SolidColorBrush x:Key="TextColorBrush" Color="{DynamicResource TextColor}"/>
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{DynamicResource BackgroundColor}"/>
     <SolidColorBrush x:Key="TooltipBackgroundColorBrush" Color="{DynamicResource TooltipBackgroundColor}" Opacity="{DynamicResource TooltipBackgroundOpacity}"/>
+       
+    <!-- Specific brushes -->
+    <SolidColorBrush x:Key="AltSeparatorColorBrush" Color="{DynamicResource AltSeparatorColor}"/>
 
+    <!-- Imports -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

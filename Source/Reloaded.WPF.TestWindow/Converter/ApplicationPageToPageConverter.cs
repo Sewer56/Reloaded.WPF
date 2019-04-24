@@ -25,6 +25,12 @@ namespace Reloaded.WPF.TestWindow.Converter
                 case Page.Process:
                     return new ProcessWindow();
 
+                case Page.ControlsA:
+                    return new ControlsPageA();
+
+                case Page.ControlsB:
+                    return new ControlsPageB();
+
                 default:
                     Debugger.Break();
                     return null;

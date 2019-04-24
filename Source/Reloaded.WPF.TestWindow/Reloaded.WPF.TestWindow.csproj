@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Icons-1.png" />
+    <None Remove="Assets\Images\Icons-2.png" />
     <None Remove="DesignTimeResources.xaml" />
+    <None Remove="Pages\ControlsPageA.xaml" />
+    <None Remove="Pages\ControlsPageB.xaml" />
     <None Remove="Pages\MainPage.xaml" />
     <None Remove="Pages\ProcessWindow.xaml" />
     <None Remove="Styles\Window_Settings.xaml" />
@@ -49,11 +53,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\Icons-1.png" />
+    <Resource Include="Assets\Images\Icons-2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\ControlsPageB.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\ControlsPageA.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\ProcessWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\MainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Pages\ControlsPageB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\ControlsPageA.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

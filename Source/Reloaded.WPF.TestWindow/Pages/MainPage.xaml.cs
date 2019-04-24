@@ -41,5 +41,19 @@ namespace Reloaded.WPF.TestWindow.Pages
             var viewModel = IoC.Get<SidebarViewModel>();
             viewModel.Page = Page.Process;
         }
+
+        private void ControlsButtonA_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Set the sidebar current game for page switch and re-set binding for new page.
+            var viewModel = IoC.Get<SidebarViewModel>();
+            viewModel.Page = Page.ControlsA;
+        }
+
+        private void ControlsButtonB_Click(object sender, MouseButtonEventArgs e)
+        {
+            // Set the sidebar current game for page switch and re-set binding for new page.
+            var viewModel = IoC.Get<SidebarViewModel>();
+            viewModel.Page = Page.ControlsB;
+        }
     }
 }

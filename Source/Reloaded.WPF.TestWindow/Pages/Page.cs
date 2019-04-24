@@ -5,6 +5,8 @@
         None,
         Splash,
         Base,
-        Process
+        Process,
+        ControlsA,
+        ControlsB
     }
 }
