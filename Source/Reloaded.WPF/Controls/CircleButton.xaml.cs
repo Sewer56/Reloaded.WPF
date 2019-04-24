@@ -15,6 +15,7 @@ namespace Reloaded.WPF.Controls
     {
         public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(CircleButton), new PropertyMetadata(new BitmapImage(new Uri(Paths.PLACEHOLDER_IMAGE, UriKind.RelativeOrAbsolute))));
         public static readonly DependencyProperty TooltipTextProperty = DependencyProperty.Register(nameof(TooltipText), typeof(String), typeof(CircleButton), new PropertyMetadata("Tooltip Text (Binding)"));
+        public static readonly DependencyProperty BitmapScalingProperty = DependencyProperty.Register(nameof(BitmapScaleMode), typeof(BitmapScalingMode), typeof(CircleButton), new PropertyMetadata(BitmapScalingMode.HighQuality));
 
         /// <summary>
         /// The source of the image.
@@ -32,6 +33,15 @@ namespace Reloaded.WPF.Controls
         {
             get => (string)GetValue(TooltipTextProperty);
             set => SetValue(TooltipTextProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the bitmap scaling mode for the image.
+        /// </summary>
+        public BitmapScalingMode BitmapScaleMode
+        { 
+            get => (BitmapScalingMode)GetValue(BitmapScalingProperty);
+            set => SetValue(BitmapScalingProperty, value);
         }
 
         /// <summary>

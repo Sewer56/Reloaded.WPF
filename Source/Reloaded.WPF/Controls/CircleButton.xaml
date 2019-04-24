@@ -8,9 +8,10 @@
              xmlns:resources="clr-namespace:Reloaded.WPF.Resources"
              xmlns:designTimeModels="clr-namespace:Reloaded.WPF.Controls.DesignTimeModels"
              mc:Ignorable="d"
-             Height="50"
-             Width="50"
+             Height="500"
+             Width="500"
              IsHitTestVisible="True"
+             UseLayoutRounding="True"
              >
     <UserControl.Resources>
         <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}">
@@ -23,20 +24,20 @@
                         <!-- This Viewbox scales the internal contents with respect to the control size.
                              This allows for all templated controls inside to scale themselves relative to each other and
                              not to the size of the window. -->
-                        <Viewbox Height="50" Width="50">
+                        <Viewbox>
                             <Image x:Name="CircleImage"
                                    Source="{Binding Path=ImageSource}" 
                                    DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
                                    d:DataContext="{x:Static designTimeModels:CircleButtonModel.Instance}"
-                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   RenderOptions.BitmapScalingMode="{Binding Path=BitmapScaleMode}"
                                    RenderOptions.EdgeMode="Aliased"
                                    RenderOptions.CachingHint="Cache"
-                                   Height="50" 
-                                   Width="50">
+                                   Height="500" 
+                                   Width="500">
                                 <Image.Clip>
-                                    <EllipseGeometry RadiusX="25" 
-                                                     RadiusY="25"
-                                                     Center="25,25"/>
+                                    <EllipseGeometry RadiusX="250" 
+                                                     RadiusY="250"
+                                                     Center="250,250"/>
                                 </Image.Clip>
                             </Image>
                         </Viewbox>
