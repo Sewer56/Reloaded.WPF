@@ -1,4 +1,4 @@
-﻿// ReSharper disable CheckNamespace
+﻿#pragma warning disable 1591
 using ColorMine.ColorSpaces.Conversions;
 
 namespace ColorMine.ColorSpaces

@@ -11,6 +11,7 @@ namespace Reloaded.WPF.MVVM
     /// <typeparam name="TProperty">The data type of the individual attached property e.g. "bool". </typeparam>
     public abstract class AttachedPropertyBase<TParent, TProperty> where TParent : new()
     {
+        /// <summary> Individual instance of the attached property in question. </summary>
         public static TParent Instance { get; private set; } = new TParent();
 
         /// <summary>

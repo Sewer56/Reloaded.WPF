@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 using Reloaded.WPF.Pages.Animations;
-using Reloaded.WPF.Pages.Animations.Enum;
-using Reloaded.WPF.Utilities;
 
 namespace Reloaded.WPF.Pages
 {
@@ -14,6 +12,7 @@ namespace Reloaded.WPF.Pages
     /// </summary>
     public abstract class PageBase : System.Windows.Controls.Page
     {
+        /// <summary/>
         protected PageBase()
         {
             this.Visibility = Visibility.Hidden;

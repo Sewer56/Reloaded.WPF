@@ -15,6 +15,7 @@ namespace Reloaded.WPF.Theme.Default.AttachedProperties
         private const string CheckBoxStyle = "DataGridCheckBoxStyle";
         private const string ComboBoxStyle = "DataGridComboBoxStyle";
 
+        /// <inheritdoc />
         public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             bool newValue = GetValue(sender);

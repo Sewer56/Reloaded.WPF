@@ -1,4 +1,6 @@
-﻿namespace Reloaded.WPF.Pages.Animations.Enum
+﻿#pragma warning disable 1591
+
+namespace Reloaded.WPF.Pages.Animations.Enum
 {
     public enum RenderTransformTarget
     {

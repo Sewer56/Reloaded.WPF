@@ -1,4 +1,4 @@
-﻿// ReSharper disable CheckNamespace
+﻿
 namespace ColorMine.ColorSpaces.Conversions
 {
 	internal static class RgbConverter

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Reloaded.WPF.Utilities.Animation.Manual.Dependencies;
 
 namespace Reloaded.WPF.Utilities.Animation.Manual
@@ -201,7 +198,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         private void Spin()
         {
             while (_sleepWatch.Elapsed.TotalMilliseconds < StatSleepTime)
-            { int a = 1337; }
+            { }
         }
     }
 }

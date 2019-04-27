@@ -2,6 +2,7 @@
 
 namespace Reloaded.WPF.Theme.Default
 {
+    /// <inheritdoc />
     public class ReloadedWindow : Window
     {
         /// <summary>
@@ -9,6 +10,7 @@ namespace Reloaded.WPF.Theme.Default
         /// </summary>
         public WindowViewModel ViewModel => (WindowViewModel) this.DataContext;
 
+        /// <inheritdoc />
         public ReloadedWindow()
         {
             this.DataContext = new WindowViewModel(this);

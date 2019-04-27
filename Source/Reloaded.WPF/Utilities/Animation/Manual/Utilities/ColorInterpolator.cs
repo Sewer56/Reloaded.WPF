@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media.Animation;
-using ColorMine.ColorSpaces;
+﻿using ColorMine.ColorSpaces;
 
 namespace Reloaded.WPF.Utilities.Animation.Manual.Utilities
 {
+    /// <summary>
+    /// Utility class that provides various colour interpolations between sets of colours.
+    /// </summary>
     public static class ColorInterpolator
     {
         /// <summary>

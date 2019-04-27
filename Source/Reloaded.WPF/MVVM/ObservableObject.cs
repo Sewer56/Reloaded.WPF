@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿#pragma warning disable 1591
+
+using System.ComponentModel;
 
 namespace Reloaded.WPF.MVVM
 {

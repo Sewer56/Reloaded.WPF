@@ -12,7 +12,7 @@ namespace Reloaded.WPF.Pages.Animations
     /// </summary>
     public class RenderTransformAnimation : Animation
     {
-        public const string RENDERTRANSFORM_OBJECT_NAME = "RenderTransformAnimation";
+        private const string RENDERTRANSFORM_OBJECT_NAME = "RenderTransformAnimation";
 
         /// <summary> The length of the animation in seconds. </summary>
         public double Duration { get; set; }
@@ -48,7 +48,7 @@ namespace Reloaded.WPF.Pages.Animations
         }
 
 
-        /// </inheritdoc>
+        /// <inheritdoc/>
         public override AnimationTimeline Get()
         {
             var slideAnimation = new DoubleAnimation();
@@ -71,7 +71,7 @@ namespace Reloaded.WPF.Pages.Animations
         }
 
 
-        /// </inheritdoc>
+        /// <inheritdoc/>
         public override void AddToStoryboard(Storyboard storyBoard, AnimationTimeline timeline = null)
         {
             var animation = timeline ?? Get();
@@ -81,7 +81,7 @@ namespace Reloaded.WPF.Pages.Animations
             storyBoard.Children.Add(animation);
         }
 
-        /// </inheritdoc>
+        /// <inheritdoc/>
         public override void PrepareElement(FrameworkElement element)
         {
             // If it does not, add one to existing group or make one if no transform exists.

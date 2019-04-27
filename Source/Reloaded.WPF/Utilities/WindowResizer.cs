@@ -3,6 +3,8 @@
     Licensed under the MIT license.
 */
 
+#pragma warning disable 1591
+
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -159,7 +161,6 @@ namespace Reloaded.WPF.Utilities
         /// Default constructor
         /// </summary>
         /// <param name="window">The window to monitor and correctly maximize</param>
-        /// <param name="adjustSize">The callback for the host to adjust the maximum available size if needed</param>
         public WindowResizer(Window window)
         {
             mWindow = window;

@@ -1,4 +1,4 @@
-﻿// ReSharper disable CheckNamespace
+﻿
 using System;
 
 namespace ColorMine.ColorSpaces.Conversions

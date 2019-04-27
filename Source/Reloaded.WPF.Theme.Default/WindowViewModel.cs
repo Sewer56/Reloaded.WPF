@@ -1,11 +1,12 @@
-﻿using System;
+﻿#pragma warning disable 1591
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
-using PropertyChanged;
 using Reloaded.WPF.Pages;
 using Reloaded.WPF.Utilities;
 using Reloaded.WPF.Utilities.Animation.Manual;
@@ -65,6 +66,7 @@ namespace Reloaded.WPF.Theme.Default
         private State _lastState;
 
         /* Note: All sizes are in points, not pixels. */
+
         public WindowViewModel(Window window) : base(window)
         {
             // Load window style.

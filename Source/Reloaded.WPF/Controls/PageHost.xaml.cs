@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿#pragma warning disable 1591
+
 using System.Windows;
 using System.Windows.Controls;
 using Reloaded.WPF.Pages;
@@ -25,6 +26,7 @@ namespace Reloaded.WPF.Controls
             InitializeComponent();
         }
 
+#pragma warning disable 4014
         /// <summary>
         /// Called when the value of the <see cref="CurrentPageProperty"/> is changed, i.e. new page is set.
         /// </summary>
@@ -53,6 +55,7 @@ namespace Reloaded.WPF.Controls
 
             return newValue;
         }
+#pragma warning restore 4014
 
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

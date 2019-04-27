@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable 1591
+
+using System;
 using System.Windows;
 using System.Windows.Input;
 using Reloaded.WPF.MVVM;
@@ -17,7 +19,7 @@ namespace Reloaded.WPF.Pages
 
         /* Local variables. */
         protected ResourceManipulator Resources;
-        protected System.Windows.Window              TargetWindow;
+        protected System.Windows.Window TargetWindow;
         protected WindowResizer       WindowResizer;
         protected WindowDockPosition  DockPosition = WindowDockPosition.Undocked;
 

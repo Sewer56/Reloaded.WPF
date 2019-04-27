@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using Reloaded.WPF.Utilities;
 
 namespace Reloaded.WPF.Theme.Default
 {
@@ -17,9 +16,12 @@ namespace Reloaded.WPF.Theme.Default
         private static ResourceDictionary _dictionary;
 
         /* Location of Font Set and XAML Styles */
-        public const string RelativeRootXamlFileLocation    = "Theme/Default/Root.xaml";
-        public const string RelativeFontLocation            = "Theme/Default/Fonts";
+        private const string RelativeRootXamlFileLocation    = "Theme/Default/Root.xaml";
+        private const string RelativeFontLocation            = "Theme/Default/Fonts";
 
+        /// <summary>
+        /// Loads the Reloaded.WPF theme into the given Windows Presentation Foundation Framework element.
+        /// </summary>
         public static void Load(FrameworkElement element)
         {
             // Instantiate dictionary if not created.

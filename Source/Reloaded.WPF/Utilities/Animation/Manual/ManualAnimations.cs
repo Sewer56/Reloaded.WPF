@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using ColorMine.ColorSpaces;
 using Reloaded.WPF.Utilities.Animation.Manual.Utilities;
 
 namespace Reloaded.WPF.Utilities.Animation.Manual
 {
+    /// <summary/>
     public class ManualAnimations
     {
         /// <summary>
@@ -25,7 +23,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         {
             await Task.Run(() =>
             {
-                bool executionMethod(Color color)
+                bool ExecutionMethod(Color color)
                 {
                     // Exit if requested.
                     if (token.IsCancellationRequested)
@@ -37,7 +35,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
 
                 var animation = new ManualAnimation<Color>(duration, framesPerSecond,
                     time => ColorInterpolator.GetRainbowColor(chroma, lightness, time).ToColor(),
-                    executionMethod);
+                    ExecutionMethod);
 
                 animation.Repeat = ulong.MaxValue;
                 animation.Animate();
@@ -58,7 +56,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         {
             await Task.Run(() =>
             {
-                bool executionMethod(Color color)
+                bool ExecutionMethod(Color color)
                 {
                     // Exit if requested.
                     if (token.IsCancellationRequested)
@@ -73,7 +71,7 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
 
                 var animation = new ManualAnimation<Color>(duration, framesPerSecond,
                     time => ColorInterpolator.CalculateIntermediateColour(lchSourceColor, lchTargetColor, time).ToColor(),
-                    executionMethod);
+                    ExecutionMethod);
 
                 animation.Animate();
             });

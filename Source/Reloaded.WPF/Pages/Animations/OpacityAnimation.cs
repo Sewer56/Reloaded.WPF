@@ -42,7 +42,7 @@ namespace Reloaded.WPF.Pages.Animations
             EasingFunction = easingFunction;
         }
 
-        /// </inheritdoc>
+        /// <inheritdoc/>
         public override AnimationTimeline Get()
         {
             var opacityAnimation = new DoubleAnimation();
@@ -55,7 +55,7 @@ namespace Reloaded.WPF.Pages.Animations
         }
 
 
-        /// </inheritdoc>
+        /// <inheritdoc/>
         public override void AddToStoryboard(Storyboard storyBoard, AnimationTimeline timeline = null)
         {
             var animation = timeline ?? Get();

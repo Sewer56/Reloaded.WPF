@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable 1591
+
+using System;
 using System.Windows.Input;
 
 namespace Reloaded.WPF.MVVM
