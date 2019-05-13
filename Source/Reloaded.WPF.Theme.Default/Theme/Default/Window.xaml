@@ -90,7 +90,7 @@
                                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                                             <Button Command="{Binding Path=MinimizeCommand}" 
                                                         Visibility="{DynamicResource MinimizeButtonVisibility}"
-                                                        Content="_" 
+                                                        Content="—" 
                                                         Style="{DynamicResource WindowControlButton}"/>
                                             <Button Command="{Binding Path=MaximizeCommand}" 
                                                         Visibility="{DynamicResource MaximizeButtonVisibility}"
