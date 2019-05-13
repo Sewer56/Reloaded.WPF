@@ -26,7 +26,8 @@
                         <Grid>
 
                             <!-- Clipping Border, We will use it below to ensure child elements in Window stay within right border. -->
-                            <Border x:Name="ClipBorder" Background="Black" 
+                            <Border x:Name="ClipBorder" 
+                                    Background="Black" 
                                     CornerRadius="{DynamicResource CornerRadius}"/>
 
                             <!-- The glowing border of the Window.
@@ -52,7 +53,6 @@
 
                             <!-- This is our window background and the owner of what we see onscreen. -->
                             <Border x:Name="ContentBorder" 
-                                    CornerRadius="{DynamicResource CornerRadius}"
                                     Background="Transparent">
 
                                 <!-- Main Window Content -->
@@ -60,7 +60,7 @@
 
                                     <!-- This is a clip/mask to ensure child elements in Window stay consistent with corner radius. -->
                                     <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=ClipBorder}" />
+                                        <VisualBrush Visual="{Binding ElementName=ClipBorder}" Stretch="Fill" />
                                     </Grid.OpacityMask>
 
                                     <!-- TitleBar and rest of page for content. -->
