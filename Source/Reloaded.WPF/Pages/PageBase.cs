@@ -12,6 +12,16 @@ namespace Reloaded.WPF.Pages
     /// </summary>
     public abstract class PageBase : System.Windows.Controls.Page
     {
+        /// <summary>
+        /// Called after the page finished animating in.
+        /// </summary>
+        public event Action AnimateInFinished = () => { };
+
+        /// <summary>
+        /// Called after the page finished animating out.
+        /// </summary>
+        public event Action AnimateOutFinished = () => { };
+
         /// <summary/>
         protected PageBase()
         {
@@ -44,6 +54,7 @@ namespace Reloaded.WPF.Pages
             storyBoard.Begin(this);
 
             await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
+            AnimateInFinished();
         }
 
         /// <summary>
@@ -57,6 +68,7 @@ namespace Reloaded.WPF.Pages
             storyBoard.Begin(this);
 
             await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
+            AnimateOutFinished();
         }
 
         /// <summary>
