@@ -274,7 +274,7 @@
         <Setter Property="Background" Value="{StaticResource AccentColorLightBrush}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="{StaticResource ButtonPaddingSize}"/>
+        <Setter Property="Padding" Value="{DynamicResource ButtonPaddingSize}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -366,13 +366,13 @@
 
                         <Ellipse Fill="{TemplateBinding Background}"
                                  Stroke="{StaticResource AccentColorLightBrush}"
-                                 StrokeThickness="{StaticResource RadioButtonStrokeThickness}"/>
+                                 StrokeThickness="{DynamicResource RadioButtonStrokeThickness}"/>
 
 
                         <!-- Text -->
                         <ContentPresenter Grid.Column="1"
                                           x:Name="Content"
-                                          Margin="{StaticResource RadioButtonTextOffset}"
+                                          Margin="{DynamicResource RadioButtonTextOffset}"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
                     </Grid>
@@ -402,7 +402,7 @@
 
         <Setter Property="Background" Value="{StaticResource BorderColorBrush}"/>
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Height" Value="{StaticResource CheckboxSize}" />
+        <Setter Property="Height" Value="{DynamicResource CheckboxSize}" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -426,14 +426,14 @@
                         <TextBlock x:Name="Tick" 
                                    HorizontalAlignment="Center" 
                                    VerticalAlignment="Center"
-                                   FontSize="{StaticResource CheckboxFontSize}"
+                                   FontSize="{DynamicResource CheckboxFontSize}"
                                    Foreground="{TemplateBinding Background}"
-                                   Text="{StaticResource CheckboxDisabledSymbol}"/>
+                                   Text="{DynamicResource CheckboxDisabledSymbol}"/>
 
                         <!-- Text -->
                         <ContentPresenter Grid.Column="1"
                                           x:Name="VisibleContent"
-                                          Margin="{StaticResource CheckboxTextOffset}"
+                                          Margin="{DynamicResource CheckboxTextOffset}"
                                           Visibility="Visible"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
@@ -442,7 +442,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <!-- Change Text -->
-                            <Setter TargetName="Tick" Property="Text" Value="{StaticResource CheckboxEnabledSymbol}"/>
+                            <Setter TargetName="Tick" Property="Text" Value="{DynamicResource CheckboxEnabledSymbol}"/>
                         </Trigger>
 
                         <!-- Leave no margin if no content exists. 
@@ -480,7 +480,7 @@
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextColorBrush}"/>
-        <Setter Property="BorderThickness" Value="{StaticResource ProgressbarBorderThickness}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource ProgressbarBorderThickness}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ProgressBar}">
@@ -537,12 +537,12 @@
                     <Grid>
 
                         <!-- Top/Bottom Border -->
-                        <Border BorderThickness="{StaticResource TextboxBorderThickness}" Background="Transparent">
+                        <Border BorderThickness="{DynamicResource TextboxBorderThickness}" Background="Transparent">
                             <Border.BorderBrush>
                                 <VisualBrush>
                                     <VisualBrush.Visual>
                                         <Rectangle Stroke="{TemplateBinding Foreground}"
-                                                   StrokeThickness="{StaticResource TextboxBorderStrokeThickness}"
+                                                   StrokeThickness="{DynamicResource TextboxBorderStrokeThickness}"
                                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
                                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
                                     </VisualBrush.Visual>
@@ -556,14 +556,14 @@
                                       VerticalAlignment="Center"
                                       HorizontalScrollBarVisibility="Hidden" 
                                       VerticalScrollBarVisibility="Hidden"
-                                      Margin="{StaticResource TextboxContentMargin}"/>
+                                      Margin="{DynamicResource TextboxContentMargin}"/>
 
                     </Grid>
                     <ControlTemplate.Triggers>
 
                         <!-- Change text when unavailable. -->
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Text" Value="{StaticResource TextboxDisabledSymbol}"/>
+                            <Setter Property="Text" Value="{DynamicResource TextboxDisabledSymbol}"/>
                         </Trigger>
 
                     </ControlTemplate.Triggers>
@@ -599,15 +599,15 @@
             </Grid.ColumnDefinitions>
 
             <!-- ComboBox Background and Top/Bottom Lines -->
-            <Border Grid.ColumnSpan="{StaticResource ComboboxTextColumnSpan}"  
+            <Border Grid.ColumnSpan="{DynamicResource ComboboxTextColumnSpan}"  
                     CornerRadius="0"
-                    BorderThickness="{StaticResource ComboboxBorderThickness}" 
+                    BorderThickness="{DynamicResource ComboboxBorderThickness}" 
                     Background="Transparent">
                 <Border.BorderBrush>
                     <VisualBrush>
                         <VisualBrush.Visual>
                             <Rectangle Stroke="{TemplateBinding Foreground}"
-                                       StrokeThickness="{StaticResource ComboboxStrokeThickness}"
+                                       StrokeThickness="{DynamicResource ComboboxStrokeThickness}"
                                        Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
                                        Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
                         </VisualBrush.Visual>
@@ -647,7 +647,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}"/>
         <Setter Property="properties:ShowComboboxArrow.Value" Value="True" />
 
         <Setter Property="Template">
@@ -762,7 +762,7 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -818,7 +818,7 @@
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                     <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}"/>
-                    <Setter Property="Padding" Value="{StaticResource DataGridCellPadding}"/>
+                    <Setter Property="Padding" Value="{DynamicResource DataGridCellPadding}"/>
 
                     <Setter Property="Template">
                         <Setter.Value>
@@ -858,7 +858,7 @@
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Margin" Value="{StaticResource DataGridHeaderMargin}"/>
+                    <Setter Property="Margin" Value="{DynamicResource DataGridHeaderMargin}"/>
                 </Style>
             </Setter.Value>
         </Setter>
@@ -882,7 +882,7 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="BorderThickness" Value="{StaticResource ListViewBorderThickness}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource ListViewBorderThickness}"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}" />
 
         <Setter Property="Template">
@@ -920,7 +920,7 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type ListViewItem}">
-                    <Setter Property="Padding" Value="{StaticResource ListViewItemPadding}"/>
+                    <Setter Property="Padding" Value="{DynamicResource ListViewItemPadding}"/>
 
                     <Setter Property="Template">
                         <Setter.Value>
@@ -959,7 +959,7 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="BorderThickness" Value="{StaticResource ListViewBorderThickness}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource ListViewBorderThickness}"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}" />
 
         <Setter Property="Template">
@@ -997,7 +997,7 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Padding" Value="{StaticResource ListViewItemPadding}"/>
+                    <Setter Property="Padding" Value="{DynamicResource ListViewItemPadding}"/>
 
                     <Setter Property="Template">
                         <Setter.Value>
@@ -1037,7 +1037,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
                     <Grid x:Name="GridRoot" 
-                          Width="{StaticResource ScrollbarWidth}">
+                          Width="{DynamicResource ScrollbarWidth}">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="{DynamicResource ScrollbarBarMargin}"/>
@@ -1088,8 +1088,8 @@
                                    VerticalAlignment="Stretch" 
                                    Width="Auto" 
                                    Height="Auto" 
-                                   RadiusX="{StaticResource ScrollbarRadius}" 
-                                   RadiusY="{StaticResource ScrollbarRadius}" 
+                                   RadiusX="{DynamicResource ScrollbarRadius}" 
+                                   RadiusY="{DynamicResource ScrollbarRadius}" 
                                    Fill="{DynamicResource BorderColorBrush}" 
                                    Stroke="{DynamicResource BorderColorBrush}"/>
                     </Grid>
