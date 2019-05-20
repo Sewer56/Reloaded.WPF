@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -49,6 +52,28 @@ namespace Reloaded.WPF.Pages.Animations
             {
                 AddAnimation(storyBoard, animation, element);
             }   
+        }
+
+        /// <summary>
+        /// Animates an individual framework element.
+        /// </summary>
+        /// <param name="animations">The animations to perform on the framework element.</param>
+        /// <param name="element">The framework element to animate.</param>
+        public static async Task AnimateAsync(Animation[] animations, FrameworkElement element)
+        {
+            var storyBoard = new Storyboard();
+            Animation.AddAnimations(storyBoard, animations, element);
+            storyBoard.Begin(element);
+
+            await Task.Delay(TimeSpan.FromSeconds(Animation.GetLongestAnimationDuration(storyBoard)));
+        }
+
+        /// <summary>
+        /// Retrieves the longest animation assigned to a storyboard in seconds.
+        /// </summary>
+        public static double GetLongestAnimationDuration(Storyboard storyBoard)
+        {
+            return storyBoard.Children.Max(x => x.Duration.TimeSpan.TotalSeconds);
         }
     }
 }

@@ -13,6 +13,16 @@ namespace Reloaded.WPF.Pages
     public abstract class PageBase : System.Windows.Controls.Page
     {
         /// <summary>
+        /// Called after the page started animating in.
+        /// </summary>
+        public event Action AnimateInStarted = () => { };
+
+        /// <summary>
+        /// Called after the page started animating out.
+        /// </summary>
+        public event Action AnimateOutStarted = () => { };
+
+        /// <summary>
         /// Called after the page finished animating in.
         /// </summary>
         public event Action AnimateInFinished = () => { };
@@ -46,6 +56,7 @@ namespace Reloaded.WPF.Pages
         public virtual async Task AnimateIn()
         {
             this.Visibility = Visibility.Visible;
+            AnimateInStarted();
 
             /* Create Storyboard consisting of all animations. */
             var storyBoard = new Storyboard();
@@ -53,7 +64,7 @@ namespace Reloaded.WPF.Pages
             Animation.AddAnimations(storyBoard, animations, this);
             storyBoard.Begin(this);
 
-            await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
+            await Task.Delay(TimeSpan.FromSeconds(Animation.GetLongestAnimationDuration(storyBoard)));
             AnimateInFinished();
         }
 
@@ -62,21 +73,15 @@ namespace Reloaded.WPF.Pages
         /// </summary>
         public virtual async Task AnimateOut()
         {
+            AnimateOutStarted();
+
             var storyBoard = new Storyboard();
             var animations = MakeExitAnimations();
             Animation.AddAnimations(storyBoard, animations, this);
             storyBoard.Begin(this);
 
-            await Task.Delay(TimeSpan.FromSeconds(GetLongestAnimationDuration(storyBoard)));
+            await Task.Delay(TimeSpan.FromSeconds(Animation.GetLongestAnimationDuration(storyBoard)));
             AnimateOutFinished();
-        }
-
-        /// <summary>
-        /// Retrieves the longest animation assigned to a storyboard in seconds.
-        /// </summary>
-        protected double GetLongestAnimationDuration(Storyboard storyBoard)
-        {
-            return storyBoard.Children.Max(x => x.Duration.TimeSpan.TotalSeconds);
         }
     }
 }
