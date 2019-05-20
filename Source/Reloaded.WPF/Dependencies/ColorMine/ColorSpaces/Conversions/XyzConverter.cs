@@ -6,7 +6,7 @@ namespace ColorMine.ColorSpaces.Conversions
     internal static class XyzConverter
     {
         #region Constants/Helper methods for Xyz related spaces
-        internal static IXyz WhiteReference { get; private set; } // TODO: Un-named constants!
+        internal static IXyz WhiteReference { get; private set; }
         internal const double Epsilon = 0.008856; // Intent is 216/24389
         internal const double Kappa = 903.3; // Intent is 24389/27
         static XyzConverter()
