@@ -1108,6 +1108,7 @@
     ScrollViewer is a Grid control which has a ContentPresenter and a Horizontal and Vertical ScrollBar 
     It is used by ListBox, MenuItem, ComboBox, and TreeView -->
     <Style x:Key="DefaultScrollViewer" TargetType="{x:Type ScrollViewer}" BasedOn="{x:Null}">
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
