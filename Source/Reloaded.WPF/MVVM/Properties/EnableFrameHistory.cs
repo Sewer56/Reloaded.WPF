@@ -1,4 +1,5 @@
-﻿#pragma warning disable 1591
+﻿
+#pragma warning disable 1591
 
 using System;
 using System.Windows;
@@ -40,7 +41,7 @@ namespace Reloaded.WPF.MVVM.Properties
             {
                 try
                 {
-                    frame.RemoveBackEntry();
+                    frame.NavigationService.RemoveBackEntry();
                 }
                 catch (Exception) { /* Ignored */ }
             }
