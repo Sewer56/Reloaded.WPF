@@ -878,9 +878,9 @@
     <!-- ListView -->
     <Style x:Key="DefaultListViewStyle" TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}">
         <Setter Property="Background" Value="{StaticResource BackgroundColorBrush}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="BorderThickness" Value="{DynamicResource ListViewBorderThickness}"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderColorBrush}" />
@@ -898,9 +898,9 @@
                         <!-- Internal contents -->
                         <ScrollViewer Focusable="false">
                             <ItemsPresenter 
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </ScrollViewer>
 
                     </Grid>
