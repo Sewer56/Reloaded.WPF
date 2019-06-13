@@ -58,18 +58,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Pages\ControlsPageB.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Pages\ControlsPageA.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Pages\ProcessWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Pages\MainPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Update="Pages\ControlsPageB.xaml.cs" />
+    <Compile Update="Pages\ControlsPageA.xaml.cs" />
+    <Compile Update="Pages\ProcessWindow.xaml.cs" />
+    <Compile Update="Pages\MainPage.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -158,10 +158,6 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
 
             // Restart the stopwatch.
             _frameTimeWatch.Restart();
-
-#if DEBUG
-            Debug.WriteLine($"Overslept: {StatOverslept:+000.00;-000.00} | SleepTime: {StatSleepTime:+000.00;-000.00} | FrameTime: {StatFrameTime:000.00} | RenderTime: {StatRenderTime:000.00} | FPS: {StatFPS:000.00}");
-#endif
         }
 
 
