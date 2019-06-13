@@ -8,6 +8,7 @@
     <FontFamily x:Key="FontBold">./Theme/Default/Fonts/#Lato Bold</FontFamily>
     <FontFamily x:Key="FontBlack">./Theme/Default/Fonts/#Lato Black</FontFamily>
 
+    <sys:Double x:Key="FontSizeLargest">22</sys:Double>
     <sys:Double x:Key="FontSizeLarge">20</sys:Double>
     <sys:Double x:Key="FontSizeLarger">18</sys:Double>
     <sys:Double x:Key="FontSizeRegular">16</sys:Double>
