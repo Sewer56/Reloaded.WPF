@@ -1,5 +1,6 @@
 ﻿#pragma warning disable 1591
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using Reloaded.WPF.Pages;
@@ -40,17 +41,24 @@ namespace Reloaded.WPF.Controls
                 switcher.OldPage.Content = switcher.NewPage.Content;
                 switcher.NewPage.Content = newValue;
 
-                switcher.OldPage.ContentRendered += (sender, args) =>
+                void AnimateOutHandler(object sender, EventArgs args)
                 {
                     if (switcher.OldPage.Content is PageBase oldPage)
                         oldPage.AnimateOut();
-                };
 
-                switcher.NewPage.ContentRendered += (sender, args) =>
+                    switcher.OldPage.ContentRendered -= AnimateOutHandler;
+                }
+
+                void AnimateInHandler(object sender, EventArgs args)
                 {
                     if (switcher.NewPage.Content is PageBase newPage)
                         newPage.AnimateIn();
-                };
+
+                    switcher.NewPage.ContentRendered -= AnimateInHandler;
+                }
+
+                switcher.OldPage.ContentRendered += AnimateOutHandler;
+                switcher.NewPage.ContentRendered += AnimateInHandler;
             }
 
             return newValue;
