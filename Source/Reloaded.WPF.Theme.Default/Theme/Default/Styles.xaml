@@ -245,6 +245,25 @@
         />
     </Storyboard>
 
+    <!-- Text <==> AccentColorLightest -->
+    <Storyboard x:Key="ForegroundFadeTextToAccentLightest"
+                Storyboard.TargetProperty="Foreground.Color">
+        <ColorAnimation
+            From="{StaticResource TextColor}"
+            To="{StaticResource AccentColorLightest}"
+            Duration="{StaticResource ColorTransitionDuration}"
+        />
+    </Storyboard>
+
+    <Storyboard x:Key="ForegroundFadeAccentLightestToText"
+                Storyboard.TargetProperty="Foreground.Color">
+        <ColorAnimation
+            From="{StaticResource AccentColorLightest}"
+            To="{StaticResource TextColor}"
+            Duration="{StaticResource ColorTransitionDuration}"
+        />
+    </Storyboard>
+
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Animations xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Default Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
 
@@ -252,14 +271,14 @@
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
     </Style>
 
     <!-- Text Blocks -->
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
         <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
     </Style>
 
     <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
