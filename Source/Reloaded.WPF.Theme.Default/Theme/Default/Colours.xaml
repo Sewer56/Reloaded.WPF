@@ -2,10 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Main Palette -->
-    <Color x:Key="AccentColorLightest">#d6a8a8</Color>
-    <Color x:Key="AccentColorLighter">#B66363</Color>
-    <Color x:Key="AccentColorLight">#793939</Color>
-    <Color x:Key="AccentColor">#4e2727</Color>
+    <Color x:Key="AccentColorLightest">#d6a8a8</Color>  <!-- HSL: HSL: hsl(0, 36%, 75%) -->
+    <Color x:Key="AccentColorLighter">#B66363</Color>   <!-- HSL: HSL: hsl(0, 36%, 55%) -->
+    <Color x:Key="AccentColorLight">#793939</Color>     <!-- HSL: hsl(0, 36%, 35%) -->
+    <Color x:Key="AccentColor">#572929</Color>          <!-- HSL: hsl(0, 36%, 25%) -->
+    <Color x:Key="AccentColorDark">#452121</Color>      <!-- HSL: hsl(0, 36%, 20%) -->
+    <Color x:Key="AccentColorDarker">#341818</Color>    <!-- HSL: hsl(0, 36%, 15%) -->
+    <Color x:Key="AccentColorDarkest">#231010</Color>   <!-- HSL: hsl(0, 36%, 10%) -->
 
     <Color x:Key="TransparentBorderColor">#004c4c4c</Color>
     <Color x:Key="BorderColor">#4c4c4c</Color>
@@ -21,9 +24,14 @@
     <Color x:Key="AltSeparatorColor">#897170</Color>
 
     <!-- Default brushes. -->
+    <SolidColorBrush x:Key="AccentColorLightestBrush" Color="{DynamicResource AccentColorLightest}"/>
     <SolidColorBrush x:Key="AccentColorLighterBrush" Color="{DynamicResource AccentColorLighter}"/>
     <SolidColorBrush x:Key="AccentColorLightBrush" Color="{DynamicResource AccentColorLight}"/>
     <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentColorBrushDark" Color="{DynamicResource AccentColorDark}"/>
+    <SolidColorBrush x:Key="AccentColorBrushDarker" Color="{DynamicResource AccentColorDarker}"/>
+    <SolidColorBrush x:Key="AccentColorBrushDarkest" Color="{DynamicResource AccentColorDarkest}"/>
+
     <SolidColorBrush x:Key="BorderColorBrush" Color="{DynamicResource BorderColor}"/>
     <SolidColorBrush x:Key="BorderColorDarkBrush" Color="{DynamicResource BorderColorDark}"/>
     <SolidColorBrush x:Key="TextColorBrush" Color="{DynamicResource TextColor}"/>
