@@ -18,7 +18,7 @@ namespace Reloaded.WPF.Theme.Default
         public const string XAML_EXITFADEOPACITYEND         = "ExitFadeOpacityEnd";
         #endregion
 
-        private ResourceManipulator ResourceManipulator { get; }
+        protected ResourceManipulator ResourceManipulator { get; }
 
         public ReloadedPage()
         {
