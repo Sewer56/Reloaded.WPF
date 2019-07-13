@@ -16,15 +16,15 @@ namespace Reloaded.WPF.TestWindow.Pages
             this.DataContext = IoC.Get<Models.ViewModel.ProcessWindow>();
         }
 
-        private async void AnimateInClick(object sender, RoutedEventArgs e)
+        private void AnimateInClick(object sender, RoutedEventArgs e)
         {
-            await this.AnimateIn();
+            this.AnimateIn();
         }
 
-        private async void AnimateOutClick(object sender, RoutedEventArgs e)
+        private void AnimateOutClick(object sender, RoutedEventArgs e)
         {
-            await this.AnimateOut();
-            await this.AnimateIn();
+            this.AnimateOut();
+            this.AnimateIn();
         }
 
         private void ChangeStateClick(object sender, RoutedEventArgs e)

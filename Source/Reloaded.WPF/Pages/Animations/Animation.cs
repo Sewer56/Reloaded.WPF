@@ -59,13 +59,11 @@ namespace Reloaded.WPF.Pages.Animations
         /// </summary>
         /// <param name="animations">The animations to perform on the framework element.</param>
         /// <param name="element">The framework element to animate.</param>
-        public static async Task AnimateAsync(Animation[] animations, FrameworkElement element)
+        public static void Animate(Animation[] animations, FrameworkElement element)
         {
             var storyBoard = new Storyboard();
             Animation.AddAnimations(storyBoard, animations, element);
             storyBoard.Begin(element);
-
-            await Task.Delay(TimeSpan.FromSeconds(Animation.GetLongestAnimationDuration(storyBoard)));
         }
 
         /// <summary>

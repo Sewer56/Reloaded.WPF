@@ -52,7 +52,7 @@ namespace Reloaded.WPF.Pages
         /// <summary>
         /// Plays the entry animation for this page.
         /// </summary>
-        public virtual async Task AnimateIn()
+        public virtual void AnimateIn()
         {
             this.Visibility = Visibility.Visible;
             AnimateInStarted();
@@ -63,14 +63,13 @@ namespace Reloaded.WPF.Pages
             Animation.AddAnimations(storyBoard, animations, this);
             storyBoard.Begin(this);
 
-            await Task.Delay(TimeSpan.FromSeconds(Animation.GetLongestAnimationDuration(storyBoard)));
             AnimateInFinished();
         }
 
         /// <summary>
         /// Plays the exit animation for this page.
         /// </summary>
-        public virtual async Task AnimateOut()
+        public virtual void AnimateOut()
         {
             AnimateOutStarted();
 
@@ -79,7 +78,6 @@ namespace Reloaded.WPF.Pages
             Animation.AddAnimations(storyBoard, animations, this);
             storyBoard.Begin(this);
 
-            await Task.Delay(TimeSpan.FromSeconds(Animation.GetLongestAnimationDuration(storyBoard)));
             AnimateOutFinished();
         }
     }
