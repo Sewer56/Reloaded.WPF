@@ -567,7 +567,10 @@ namespace Reloaded.WPF.Theme.Default
 
         public void Dispose()
         {
-            
+            _hueCycleDropShadowToken?.Dispose();
+            _glowColorAnimateToken?.Dispose();
+            _glowColorAnimateTask?.Dispose();
+            _hueCycleDropShadowTask?.Dispose();
         }
 
         /* Other classes */
