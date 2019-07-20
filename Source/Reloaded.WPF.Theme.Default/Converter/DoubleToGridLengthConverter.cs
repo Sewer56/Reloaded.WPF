@@ -15,9 +15,16 @@ namespace Reloaded.WPF.Theme.Default.Converter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is double)
-                return new System.Windows.GridLength((double)value);
-
+            try
+            {
+                if (value is double)
+                    return new System.Windows.GridLength((double)value);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
             return null;
         }
 

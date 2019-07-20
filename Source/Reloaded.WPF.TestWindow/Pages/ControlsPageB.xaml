@@ -43,9 +43,11 @@
                 <DataGrid   Margin="0,10"
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center" 
-                            ItemsSource="{StaticResource DummyList}"
+                            ItemsSource="{DynamicResource DummyList}"
                             ToolTip="I am a DataGridView"
-                            ToolTipService.InitialShowDelay="500"/>
+                            ToolTipService.InitialShowDelay="500"
+                            AutoGenerateColumns="True">
+                </DataGrid>
 
                 <ListView Width="300" 
                           Margin="0,10"
