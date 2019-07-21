@@ -110,6 +110,37 @@ TResource Get<TResource>(string resourceName);
 void Set<TResource>(string resourceName, TResource value);
 ```
 
+### XAML Resource (XamlResource)
+The `XamlResource` inside `Reloaded.WPF.Utilities` is a brother of the `ResourceManipulator` class, allowing for easy acess of XAML Resources from code-behind.
+
+**Interface**
+Actual documentation omitted to keep example concise.
+```csharp
+// Make XAML Resource
+var XamlEntrySlideAnimationDuration = new XamlResource<double>("EntrySlideAnimationDuration");
+
+// Get a resource.
+XamlEntrySlideAnimationDuration.Get();
+
+// Set a resource
+XamlEntrySlideAnimationDuration.Set(value);
+```
+
+#### Behaviour
+By default, this class will look inside the application resources `Application.Current.Resources` for the XAML element. 
+
+Additional sources can be specified using either overloads of the constructor or by changing the `AdditionalSources` property.
+
+For Get/Set, the class attempts to do these operations in the following order: 
+
+- 1. Application
+- 2. `AdditionalSources`
+
+Until it finds the first element that contains the key, and exits looking in no further elements.
+
+If you would like to edit which source gets searched first, there also exists a `BiasedElement` property.
+
+
 ### Action Command (ActionCommand)
 
 The most common, famous, well known implementation of `ICommand` that accepts an `Action` (parameterless function or method) to execute some arbitrary code when attached to a framework element such as a button.

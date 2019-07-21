@@ -65,8 +65,9 @@ namespace Reloaded.WPF.Utilities
         public TResourceType Get()
         {
             // Try biased source.
-            if (BiasedElement.Resources.Contains(_resourceKey))
-                return GetFromElement(BiasedElement);
+            if (BiasedElement != null)
+                if (BiasedElement.Resources.Contains(_resourceKey))
+                    return GetFromElement(BiasedElement);
 
             // First try application.
             if (Application.Current != null)
@@ -92,10 +93,13 @@ namespace Reloaded.WPF.Utilities
         public bool Set(TResourceType value)
         {
             // Try biased source.
-            if (BiasedElement.Resources.Contains(_resourceKey))
+            if (BiasedElement != null)
             {
-                SetToElement(BiasedElement, value);
-                return true;
+                if (BiasedElement.Resources.Contains(_resourceKey))
+                {
+                    SetToElement(BiasedElement, value);
+                    return true;
+                }
             }
 
             // Try Application

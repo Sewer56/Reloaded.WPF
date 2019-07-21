@@ -8,13 +8,13 @@ namespace Reloaded.WPF.Theme.Default
 {
     public class ReloadedPage : PageBase
     {
-        private XamlResource<double> _xamlEntrySlideAnimationDuration;
-        private XamlResource<double> _xamlEntryFadeAnimationDuration;
-        private XamlResource<double> _xamlEntryFadeOpacityStart;
+        protected XamlResource<double> XamlEntrySlideAnimationDuration;
+        protected XamlResource<double> XamlEntryFadeAnimationDuration;
+        protected XamlResource<double> XamlEntryFadeOpacityStart;
 
-        private XamlResource<double> _xamlExitSlideAnimationDuration;
-        private XamlResource<double> _xamlExitFadeAnimationDuration;
-        private XamlResource<double> _xamlExitFadeOpacityEnd;
+        protected XamlResource<double> XamlExitSlideAnimationDuration;
+        protected XamlResource<double> XamlExitFadeAnimationDuration;
+        protected XamlResource<double> XamlExitFadeOpacityEnd;
 
         public ReloadedPage()
         {
@@ -24,13 +24,13 @@ namespace Reloaded.WPF.Theme.Default
             this.Loaded += (sender, args) => Loader.Load(this);
             var thisArray = new[] { this };
 
-            _xamlEntrySlideAnimationDuration    = new XamlResource<double>("EntrySlideAnimationDuration", thisArray, this);
-            _xamlEntryFadeAnimationDuration     = new XamlResource<double>("EntryFadeAnimationDuration", thisArray, this);
-            _xamlEntryFadeOpacityStart          = new XamlResource<double>("EntryFadeOpacityStart", thisArray, this);
+            XamlEntrySlideAnimationDuration    = new XamlResource<double>("EntrySlideAnimationDuration", thisArray, this);
+            XamlEntryFadeAnimationDuration     = new XamlResource<double>("EntryFadeAnimationDuration", thisArray, this);
+            XamlEntryFadeOpacityStart          = new XamlResource<double>("EntryFadeOpacityStart", thisArray, this);
 
-            _xamlExitSlideAnimationDuration     = new XamlResource<double>("ExitSlideAnimationDuration", thisArray, this);
-            _xamlExitFadeAnimationDuration      = new XamlResource<double>("ExitFadeAnimationDuration", thisArray, this);
-            _xamlExitFadeOpacityEnd             = new XamlResource<double>("ExitFadeOpacityEnd", thisArray, this);
+            XamlExitSlideAnimationDuration     = new XamlResource<double>("ExitSlideAnimationDuration", thisArray, this);
+            XamlExitFadeAnimationDuration      = new XamlResource<double>("ExitFadeAnimationDuration", thisArray, this);
+            XamlExitFadeOpacityEnd             = new XamlResource<double>("ExitFadeOpacityEnd", thisArray, this);
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace Reloaded.WPF.Theme.Default
         {
             return new Animation[]
             {
-                new RenderTransformAnimation(-this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Towards, null, _xamlEntrySlideAnimationDuration.Get()),
-                new OpacityAnimation(_xamlEntryFadeAnimationDuration.Get(), _xamlEntryFadeOpacityStart.Get(), 1)
+                new RenderTransformAnimation(-this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Towards, null, XamlEntrySlideAnimationDuration.Get()),
+                new OpacityAnimation(XamlEntryFadeAnimationDuration.Get(), XamlEntryFadeOpacityStart.Get(), 1)
             };
         }
 
@@ -54,8 +54,8 @@ namespace Reloaded.WPF.Theme.Default
         {
             return new Animation[]
             {
-                new RenderTransformAnimation(this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Away, null, _xamlExitSlideAnimationDuration.Get()),
-                new OpacityAnimation(_xamlExitFadeAnimationDuration.Get(), 1, _xamlExitFadeOpacityEnd.Get())
+                new RenderTransformAnimation(this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Away, null, XamlExitSlideAnimationDuration.Get()),
+                new OpacityAnimation(XamlExitFadeAnimationDuration.Get(), 1, XamlExitFadeOpacityEnd.Get())
             };
         }
     }
