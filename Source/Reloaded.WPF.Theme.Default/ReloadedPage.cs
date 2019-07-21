@@ -8,17 +8,13 @@ namespace Reloaded.WPF.Theme.Default
 {
     public class ReloadedPage : PageBase
     {
-        #region XAML_RESOURCE NAMES
-        public const string XAML_ENTRYSLIDEANIMATIONDURATION = "EntrySlideAnimationDuration";
-        public const string XAML_ENTRYFADEANIMATIONDURATION  = "EntryFadeAnimationDuration";
-        public const string XAML_ENTRYFADEOPACITYSTART       = "EntryFadeOpacityStart";
+        private XamlResource<double> _xamlEntrySlideAnimationDuration;
+        private XamlResource<double> _xamlEntryFadeAnimationDuration;
+        private XamlResource<double> _xamlEntryFadeOpacityStart;
 
-        public const string XAML_EXITSLIDEANIMATIONDURATION = "ExitSlideAnimationDuration";
-        public const string XAML_EXITFADEANIMATIONDURATION  = "ExitFadeAnimationDuration";
-        public const string XAML_EXITFADEOPACITYEND         = "ExitFadeOpacityEnd";
-        #endregion
-
-        protected ResourceManipulator ResourceManipulator { get; }
+        private XamlResource<double> _xamlExitSlideAnimationDuration;
+        private XamlResource<double> _xamlExitFadeAnimationDuration;
+        private XamlResource<double> _xamlExitFadeOpacityEnd;
 
         public ReloadedPage()
         {
@@ -26,7 +22,15 @@ namespace Reloaded.WPF.Theme.Default
             // So before we play the animation, we must hide it so the first frame is not seen.
 
             this.Loaded += (sender, args) => Loader.Load(this);
-            ResourceManipulator = new ResourceManipulator(this);
+            var thisArray = new[] { this };
+
+            _xamlEntrySlideAnimationDuration    = new XamlResource<double>("EntrySlideAnimationDuration", thisArray, this);
+            _xamlEntryFadeAnimationDuration     = new XamlResource<double>("EntryFadeAnimationDuration", thisArray, this);
+            _xamlEntryFadeOpacityStart          = new XamlResource<double>("EntryFadeOpacityStart", thisArray, this);
+
+            _xamlExitSlideAnimationDuration     = new XamlResource<double>("ExitSlideAnimationDuration", thisArray, this);
+            _xamlExitFadeAnimationDuration      = new XamlResource<double>("ExitFadeAnimationDuration", thisArray, this);
+            _xamlExitFadeOpacityEnd             = new XamlResource<double>("ExitFadeOpacityEnd", thisArray, this);
         }
 
         /// <summary>
@@ -37,8 +41,8 @@ namespace Reloaded.WPF.Theme.Default
         {
             return new Animation[]
             {
-                new RenderTransformAnimation(-this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Towards, null, ResourceManipulator.Get<double>(XAML_ENTRYSLIDEANIMATIONDURATION)),
-                new OpacityAnimation(ResourceManipulator.Get<double>(XAML_ENTRYFADEANIMATIONDURATION), ResourceManipulator.Get<double>(XAML_ENTRYFADEOPACITYSTART), 1)
+                new RenderTransformAnimation(-this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Towards, null, _xamlEntrySlideAnimationDuration.Get()),
+                new OpacityAnimation(_xamlEntryFadeAnimationDuration.Get(), _xamlEntryFadeOpacityStart.Get(), 1)
             };
         }
 
@@ -50,8 +54,8 @@ namespace Reloaded.WPF.Theme.Default
         {
             return new Animation[]
             {
-                new RenderTransformAnimation(this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Away, null, ResourceManipulator.Get<double>(XAML_EXITSLIDEANIMATIONDURATION)),
-                new OpacityAnimation(ResourceManipulator.Get<double>(XAML_EXITFADEANIMATIONDURATION), 1, ResourceManipulator.Get<double>(XAML_EXITFADEOPACITYEND))
+                new RenderTransformAnimation(this.ActualWidth, RenderTransformDirection.Horizontal, RenderTransformTarget.Away, null, _xamlExitSlideAnimationDuration.Get()),
+                new OpacityAnimation(_xamlExitFadeAnimationDuration.Get(), 1, _xamlExitFadeOpacityEnd.Get())
             };
         }
     }
