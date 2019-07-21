@@ -22,6 +22,11 @@ namespace Reloaded.WPF.Utilities
         /// </summary>
         public FrameworkElement BiasedElement { get; set; }
 
+        /// <summary>
+        /// The value to return by default if <see cref="Get"/> fails.
+        /// </summary>
+        public TResourceType DefaultValue { get; set; }
+
         private object _resourceKey;
 
         /// <summary>
@@ -31,6 +36,7 @@ namespace Reloaded.WPF.Utilities
         public XamlResource(object resourceKey)
         {
             _resourceKey = resourceKey;
+            AdditionalSources = new List<FrameworkElement>();
         }
 
         /// <summary>
@@ -80,6 +86,9 @@ namespace Reloaded.WPF.Utilities
                 if (source.Resources.Contains(_resourceKey))
                     return GetFromElement(source);
             }
+
+            if (DefaultValue != null)
+                return DefaultValue;
 
             // Failed
             return default;
