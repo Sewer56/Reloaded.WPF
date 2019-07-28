@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>NET472;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;NET472</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <AssemblyName>Reloaded.WPF.TestWindow</AssemblyName>
     <RootNamespace>Reloaded.WPF.TestWindow</RootNamespace>
@@ -38,14 +38,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="4.1.0">
+    <PackageReference Include="Fody" Version="5.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="ParallelExtensionsExtras" Version="1.2.0" />
-    <PackageReference Include="PropertyChanged.Fody" Version="2.5.14" />
-    <PackageReference Include="System.Management" Version="4.5.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.6.0-preview7.19362.9" />
+    <PackageReference Include="System.Management" Version="4.6.0-preview7.19362.9" />
   </ItemGroup>
 
   <ItemGroup>
