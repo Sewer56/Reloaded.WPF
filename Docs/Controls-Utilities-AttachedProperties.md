@@ -155,6 +155,8 @@ MinimizeCommand = new ActionCommand(() => { this.WindowState = WindowState.Minim
 The most common, famous, simple class featuring nothing but an implementation of `INotifyPropertyChanged`.
 Intended to be inherited by other classes and optionally (but recommended) used in conjunction with [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged) to automatically inject calls to `PropertyChanged`.
 
+To make use in this class, add `PropertyChanged.Fody` manually as a NuGet package to your own project.
+
 ## Attached Properties
 
 Here is a list of pre-included attached properties in Reloaded.WPF, found in `Reloaded.MVVM.Properties`.
