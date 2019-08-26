@@ -88,6 +88,8 @@ To do so, create a `Properties` folder (if one does not exist) and inside insert
                     Source="pack://application:,,,/Reloaded.WPF.Theme.Default;component/Theme/Default/Root.xaml"/>
 ```
 
+Note: If consuming the theme package from NuGet (instead of project reference), you may need to change the source to the following: `"pack://application:,,,/Theme/Default/Root.xaml"`.
+
 ### Designer support with .NET Core
 This is technically unrelated to Reloaded.WPF but it's very useful and not yet well known.
 
