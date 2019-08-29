@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>NET472;netcoreapp3.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <UseWPF>true</UseWPF>
+    <Description>Small WPF toolkit for building WPF Reloaded branded applications.
+This library contains the code that powers ManualAnimations, user created animations independent of WPF ecosystem.</Description>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/Sewer56/Reloaded.WPF</PackageProjectUrl>
+    <PackageIconUrl>https://camo.githubusercontent.com/5dd4af92b8931447e2544de216a239806be096c7/68747470733a2f2f692e696d6775722e636f6d2f426a506e3772552e706e67</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Sewer56/Reloaded.WPF</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Sewer56</Authors>
+    <Company>Sewer56</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Reloaded.WPF.ColorMineLite\Reloaded.WPF.ColorMineLite.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

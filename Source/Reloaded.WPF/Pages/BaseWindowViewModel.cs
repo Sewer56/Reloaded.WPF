@@ -8,7 +8,7 @@ using Reloaded.WPF.Utilities;
 
 namespace Reloaded.WPF.Pages
 {
-    public class BaseWindowViewModel : ObservableObject
+    public class BaseWindowViewModel : ObservableDependencyObject
     {
         public event Action<WindowDockPosition>  WindowDockChanged = position => { };
 

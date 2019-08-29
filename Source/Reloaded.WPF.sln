@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reloaded.WPF.TestWindow", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reloaded.WPF.Theme.Default", "Reloaded.WPF.Theme.Default\Reloaded.WPF.Theme.Default.csproj", "{3469FFD5-BD50-427A-A0F8-C1EED3DE1003}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reloaded.WPF.Animations", "Reloaded.WPF.Animations\Reloaded.WPF.Animations.csproj", "{3C0951A4-822F-43AA-8356-98D3087EFF43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reloaded.WPF.ColorMineLite", "Reloaded.WPF.ColorMineLite\Reloaded.WPF.ColorMineLite.csproj", "{91EF0F15-FFCA-46CC-BEC6-34B5E1959E67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{3469FFD5-BD50-427A-A0F8-C1EED3DE1003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3469FFD5-BD50-427A-A0F8-C1EED3DE1003}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3469FFD5-BD50-427A-A0F8-C1EED3DE1003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C0951A4-822F-43AA-8356-98D3087EFF43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C0951A4-822F-43AA-8356-98D3087EFF43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C0951A4-822F-43AA-8356-98D3087EFF43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C0951A4-822F-43AA-8356-98D3087EFF43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91EF0F15-FFCA-46CC-BEC6-34B5E1959E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EF0F15-FFCA-46CC-BEC6-34B5E1959E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91EF0F15-FFCA-46CC-BEC6-34B5E1959E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91EF0F15-FFCA-46CC-BEC6-34B5E1959E67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

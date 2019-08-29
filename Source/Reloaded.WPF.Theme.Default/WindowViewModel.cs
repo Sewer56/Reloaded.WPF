@@ -7,9 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
+using PropertyChanged;
+using Reloaded.WPF.Animations;
+using Reloaded.WPF.Animations.Samples;
+using Reloaded.WPF.ColorMineLite.ColorSpaces;
 using Reloaded.WPF.Pages;
 using Reloaded.WPF.Utilities;
-using Reloaded.WPF.Utilities.Animation.Manual;
 
 namespace Reloaded.WPF.Theme.Default
 {
@@ -50,18 +53,15 @@ namespace Reloaded.WPF.Theme.Default
         private const string XAML_EnableGlowHueCycle          = "EnableGlowHueCycle";
         private const string XAML_GlowHueCycleFramesPerSecond = "GlowHueCycleFramesPerSecond";
         private const string XAML_GlowHueCycleLoopDuration    = "GlowHueCycleLoopDuration";
-        private const string XAML_GlowHueCycleChroma          = "GlowHueCycleChroma";
-        private const string XAML_GlowHueCycleLightness       = "GlowHueCycleLightness";
+        private const string XAML_GlowHueCycleColor           = "GlowHueCycleColor";
         // ReSharper restore InconsistentNaming
         #endregion
 
         private State _windowState = State.Normal;
         private Effect _oldDropShadowEffect;
 
-        private CancellationTokenSource _hueCycleDropShadowToken;
-        private CancellationTokenSource _glowColorAnimateToken;
-        private Task _glowColorAnimateTask;
-        private Task _hueCycleDropShadowTask;
+        private LerpColorAnimation _glowColorAnimation;
+        private CycleColorAnimation _hueCycleDropShadowAnimation;
 
         private State _lastState;
 
@@ -121,10 +121,9 @@ namespace Reloaded.WPF.Theme.Default
             if (Resources.Get<bool>(XAML_EnableGlowHueCycle))
             {
                 EnableHueCycleDropShadow(
+                    Resources.Get<Color>(XAML_GlowHueCycleColor),
                     Resources.Get<int>(XAML_GlowHueCycleFramesPerSecond),
-                    Resources.Get<int>(XAML_GlowHueCycleLoopDuration),
-                    Resources.Get<float>(XAML_GlowHueCycleChroma),
-                    Resources.Get<float>(XAML_GlowHueCycleLightness));
+                    Resources.Get<int>(XAML_GlowHueCycleLoopDuration));
             }
         }
 
@@ -148,7 +147,7 @@ namespace Reloaded.WPF.Theme.Default
                 
                 return new Thickness(0);
             }
-            set => Resources.Set( XAML_DropShadowBorderSize, value);
+            set => Resources.Set(XAML_DropShadowBorderSize, value);
         }
 
         /// <summary>
@@ -194,7 +193,16 @@ namespace Reloaded.WPF.Theme.Default
         /// Note: Setting this will not animate the transition, if you would like for the transition to be animated
         /// make sure that <see cref="GlowColorAnimationEnable"/> is set to "true" and that you use <see cref="SetGlowColor"/> instead.
         /// </summary>
-        public Color GlowColor { get; set; }
+        [DoNotNotify]
+        public Color GlowColor
+        {
+            get => (Color) GetValue(GlowColorProperty);
+            set => Application.Current.Dispatcher.Invoke((Action<Color>)((color) => SetValue(GlowColorProperty, color)), value);
+        }
+
+        // Binding to a DependencyProperty avoids reflection, making it faster for the binding engine to obtain the glow color.
+        // This saves CPU times when the glow color is updated at very high frequencies.
+        private static DependencyProperty GlowColorProperty = DependencyProperty.Register(nameof(GlowColor), typeof(Color), typeof(WindowViewModel));
 
         /// <summary>
         /// Allows or disallows the active changing of window colour based on whether
@@ -399,24 +407,18 @@ namespace Reloaded.WPF.Theme.Default
         /// <summary>
         /// Enables hue cycling of the drop shadow for the window.
         /// </summary>
+        /// <param name="startColor">The colour to start animating from.</param>
         /// <param name="framesPerSecond">The amount of frames per second.</param>
         /// <param name="duration">The duration in milliseconds.</param>
-        /// <param name="chroma">Range 0 to 100. The quality of a color's purity, intensity or saturation. </param>
-        /// <param name="lightness">Range 0 to 100. The quality (chroma) lightness or darkness.</param>
         /// <remarks>https://www.harding.edu/gclayton/color/topics/001_huevaluechroma.html</remarks>
-        public async void EnableHueCycleDropShadow(int framesPerSecond = 30, int duration = 6000, float chroma = 50F,
-            float lightness = 50F)
+        public void EnableHueCycleDropShadow(Color startColor, int framesPerSecond = 30, int duration = 6000)
         {
             AllowGlowStateChange = false;
 
-            if (_hueCycleDropShadowToken != null)
-            {
-                _hueCycleDropShadowToken.Cancel();
-                await _hueCycleDropShadowTask;
-            }
+            if (_hueCycleDropShadowAnimation == null)
+                _hueCycleDropShadowAnimation = new CycleColorAnimation(color => GlowColor = color, startColor, duration, framesPerSecond);
 
-            _hueCycleDropShadowToken = new CancellationTokenSource();
-            _hueCycleDropShadowTask = ManualAnimations.HueCycleColor(color => GlowColor = color, _hueCycleDropShadowToken.Token, framesPerSecond, duration, chroma, lightness);
+            _hueCycleDropShadowAnimation.Animate();
         }
 
         /// <summary>
@@ -424,8 +426,7 @@ namespace Reloaded.WPF.Theme.Default
         /// </summary>
         public void DisableHueCycleDropShadow()
         {
-            _hueCycleDropShadowToken.Cancel();
-            _hueCycleDropShadowTask.Wait();
+            _hueCycleDropShadowAnimation.Cancel();
             AllowGlowStateChange = true;
         }
 
@@ -463,7 +464,7 @@ namespace Reloaded.WPF.Theme.Default
         /// The change will be animated if <see cref="GlowColorAnimationEnable"/> is set to "true".
         /// </summary>
         /// <param name="newColor">The new glow colour.</param>
-        public async void SetGlowColor(Color newColor)
+        public void SetGlowColor(Color newColor)
         {
             Color currentColor = GlowColor;
 
@@ -471,14 +472,11 @@ namespace Reloaded.WPF.Theme.Default
             {
                 if (GlowColorAnimationEnable)
                 {
-                    if (_glowColorAnimateToken != null)
-                    {
-                        _glowColorAnimateToken.Cancel();
-                        await _glowColorAnimateTask;
-                    }
+                    _glowColorAnimation?.Cancel();
 
-                    _glowColorAnimateToken = new CancellationTokenSource();
-                    _glowColorAnimateTask = ManualAnimations.ColorAnimate(x => GlowColor = x, _glowColorAnimateToken.Token, currentColor, newColor, GlowColorAnimationFramesPerSecond, GlowColorAnimationDuration);
+                    _glowColorAnimation = new LerpColorAnimation(x => GlowColor = x, currentColor, newColor, GlowColorAnimationDuration, GlowColorAnimationFramesPerSecond);
+                    _glowColorAnimation.Repeat = 1;
+                    _glowColorAnimation.Animate();
                 }
 
                 else
@@ -567,10 +565,8 @@ namespace Reloaded.WPF.Theme.Default
 
         public void Dispose()
         {
-            _hueCycleDropShadowToken?.Dispose();
-            _glowColorAnimateToken?.Dispose();
-            _glowColorAnimateTask?.Dispose();
-            _hueCycleDropShadowTask?.Dispose();
+            _glowColorAnimation?.Dispose();
+            _hueCycleDropShadowAnimation?.Dispose();
         }
 
         /* Other classes */

@@ -1,6 +1,6 @@
-﻿using ColorMine.ColorSpaces;
+﻿using Reloaded.WPF.ColorMineLite.ColorSpaces;
 
-namespace Reloaded.WPF.Utilities.Animation.Manual.Utilities
+namespace Reloaded.WPF.Animations.Utilities
 {
     /// <summary>
     /// Utility class that provides various colour interpolations between sets of colours.

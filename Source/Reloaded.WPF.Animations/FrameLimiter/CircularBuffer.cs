@@ -14,7 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Reloaded.WPF.Utilities.Animation.Manual.Dependencies
+namespace Reloaded.WPF.Animations.FrameLimiter
 {
     /// <inheritdoc/>
     /// <summary>

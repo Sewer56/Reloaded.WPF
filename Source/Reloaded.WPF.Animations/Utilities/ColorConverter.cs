@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
-using ColorMine.ColorSpaces;
+using Reloaded.WPF.ColorMineLite.ColorSpaces;
 
-namespace Reloaded.WPF.Utilities.Animation.Manual.Utilities
+namespace Reloaded.WPF.Animations.Utilities
 {
     /// <summary>
     /// Colour c, suitable for HUE cycling and interpolation

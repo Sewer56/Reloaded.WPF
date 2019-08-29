@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using Reloaded.WPF.Utilities.Animation.Manual.Dependencies;
+using System.Threading.Tasks;
 
-namespace Reloaded.WPF.Utilities.Animation.Manual
+namespace Reloaded.WPF.Animations.FrameLimiter
 {
     /// <summary>
     /// The <see cref="SharpFPS"/> class is a simple class that allows for control of frame pacing
@@ -131,9 +131,9 @@ namespace Reloaded.WPF.Utilities.Animation.Manual
         public void EndFrame(bool spin = false)
         {
             // Summarize stats for the current frame.
-            StatRenderTime = _frameTimeWatch.Elapsed.TotalMilliseconds;
+            StatRenderTime   = _frameTimeWatch.Elapsed.TotalMilliseconds;
             StatPotentialFPS = MillisecondsInSecond / StatRenderTime;
-            StatSleepTime = FrameTimeTarget - StatOverslept - StatRenderTime;
+            StatSleepTime    = FrameTimeTarget - StatOverslept - StatRenderTime;
 
             // We are not rendering fast enough! FPS cap not reached!
             if (StatSleepTime < 0)
