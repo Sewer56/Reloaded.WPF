@@ -57,7 +57,7 @@ namespace Reloaded.WPF.Animations
         /// </summary>
         public ManualAnimationState State { get; internal set; } = ManualAnimationState.NotStarted;
 
-        private Task _animateTask;
+        private Thread _animateThread;
 
         /// <summary>
         /// Creates an instance of the <see cref="ManualAnimation{T}"/> method helping create custom animations.
@@ -124,10 +124,18 @@ namespace Reloaded.WPF.Animations
         /// <summary>
         /// Cancels the animation.
         /// </summary>
+        public void CancelAsync()
+        {
+            State = ManualAnimationState.Cancelled;
+        }
+
+        /// <summary>
+        /// Cancels the animation.
+        /// </summary>
         public void Cancel()
         {
-            if (State != ManualAnimationState.Complete)
-                State = ManualAnimationState.Cancelled;
+            CancelAsync();
+            _animateThread?.Join();
         }
 
         /// <summary>
@@ -158,19 +166,18 @@ namespace Reloaded.WPF.Animations
                 throw new Exception($"{nameof(InterpolationMethod)} or {nameof(ExecutionMethod)} is null. Both execution and interpolation method must be specified.");
 
             // Cancel existing animation if necessary.
-            if (_animateTask != null)
-            {
-                State = ManualAnimationState.Cancelled;
-                _animateTask.Wait();
-            }
+            Cancel();
 
-            _animateTask = Task.Run(ExecuteManualAnimation);
+            State = ManualAnimationState.Running;
+            _animateThread = new Thread(ExecuteManualAnimation);
+            _animateThread.Start();
+
+            // Note: Do not use Task.Run or the ThreadPool.
+            // They can lead to significant time being taken to start the animations when many animations are started at once.
         }
 
-        private async Task ExecuteManualAnimation()
+        private void ExecuteManualAnimation()
         {
-            State = ManualAnimationState.Running;
-
             // Setup the frame pacing class.
             SharpFPS fps = new SharpFPS();
             fps.FPSLimit = FrameRate;
@@ -188,7 +195,7 @@ namespace Reloaded.WPF.Animations
                 {
                     // Cancel if necessary.
                     while (State == ManualAnimationState.Paused)
-                        await Task.Delay(1);
+                        Thread.Sleep(16);
 
                     if (State == ManualAnimationState.Cancelled)
                         return;
@@ -226,7 +233,7 @@ namespace Reloaded.WPF.Animations
 
         public void Dispose()
         {
-            _animateTask?.Dispose();
+            Cancel();
             GC.SuppressFinalize(this);
         }
     }
