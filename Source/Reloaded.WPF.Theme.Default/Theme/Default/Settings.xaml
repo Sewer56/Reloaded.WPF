@@ -104,6 +104,6 @@
     <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>   <!-- Opacity of the tooltip background -->
 
     <!-- Control Properties: Context Menus -->
-    <Thickness x:Key="ContextMenuBorderThickness">0,2,0,2</Thickness>
+    <Thickness x:Key="ContextMenuTextMargin">0,2,0,2</Thickness>
 
 </ResourceDictionary>
