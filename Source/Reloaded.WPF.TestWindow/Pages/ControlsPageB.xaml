@@ -96,6 +96,10 @@
                     <MenuItem Header="Format"/>
                     <MenuItem Header="Misc" IsEnabled="False"/>
                 </Menu>
+
+                <StatusBar Margin="0,10">
+                    <TextBlock Text="This is a StatusBar"/>
+                </StatusBar>
             </StackPanel>
         </ScrollViewer>
     </Grid>

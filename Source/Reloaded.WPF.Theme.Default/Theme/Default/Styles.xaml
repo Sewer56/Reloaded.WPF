@@ -1410,6 +1410,25 @@
         </Setter>
     </Style>
 
+    <!-- Statusbar -->
+    <Style x:Key="DefaultStatusbar" TargetType="{x:Type StatusBar}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,10"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type StatusBar}">
+                    <Border Background="{TemplateBinding Background}">
+                        <ItemsPresenter VerticalAlignment   = "{TemplateBinding VerticalContentAlignment}"
+                                        HorizontalAlignment = "{TemplateBinding HorizontalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Default Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Style Bindings xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
 
@@ -1433,6 +1452,7 @@
     <Style TargetType="{x:Type Menu}" BasedOn="{StaticResource DefaultMenuStyle}"/>
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource DefaultMenuItemStyle}"/>
     <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource DefaultContextMenu}"/>
+    <Style TargetType="{x:Type StatusBar}" BasedOn="{StaticResource DefaultStatusbar}"/>
 
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Style Bindings xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Custom/Optional Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
