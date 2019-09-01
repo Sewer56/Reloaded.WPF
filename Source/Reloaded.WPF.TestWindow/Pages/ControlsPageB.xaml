@@ -7,7 +7,8 @@
             xmlns:models="clr-namespace:Reloaded.WPF.TestWindow.Models.Model"
             x:Class="Reloaded.WPF.TestWindow.Pages.ControlsPageB"
             mc:Ignorable="d" 
-            d:DesignHeight="650" d:DesignWidth="800">
+            d:DesignHeight="650" 
+            d:DesignWidth="800">
 
     <!-- Dummy Data -->
     <default:ReloadedPage.Resources>
@@ -68,6 +69,33 @@
                     <ListBoxItem>Sewers</ListBoxItem>
                 </ListBox>
 
+                <Menu Margin="0,10">
+                    <Menu.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="This"/>
+                            <MenuItem Header="is"/>
+                            <MenuItem Header="a"/>
+                            <MenuItem Header="ContextMenu"/>
+                        </ContextMenu>
+                    </Menu.ContextMenu>
+                    <MenuItem Header="File">
+                        <MenuItem Header="Open"/>
+                        <MenuItem Header="Save"/>
+                        <MenuItem Header="Save As"/>
+                        <MenuItem Header="Options">
+                            <MenuItem Header="Snap the universe."/>
+                            <MenuItem Header="Blip the universe."/>
+                            <MenuItem Header="I am Man of Iron" IsCheckable="True"/>
+                        </MenuItem>
+                    </MenuItem>
+
+                    <MenuItem Header="Edit">
+                        <MenuItem Header="Resize"/>
+                        <MenuItem Header="Resample"/>
+                    </MenuItem>
+                    <MenuItem Header="Format"/>
+                    <MenuItem Header="Misc" IsEnabled="False"/>
+                </Menu>
             </StackPanel>
         </ScrollViewer>
     </Grid>

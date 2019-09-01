@@ -102,6 +102,8 @@
     <CornerRadius x:Key="TooltipCornerRadius">10</CornerRadius>     <!-- Radius of the tooltip corners. -->
     <Thickness x:Key="TooltipPaddingSize">12</Thickness>            <!-- Size between the text and the outer tooltip bubble. -->
     <sys:Double x:Key="TooltipBackgroundOpacity">0.7</sys:Double>   <!-- Opacity of the tooltip background -->
-    
+
+    <!-- Control Properties: Context Menus -->
+    <Thickness x:Key="ContextMenuBorderThickness">0,2,0,2</Thickness>
 
 </ResourceDictionary>

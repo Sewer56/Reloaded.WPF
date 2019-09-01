@@ -1,6 +1,7 @@
 ﻿#pragma warning disable 1591
 
 using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -64,12 +65,15 @@ namespace Reloaded.WPF.Theme.Default
         private CycleColorAnimation _hueCycleDropShadowAnimation;
 
         private State _lastState;
+        private bool _isClosed = false;
+        private Window _window;
 
         /* Note: All sizes are in points, not pixels. */
 
         public WindowViewModel(Window window) : base(window)
         {
             // Load window style.
+            _window = window;
             Loader.Load(window);
 
             // Notify drop shadow/border on change of state
@@ -125,6 +129,15 @@ namespace Reloaded.WPF.Theme.Default
                     Resources.Get<int>(XAML_GlowHueCycleFramesPerSecond),
                     Resources.Get<int>(XAML_GlowHueCycleLoopDuration));
             }
+
+            window.Closing += WindowOnClosing;
+        }
+
+        private void WindowOnClosing(object sender, CancelEventArgs e)
+        {
+            _glowColorAnimation?.Pause();
+            _hueCycleDropShadowAnimation?.Pause();
+            _isClosed = true;
         }
 
         /* Public Tweakables */
@@ -470,7 +483,7 @@ namespace Reloaded.WPF.Theme.Default
 
             if (currentColor != newColor)
             {
-                if (GlowColorAnimationEnable)
+                if (GlowColorAnimationEnable && !_isClosed)
                 {
                     _glowColorAnimation?.Cancel();
 

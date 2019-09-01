@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>netcoreapp3.0;NET472</TargetFrameworks>
+    <TargetFrameworks>NET472;netcoreapp3.0</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <AssemblyName>Reloaded.WPF.TestWindow</AssemblyName>
     <RootNamespace>Reloaded.WPF.TestWindow</RootNamespace>
