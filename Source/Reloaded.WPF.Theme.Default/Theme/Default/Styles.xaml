@@ -1415,7 +1415,6 @@
         <Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0,10"/>
 
         <Setter Property="Template">
             <Setter.Value>
