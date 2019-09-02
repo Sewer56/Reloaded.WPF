@@ -132,7 +132,7 @@ namespace Reloaded.WPF.Animations
         /// <summary>
         /// Cancels the animation.
         /// </summary>
-        public void Cancel(int maxWaitTimeMs)
+        public void Cancel(int maxWaitTimeMs = 100)
         {
             CancelAsync();
             _animateThread?.Join(maxWaitTimeMs);
