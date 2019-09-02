@@ -485,7 +485,7 @@ namespace Reloaded.WPF.Theme.Default
             {
                 if (GlowColorAnimationEnable && !_isClosed)
                 {
-                    _glowColorAnimation?.Cancel();
+                    _glowColorAnimation?.CancelAsync();
 
                     _glowColorAnimation = new LerpColorAnimation(x => GlowColor = x, currentColor, newColor, GlowColorAnimationDuration, GlowColorAnimationFramesPerSecond);
                     _glowColorAnimation.Repeat = 1;
