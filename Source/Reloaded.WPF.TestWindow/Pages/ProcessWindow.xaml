@@ -16,7 +16,8 @@
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center"
                        Margin="0,5"
-                       ToolTipService.InitialShowDelay="0">
+                       ToolTipService.InitialShowDelay="0"
+                       Style="{DynamicResource DefaultTextBlock}">
             </TextBlock>
 
             <!-- Animation Buttons -->

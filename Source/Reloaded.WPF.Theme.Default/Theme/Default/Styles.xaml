@@ -296,14 +296,13 @@
     </Style>
 
     <!-- Text Blocks -->
-    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+    <Style TargetType="{x:Type TextBlock}" x:Key="DefaultTextBlock">
         <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
     </Style>
 
-    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
-    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle" BasedOn="{StaticResource DefaultTextBlock}"/>
 
     <!-- Styles not fully inheriting from Control -->
     <Style x:Key="DefaultButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
@@ -1433,6 +1432,7 @@
 
     <!-- The following styles will be automatically applied to new controls. -->
 
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}"/>
     <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource DefaultToolTip}"/>
     <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource DefaultRadioButton}"/>
@@ -1457,7 +1457,7 @@
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Custom/Optional Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
 
     <!-- Page Header -->
-    <Style x:Key="HeaderText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+    <Style x:Key="HeaderText" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultTextBlock}">
         <Setter Property="FontFamily" Value="{DynamicResource FontThin}" />
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
