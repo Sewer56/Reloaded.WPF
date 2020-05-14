@@ -20,8 +20,6 @@ namespace Reloaded.WPF.Theme.Default
         {
             // We play the animation once the content is rendered.
             // So before we play the animation, we must hide it so the first frame is not seen.
-
-            this.Loaded += (sender, args) => Loader.Load(this);
             var thisArray = new[] { this };
 
             XamlEntrySlideAnimationDuration    = new XamlResource<double>("EntrySlideAnimationDuration", thisArray, this);

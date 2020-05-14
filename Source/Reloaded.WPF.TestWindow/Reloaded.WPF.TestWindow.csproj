@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>NET472;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <AssemblyName>Reloaded.WPF.TestWindow</AssemblyName>
     <RootNamespace>Reloaded.WPF.TestWindow</RootNamespace>
@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Properties\DesignTimeResources.xaml" />
     <Page Remove="Styles\Window_Settings.xaml" />
   </ItemGroup>
 
@@ -29,12 +28,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Generator>MSBuild:Compile</Generator>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Properties\DesignTimeResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -72,5 +65,9 @@
     <Page Update="Pages\ControlsPageA.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

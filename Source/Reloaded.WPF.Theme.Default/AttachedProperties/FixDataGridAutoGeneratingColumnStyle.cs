@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using Reloaded.WPF.MVVM;
@@ -31,56 +32,48 @@ namespace Reloaded.WPF.Theme.Default.AttachedProperties
                 {
                     grid.Columns.CollectionChanged += ColumnsOnCollectionChanged;
                 }
-
-                ColumnsOnCollectionChanged(grid, null);
             }
         }
 
         private void ColumnsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (sender is DataGrid grid)
+            foreach (var column in (ObservableCollection<DataGridColumn>) sender)
             {
-                // Get the window which hosts the grid (and default/reloaded theme will be accessible from).
-                var window = Window.GetWindow(grid);
-
-                foreach (var column in grid.Columns)
+                switch (column)
                 {
-                    if (column is DataGridCheckBoxColumn checkboxColumn)
+                    case DataGridCheckBoxColumn checkboxColumn:
                     {
-                        if (TryGetResource(CheckBoxStyle, window, out var newStyle))
+                        if (TryGetResource(CheckBoxStyle, out var newStyle))
                         {
                             checkboxColumn.ElementStyle = (Style)newStyle;
                             checkboxColumn.EditingElementStyle = (Style)newStyle;
                         }
-                    }
 
-                    if (column is DataGridTextColumn textColumn)
+                        break;
+                    }
+                    case DataGridTextColumn textColumn:
                     {
-                        if (TryGetResource(TextBoxStyle, window, out var editStyle))
+                        if (TryGetResource(TextBoxStyle, out var editStyle))
                             textColumn.EditingElementStyle = (Style)editStyle;
 
-                        if (TryGetResource(typeof(TextBlock), window, out var elementStyle))
+                        if (TryGetResource(typeof(TextBlock), out var elementStyle))
                             textColumn.ElementStyle = (Style)elementStyle;
-                    }
 
-                    if (column is DataGridComboBoxColumn comboBoxColumn)
+                        break;
+                    }
+                    case DataGridComboBoxColumn comboBoxColumn:
                     {
-                        if (TryGetResource(ComboBoxStyle, window, out var editStyle))
+                        if (TryGetResource(ComboBoxStyle, out var editStyle))
                             comboBoxColumn.EditingElementStyle = (Style)editStyle;
+
+                        break;
                     }
                 }
             }
         }
 
-        private bool TryGetResource(object resourceKey, Window window, out Style newStyle)
+        private bool TryGetResource(object resourceKey, out Style newStyle)
         {
-            if (window != null)
-            {
-                newStyle = window.TryFindResource(resourceKey) as Style;
-                if (newStyle != null)
-                    return true;
-            }
-
             newStyle = Application.Current.TryFindResource(resourceKey) as Style;
             if (newStyle != null)
                 return true;

@@ -5,10 +5,10 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Fonts.xaml"/>
                 <ResourceDictionary Source="Styles.xaml"/>
                 <ResourceDictionary Source="Window.xaml"/>
                 <ResourceDictionary Source="Settings.xaml"/>
-                <ResourceDictionary Source="Fonts.xaml"/>
                 <ResourceDictionary Source="Colours.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

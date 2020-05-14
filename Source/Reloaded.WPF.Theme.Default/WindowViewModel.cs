@@ -61,6 +61,7 @@ namespace Reloaded.WPF.Theme.Default
         private State _windowState = State.Normal;
         private Effect _oldDropShadowEffect;
 
+        private DictionaryResourceManipulator Resources { get; set; }
         private LerpColorAnimation _glowColorAnimation;
         private CycleColorAnimation _hueCycleDropShadowAnimation;
 
@@ -73,8 +74,8 @@ namespace Reloaded.WPF.Theme.Default
         public WindowViewModel(Window window) : base(window)
         {
             // Load window style.
+            Resources = new DictionaryResourceManipulator(Application.Current.Resources);
             _window = window;
-            Loader.Load(window);
 
             // Notify drop shadow/border on change of state
             // or window dock position.

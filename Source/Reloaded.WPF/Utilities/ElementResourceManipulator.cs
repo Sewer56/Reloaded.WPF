@@ -6,13 +6,13 @@ namespace Reloaded.WPF.Utilities
     /// A helper class which lets you access the XAML Resources
     /// of a WPF framework element.
     /// </summary>
-    public class ResourceManipulator
+    public class ElementResourceManipulator
     {
         private FrameworkElement _element;
 
         /// <summary/>
         /// <param name="element">The WPF framework element (e.g. Window, Control).</param>
-        public ResourceManipulator(FrameworkElement element)
+        public ElementResourceManipulator(FrameworkElement element)
         {
             _element = element;
         }

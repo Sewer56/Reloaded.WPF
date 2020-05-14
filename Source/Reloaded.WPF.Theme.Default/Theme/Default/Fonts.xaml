@@ -1,12 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+                    xmlns:controls="clr-namespace:Reloaded.WPF.Controls;assembly=Reloaded.WPF">
 
-    <FontFamily x:Key="FontThin">./Theme/Default/Fonts/#Lato Thin</FontFamily>
-    <FontFamily x:Key="FontLight">./Theme/Default/Fonts/#Lato Light</FontFamily>
-    <FontFamily x:Key="FontRegular">./Theme/Default/Fonts/#Lato</FontFamily>
-    <FontFamily x:Key="FontBold">./Theme/Default/Fonts/#Lato Bold</FontFamily>
-    <FontFamily x:Key="FontBlack">./Theme/Default/Fonts/#Lato Black</FontFamily>
+    <ResourceDictionary.MergedDictionaries>
+        <controls:FontFamilyResourceDictionary Source="/Theme/Default/Fonts/"/>
+    </ResourceDictionary.MergedDictionaries>
 
     <sys:Double x:Key="FontSizeLargest">22</sys:Double>
     <sys:Double x:Key="FontSizeLarge">20</sys:Double>

@@ -59,14 +59,13 @@
 
                 <!-- Process List -->
                 <ItemsControl Name="ProcessesPanel" ItemsSource="{Binding Path=ProcessModels}"
-                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                          VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.VirtualizationMode="Recycling" DockPanel.Dock="Top">
 
                     <!-- Allow for virtualization of stack panel. -->
                     <ItemsControl.Template>
                         <ControlTemplate TargetType="{x:Type ItemsControl}">
-                            <ScrollViewer CanContentScroll="True">
+                            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Hidden">
                                 <ItemsPresenter/>
                             </ScrollViewer>
                         </ControlTemplate>

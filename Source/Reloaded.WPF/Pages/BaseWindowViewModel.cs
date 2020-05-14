@@ -18,7 +18,6 @@ namespace Reloaded.WPF.Pages
         public ICommand CloseCommand    { get; set; }
 
         /* Local variables. */
-        protected ResourceManipulator Resources;
         protected System.Windows.Window TargetWindow;
         protected WindowResizer       WindowResizer;
         protected WindowDockPosition  DockPosition = WindowDockPosition.Undocked;
@@ -32,7 +31,6 @@ namespace Reloaded.WPF.Pages
             // though this is not a viewmodel we will probably use in non-desktop
             // environments and everything here is specific to desktop style.
             TargetWindow   = window;
-            Resources      = new ResourceManipulator(window);
             WindowResizer  = new WindowResizer(TargetWindow);
 
             /* Setup hooks for dock position change. */

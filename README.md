@@ -36,7 +36,7 @@ By default, when the window is inactive, the border automatically turns gray. On
 There are currently 2 window states implemented. You have "Normal" *(white)* when nothing special is going on and "Engaged" *(maroon)* for when the program is busy/doing some work.
 
 ### Animations
- 
+
 ![Animation](https://i.imgur.com/NBbniBo.gif)
 
 The Reloaded theme supports a minimal set of default animations in its own very easy to use animation interface based on storyboards, with animations being very easy to make and attach to UI elements. 
@@ -59,7 +59,7 @@ The barrier to entry remains at the baseline level of WPF knowledge.
 
 For some projects, bloat is a rather major concern. As such, Reloaded.WPF consists of only two minimal assemblies, base and the default theme. In both of the assemblies, there are no external dependencies outside the .NET Base Class Library (BCL).
 
-The footprint of Reloaded.WPF is approximately 450KB in Release mode, of which 70KB is code and the remaining 380KB are assets (Resource Dictionaries, Images, Fonts).
+The footprint of Reloaded.WPF is approximately 330KB in Release mode, of which 70KB is code and the remaining 260KB are assets (Resource Dictionaries, Images, Fonts).
 
 ### Customizable
 
