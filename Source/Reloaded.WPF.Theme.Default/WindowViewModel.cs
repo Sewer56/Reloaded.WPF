@@ -2,16 +2,12 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using PropertyChanged;
-using Reloaded.WPF.Animations;
 using Reloaded.WPF.Animations.Samples;
-using Reloaded.WPF.ColorMineLite.ColorSpaces;
 using Reloaded.WPF.Pages;
 using Reloaded.WPF.Utilities;
 

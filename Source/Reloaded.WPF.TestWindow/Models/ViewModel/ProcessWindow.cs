@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Reloaded.WPF.TestWindow.Models.Model;
+﻿using Reloaded.WPF.TestWindow.Models.Model;
 using Reloaded.WPF.Theme.Default;
 
 namespace Reloaded.WPF.TestWindow.Models.ViewModel

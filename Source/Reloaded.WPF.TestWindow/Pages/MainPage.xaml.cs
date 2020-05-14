@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Management;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using Reloaded.WPF.Controls;
-using Reloaded.WPF.TestWindow.Models;
-using Reloaded.WPF.TestWindow.Models.Model;
 using Reloaded.WPF.TestWindow.Models.ViewModel;
 using Reloaded.WPF.Theme.Default;
 using Process = Reloaded.WPF.TestWindow.Models.Model.Process;

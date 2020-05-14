@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-using Reloaded.WPF.TestWindow.Models.ViewModel;
-using Reloaded.WPF.Theme.Default;
+﻿using Reloaded.WPF.Theme.Default;
 
 namespace Reloaded.WPF.TestWindow.Pages
 {
