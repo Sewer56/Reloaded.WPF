@@ -109,7 +109,7 @@ void Set<TResource>(string resourceName, TResource value);
 ```
 
 ### XAML Resource (XamlResource)
-The `XamlResource` inside `Reloaded.WPF.Utilities` is a brother of the `ResourceManipulator` class, allowing for easy acess of XAML Resources from code-behind.
+The `XamlResource` inside `Reloaded.WPF.Utilities` is a brother of the `ResourceManipulator` class, allowing for easy access of XAML Resources from code-behind.
 
 **Interface**
 Actual documentation omitted to keep example concise.
