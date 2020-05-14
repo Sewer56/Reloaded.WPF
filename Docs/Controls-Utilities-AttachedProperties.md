@@ -93,16 +93,14 @@ public class SomeAttachedProperty : AttachedPropertyBase<SomeAttachedProperty, b
 
 For an actual functional example, refer to the *NoFrameHistory* attached property class.
 
-### Resource Manipulator (ResourceManipulator)
+### Resource Manipulator (DictionaryResourceManipulator)
 
-The `ResourceManipulator` inside `Reloaded.WPF.Utilities` is a simple utility class that allows for easy access of XAML Resources (ResourceDictionary) from code-behind.
+The `ResourceManipulator` inside `Reloaded.WPF.Utilities` is a simple utility class that allows for easy access of XAML Resources (ResourceDictionary) from code-behind. It simply provides generic support for an existing ResourceDictionary.
 
 **Interface**
 Actual documentation omitted to keep example concise.
-```csharp
-// Constructor
-public ResourceManipulator(FrameworkElement element) { _element = element; }
 
+```csharp
 // Gets a resource from the resource dictionary of the window.
 TResource Get<TResource>(string resourceName);
 

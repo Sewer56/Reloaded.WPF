@@ -25,6 +25,27 @@ Note: The default theme is not compulsory, you may simply use the core `Reloaded
 
 ## Installing Reloaded.WPF Components
 
+### Theme
+
+Add the theme into the application's main Resource Dictionary as follows.
+
+```xaml
+<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:Reloaded.WPF.Controls;assembly=Reloaded.WPF"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- This dictionary switches locations between design and runtime -->
+                <controls:DesignTimeResourceDictionary RunTimeSource="pack://siteoforigin:,,,/Theme/Default/Root.xaml" DesignTimeSource="pack://application:,,,/Reloaded.WPF.Theme.Default;component/Theme/Default/Root.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+```
+
+
 ### Windows
 ![Window Style](https://i.imgur.com/VwE2M95.png)
 
@@ -59,6 +80,8 @@ For now, Reloaded.WPF expects that you implement all your functionality in pages
 
 Inheriting pages is the same as inheriting windows, in this case, you should make the pages inherit `ReloadedPage` instead.
 
+Inheriting the page class provides you page support for animations on entry and exit.
+
 #### e.g. ProcessPage.xaml
 
 ```xml
@@ -76,24 +99,10 @@ If you do not wish to inherit the Reloaded theme, then simply instead inherit fr
 
 See [ReloadedPage](https://github.com/Sewer56/Reloaded.WPF/blob/master/Source/Reloaded.WPF.Theme.Default/ReloadedPage.cs) for an example.
 
-## Visual Studio/Blend Designer Support
-
-In order to be able to see the Reloaded theme (loaded at runtime) in the designer, you need to make use of a lesser known feature known as *"Design Time Resources"*.
-
-To do so, create a `Properties` folder (if one does not exist) and inside insert a `DesignTimeResources.xaml` paste the following.
-
-**DesignTimeResources.xaml**
-```xml
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    Source="pack://application:,,,/Reloaded.WPF.Theme.Default;component/Theme/Default/Root.xaml"/>
-```
-
-Note: If consuming the theme package from NuGet (instead of project reference), you may need to change the source to the following: `"pack://application:,,,/Theme/Default/Root.xaml"`.
-
-### Designer support with .NET Core
+### Using the Designer with .NET Core
 This is technically unrelated to Reloaded.WPF but it's very useful and not yet well known.
 
-As you may know, .NET Core 3.X supports WinForms and WPF, but at the time of writing there is no designer support for them in Visual Studio.
+As you may know, .NET Core 3.X supports WinForms and WPF, but at the time of writing there is no/weak designer support for them in Visual Studio.
 
 Well, it is possible to have a working designer and still build for .NET Core 3 without any time consuming, manual labour involving dirty hacks like adding all files as link to a separate project.
 

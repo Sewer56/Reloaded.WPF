@@ -20,15 +20,13 @@ namespace Reloaded.WPF.Theme.Default
         {
             // We play the animation once the content is rendered.
             // So before we play the animation, we must hide it so the first frame is not seen.
-            var thisArray = new[] { this };
+            XamlEntrySlideAnimationDuration    = new XamlResource<double>("EntrySlideAnimationDuration");
+            XamlEntryFadeAnimationDuration     = new XamlResource<double>("EntryFadeAnimationDuration");
+            XamlEntryFadeOpacityStart          = new XamlResource<double>("EntryFadeOpacityStart");
 
-            XamlEntrySlideAnimationDuration    = new XamlResource<double>("EntrySlideAnimationDuration", thisArray, this);
-            XamlEntryFadeAnimationDuration     = new XamlResource<double>("EntryFadeAnimationDuration", thisArray, this);
-            XamlEntryFadeOpacityStart          = new XamlResource<double>("EntryFadeOpacityStart", thisArray, this);
-
-            XamlExitSlideAnimationDuration     = new XamlResource<double>("ExitSlideAnimationDuration", thisArray, this);
-            XamlExitFadeAnimationDuration      = new XamlResource<double>("ExitFadeAnimationDuration", thisArray, this);
-            XamlExitFadeOpacityEnd             = new XamlResource<double>("ExitFadeOpacityEnd", thisArray, this);
+            XamlExitSlideAnimationDuration     = new XamlResource<double>("ExitSlideAnimationDuration");
+            XamlExitFadeAnimationDuration      = new XamlResource<double>("ExitFadeAnimationDuration");
+            XamlExitFadeOpacityEnd             = new XamlResource<double>("ExitFadeOpacityEnd");
         }
 
         /// <summary>
