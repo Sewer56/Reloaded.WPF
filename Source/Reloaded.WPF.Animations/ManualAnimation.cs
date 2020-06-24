@@ -20,6 +20,11 @@ namespace Reloaded.WPF.Animations
     public class ManualAnimation<T> : IDisposable
     {
         /// <summary>
+        /// Executed when the animation is cancelled.
+        /// </summary>
+        public event StateChanged OnStateChange; 
+
+        /// <summary>
         /// The length of the animation, in milliseconds.
         /// </summary>
         public float Duration { get; set; }
@@ -54,9 +59,22 @@ namespace Reloaded.WPF.Animations
         /// <summary>
         /// Defines the active state of the <see cref="ManualAnimation{T}"/>
         /// </summary>
-        public ManualAnimationState State { get; internal set; } = ManualAnimationState.NotStarted;
+        public ManualAnimationState State
+        {
+            get => _state;
+            internal set
+            {
+                var changed = _state != value;
+                var before  = _state;
+                _state = value;
+                
+                if (changed)
+                    OnStateChange?.Invoke(before, _state);
+            }
+        }
 
         private Thread _animateThread;
+        private ManualAnimationState _state = ManualAnimationState.NotStarted;
 
         /// <summary>
         /// Creates an instance of the <see cref="ManualAnimation{T}"/> method helping create custom animations.
@@ -131,7 +149,7 @@ namespace Reloaded.WPF.Animations
         /// <summary>
         /// Cancels the animation.
         /// </summary>
-        public void Cancel(int maxWaitTimeMs = 100)
+        public void Cancel(int maxWaitTimeMs = 200)
         {
             CancelAsync();
             _animateThread?.Join(maxWaitTimeMs);
@@ -235,5 +253,7 @@ namespace Reloaded.WPF.Animations
             Cancel();
             GC.SuppressFinalize(this);
         }
+
+        public delegate void StateChanged(ManualAnimationState before, ManualAnimationState after);
     }
 }
