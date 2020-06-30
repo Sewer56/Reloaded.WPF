@@ -127,15 +127,18 @@ namespace Reloaded.WPF.Animations.FrameLimiter
         /// 
         ///     See: <see cref="SpinTimeRemaining"/> to control the time in milliseconds left to sleep at which to start spinning at.
         /// </param>
-        public void EndFrame(bool spin = false)
+        /// <param name="allowSpeedup">
+        ///     Allows for the speeding up of the frame counter to maintain target FPS by sleeping less on the next frame.
+        ///     If set to false, frame pacer will not try to catch up on next sleep in cases of lost frames.
+        /// </param>
+        public void EndFrame(bool spin = false, bool allowSpeedup = true)
         {
             // Summarize stats for the current frame.
             StatRenderTime   = _frameTimeWatch.Elapsed.TotalMilliseconds;
             StatPotentialFPS = MillisecondsInSecond / StatRenderTime;
             StatSleepTime    = FrameTimeTarget - StatOverslept - StatRenderTime;
 
-            // We are not rendering fast enough! FPS cap not reached!
-            if (StatSleepTime < 0)
+            if (!allowSpeedup && StatSleepTime < 0)
                 StatSleepTime = 0;
 
             // Sleep
