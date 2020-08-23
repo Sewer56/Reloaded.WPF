@@ -11,8 +11,7 @@
              Height="500"
              Width="500"
              IsHitTestVisible="True"
-             UseLayoutRounding="True"
-             >
+             UseLayoutRounding="True">
     <UserControl.Resources>
         <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}">
 
@@ -24,7 +23,7 @@
                         <!-- This Viewbox scales the internal contents with respect to the control size.
                              This allows for all templated controls inside to scale themselves relative to each other and
                              not to the size of the window. -->
-                        <Viewbox>
+                        <Viewbox Stretch="Uniform" StretchDirection="Both" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                             <Image x:Name="CircleImage"
                                    Source="{Binding Path=ImageSource}" 
                                    DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -57,7 +56,8 @@
                 ToolTipService.InitialShowDelay="0"
                 ToolTipService.IsEnabled="{Binding Path=TooltipText, Converter={x:Static converters:IsTextNotEmptyConverter.Instance}}"
                 ToolTip="{Binding Path=TooltipText}"
-                DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
-                />
+                Height="{Binding Path=Height}"
+                Width="{Binding Path=Width}"
+                DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
     </Grid>
 </UserControl>
