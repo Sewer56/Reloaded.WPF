@@ -21,19 +21,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Theme\Default\Colours.xaml" />
-    <None Remove="Theme\Default\Fonts.xaml" />
-    <None Remove="Theme\Default\Fonts\FontBold.ttf" />
-    <None Remove="Theme\Default\Fonts\FontLight.ttf" />
-    <None Remove="Theme\Default\Fonts\FontThin.ttf" />
-    <None Remove="Theme\Default\Root.xaml" />
-    <None Remove="Theme\Default\Settings.xaml" />
-    <None Remove="Theme\Default\Styles.xaml" />
-    <None Remove="Theme\Default\Window.xaml" />
+    <None Remove="Theme\**" />
     <None Include="..\..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -41,48 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Theme\Default\Colours.xaml">
+    <Content Include="Theme\**">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Fonts.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Fonts\FontBold.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Fonts\FontLight.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Fonts\FontThin.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Root.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Settings.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
-    <Content Include="Theme\Default\Window.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		<PackageCopyToOutput>true</PackageCopyToOutput>
-    </Content>
+	  <PackageCopyToOutput>true</PackageCopyToOutput>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	</Content>
   </ItemGroup>
 
   <ItemGroup>
