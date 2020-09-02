@@ -6,16 +6,12 @@ using PropertyChanged;
 using Reloaded.WPF.MVVM;
 using Reloaded.WPF.TestWindow.Models.Model;
 using Reloaded.WPF.TestWindow.Pages;
+using Reloaded.WPF.TestWindow.Utilities;
 
 namespace Reloaded.WPF.TestWindow.Models.ViewModel
 {
     public class SidebarViewModel : ObservableObject
     {
-        /// <summary>
-        /// The name of the Process ID WQL column in Windows Management Instrumentation.
-        /// </summary>
-        private const string WMI_PROCESSID_NAME = "ProcessID";
-
         /// <summary>
         /// A list of all process models available on the sidebar.
         /// </summary>
@@ -27,19 +23,20 @@ namespace Reloaded.WPF.TestWindow.Models.ViewModel
         [DoNotCheckEquality]
         public Pages.Page Page { get; set; }
 
-        private ManagementEventWatcher _startWatcher;
-        private ManagementEventWatcher _stopWatcher;
+        private ProcessWatcher _watcher;
 
         public SidebarViewModel()
         {
             // Populate bindings.
             Page = Page.None;
             PopulateProcesses();
-            _startWatcher = new ManagementEventWatcher(new WqlEventQuery("SELECT * FROM Win32_ProcessStartTrace"));
-            _stopWatcher = new ManagementEventWatcher(new WqlEventQuery("SELECT * FROM Win32_ProcessStopTrace"));
-            _startWatcher.EventArrived += ApplicationLaunched;
-            _stopWatcher.EventArrived += ApplicationExited;
+            _watcher = new ProcessWatcher();
+            _watcher.OnNewProcess += OnNewProcess;
+            _watcher.OnRemovedProcess += OnRemovedProcess;
         }
+
+        private void OnRemovedProcess(int processId) => ProcessModels.Remove(processId);
+        private void OnNewProcess(System.Diagnostics.Process newProcess) => AddProcess(newProcess);
 
         /// <summary>
         /// Initially populates a list of processes.
@@ -59,29 +56,9 @@ namespace Reloaded.WPF.TestWindow.Models.ViewModel
         private void AddProcess(System.Diagnostics.Process process)
         {
             var model = new Process(process);
-            Application.Current.Dispatcher.Invoke(() => {
+            Application.Current.Dispatcher.Invoke(() => { 
                 ProcessModels.Add(process.Id, model);
             });
-        }
-
-        /// <summary>
-        /// Adds a process to the ObservableCollection when it is launched.
-        /// </summary>
-        private void ApplicationLaunched(object sender, EventArrivedEventArgs e)
-        {
-            try
-            {
-                AddProcess(System.Diagnostics.Process.GetProcessById((int)e.NewEvent.Properties[WMI_PROCESSID_NAME].Value));
-            }
-            catch (Exception) { /* ignored */ }
-        }
-
-        /// <summary>
-        /// Executed when one of the applications exits.
-        /// </summary>
-        private void ApplicationExited(object sender, EventArrivedEventArgs e)
-        {
-            ProcessModels.Remove((int)e.NewEvent.Properties[WMI_PROCESSID_NAME].Value);
         }
     }
 }
