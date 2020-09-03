@@ -8,8 +8,6 @@
              xmlns:resources="clr-namespace:Reloaded.WPF.Resources"
              xmlns:designTimeModels="clr-namespace:Reloaded.WPF.Controls.DesignTimeModels"
              mc:Ignorable="d"
-             Height="500"
-             Width="500"
              IsHitTestVisible="True"
              UseLayoutRounding="True">
     <UserControl.Resources>
@@ -19,7 +17,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
-
+                        
                         <!-- This Viewbox scales the internal contents with respect to the control size.
                              This allows for all templated controls inside to scale themselves relative to each other and
                              not to the size of the window. -->
@@ -31,12 +29,12 @@
                                    RenderOptions.BitmapScalingMode="{Binding Path=BitmapScaleMode}"
                                    RenderOptions.EdgeMode="Aliased"
                                    RenderOptions.CachingHint="Cache"
-                                   Height="500" 
+                                   Height="500"
                                    Width="500">
                                 <Image.Clip>
                                     <EllipseGeometry RadiusX="250" 
-                                                     RadiusY="250"
-                                                     Center="250,250"/>
+                                                 RadiusY="250" 
+                                                 Center="250,250" />
                                 </Image.Clip>
                             </Image>
                         </Viewbox>

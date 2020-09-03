@@ -17,6 +17,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Window_Settings.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type controls:CircleButton}">
+                <Setter Property="Height" Value="Auto"/>
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="Margin" Value="{DynamicResource SidebarElementMargin}" />
+            </Style>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -27,26 +33,20 @@
         </Grid.ColumnDefinitions>
 
         <!-- Background provided by another grid! -->
-        <Grid Background="{DynamicResource AccentColorBrush}">
-
+        <Grid x:Name="Sidebar" Background="{DynamicResource AccentColorBrush}" >
+            
             <!-- Using the margin as padding, inheriting background from grid behind..-->
             <DockPanel Margin="{DynamicResource SidebarMargin}">
 
                 <!-- Theme Page Buttons -->
-                <Viewbox DockPanel.Dock="Top" Margin="0,10,0,10">
-                    <controls:CircleButton 
-                        ImageSource="pack://application:,,,/Assets/Images/Icons-1.png"
+                <controls:CircleButton ImageSource="pack://application:,,,/Assets/Images/Icons-1.png" Margin="0,10,0,10" DockPanel.Dock="Top"
                         TooltipText="Controls #1" PreviewMouseDown="ControlsButtonA_Click"/>
-                </Viewbox>
 
-                <Viewbox DockPanel.Dock="Top">
-                    <controls:CircleButton
-                        ImageSource="pack://application:,,,/Assets/Images/Icons-2.png" 
+                <controls:CircleButton ImageSource="pack://application:,,,/Assets/Images/Icons-2.png" DockPanel.Dock="Top"
                         TooltipText="Controls #2" PreviewMouseDown="ControlsButtonB_Click"/>
-                </Viewbox>
 
                 <!-- Separator -->
-                <Separator Margin="0,10" Style="{DynamicResource AltSeparatorStyle}" RenderTransformOrigin="0.5,0.5" DockPanel.Dock="Top" >
+                <Separator Margin="0,10" Style="{DynamicResource AltSeparatorStyle}" RenderTransformOrigin="0.5,0.5" DockPanel.Dock="Top">
                     <Separator.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="{DynamicResource SeparatorHeight}"/>
@@ -58,9 +58,7 @@
                 </Separator>
 
                 <!-- Process List -->
-                <ItemsControl Name="ProcessesPanel" ItemsSource="{Binding Path=ProcessModels}"
-                              VirtualizingPanel.IsVirtualizing="True"
-                          VirtualizingPanel.VirtualizationMode="Recycling" DockPanel.Dock="Top">
+                <ItemsControl Name="ProcessesPanel" ItemsSource="{Binding Path=ProcessModels}" DockPanel.Dock="Top">
 
                     <!-- Allow for virtualization of stack panel. -->
                     <ItemsControl.Template>
@@ -74,25 +72,23 @@
                     <!-- The actual panel of visible items -->
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <VirtualizingStackPanel IsItemsHost="True"/>
+                            <VirtualizingStackPanel IsVirtualizing="True" VirtualizationMode="Recycling"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
                     <!-- Define each control. -->
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Viewbox Margin="{DynamicResource SidebarElementMargin}">
-                                <controls:CircleButton TooltipText="{Binding Path=Value.ProcessName}"
-                                                   ImageSource="{Binding Path=Value.Image}" 
-                                                   PreviewMouseDown="CircleButton_MouseDown"
 
-                            />
-                            </Viewbox>
+                            <controls:CircleButton TooltipText="{Binding Path=Value.ProcessName}"
+                                                   ImageSource="{Binding Path=Value.Image}" 
+                                                   PreviewMouseDown="CircleButton_MouseDown" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </DockPanel>
         </Grid>
+
 
         <!-- Window Content -->
         <controls:PageHost Grid.Column="1" 

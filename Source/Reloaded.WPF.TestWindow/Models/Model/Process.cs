@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
@@ -37,6 +38,7 @@ namespace Reloaded.WPF.TestWindow.Models.Model
             }
         }
 
+        [DebuggerNonUserCode]
         public System.Windows.Media.ImageSource Image 
         {
             get
