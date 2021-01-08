@@ -196,7 +196,9 @@ namespace Reloaded.WPF.Animations.FrameLimiter
         private void Spin()
         {
             while (_sleepWatch.Elapsed.TotalMilliseconds < StatSleepTime)
-            { }
+            {
+                Thread.Sleep(0);
+            }
         }
     }
 }
