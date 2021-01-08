@@ -179,11 +179,11 @@ namespace Reloaded.WPF.Animations.FrameLimiter
             _sleepWatch.Restart();
             while (_sleepWatch.Elapsed.TotalMilliseconds < StatSleepTime)
             {
-                Thread.Sleep(1);
-
                 if (spin)
                     if (StatSleepTime - _sleepWatch.Elapsed.TotalMilliseconds < SpinTimeRemaining)
                         Spin();
+
+                Thread.Sleep(1);
             }
 
             double timeSlept = (_frameTimeWatch.Elapsed.TotalMilliseconds - sleepStart);
