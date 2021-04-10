@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Media.Animation;
@@ -187,6 +188,7 @@ namespace Reloaded.WPF.Animations
 
             State = ManualAnimationState.Running;
             _animateThread = new Thread(ExecuteManualAnimation);
+            _animateThread.IsBackground = true;
             _animateThread.Start();
 
             // Note: Do not use Task.Run or the ThreadPool.

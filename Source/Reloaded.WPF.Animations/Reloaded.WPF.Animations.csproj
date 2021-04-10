@@ -16,7 +16,7 @@ This library contains the code that powers ManualAnimations, user created animat
     <Authors>Sewer56</Authors>
     <Company>Sewer56</Company>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
