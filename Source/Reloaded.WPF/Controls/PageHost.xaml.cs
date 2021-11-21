@@ -1,6 +1,7 @@
 ﻿#pragma warning disable 1591
 
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Reloaded.WPF.Pages;
@@ -25,6 +26,24 @@ namespace Reloaded.WPF.Controls
         public PageHost()
         {
             InitializeComponent();
+
+            OldPage.ContentRendered += AnimateOutHandler;
+            NewPage.ContentRendered += AnimateInHandler;
+        }
+
+        private void AnimateInHandler(object sender, EventArgs e)
+        {
+            if (NewPage.Content is PageBase newPage)
+                newPage.AnimateIn();
+        }
+
+        private void AnimateOutHandler(object sender, EventArgs e)
+        {
+            if (OldPage.Content is PageBase oldPage)
+            {
+                oldPage.AnimateOutFinished += () => { OldPage.Content = null; };
+                oldPage.AnimateOut();
+            }
         }
 
 #pragma warning disable 4014
@@ -40,29 +59,11 @@ namespace Reloaded.WPF.Controls
                 // Transfer the current page to the secondary frame.
                 switcher.OldPage.Content = switcher.NewPage.Content;
                 switcher.NewPage.Content = newValue;
-
-                void AnimateOutHandler(object sender, EventArgs args)
-                {
-                    if (switcher.OldPage.Content is PageBase oldPage)
-                        oldPage.AnimateOut();
-
-                    switcher.OldPage.ContentRendered -= AnimateOutHandler;
-                }
-
-                void AnimateInHandler(object sender, EventArgs args)
-                {
-                    if (switcher.NewPage.Content is PageBase newPage)
-                        newPage.AnimateIn();
-
-                    switcher.NewPage.ContentRendered -= AnimateInHandler;
-                }
-
-                switcher.OldPage.ContentRendered += AnimateOutHandler;
-                switcher.NewPage.ContentRendered += AnimateInHandler;
             }
 
             return newValue;
         }
+
 #pragma warning restore 4014
 
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)

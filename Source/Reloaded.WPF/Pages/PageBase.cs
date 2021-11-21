@@ -60,9 +60,13 @@ namespace Reloaded.WPF.Pages
             var storyBoard = new Storyboard();
             var animations = MakeEntryAnimations();
             Animation.AddAnimations(storyBoard, animations, this);
-            storyBoard.Begin(this);
 
-            AnimateInFinished();
+            storyBoard.Completed += (sender, args) =>
+            {
+                AnimateInFinished();
+            };
+
+            storyBoard.Begin(this);
         }
 
         /// <summary>
@@ -75,9 +79,13 @@ namespace Reloaded.WPF.Pages
             var storyBoard = new Storyboard();
             var animations = MakeExitAnimations();
             Animation.AddAnimations(storyBoard, animations, this);
-            storyBoard.Begin(this);
 
-            AnimateOutFinished();
+            storyBoard.Completed += (sender, args) =>
+            {
+                AnimateOutFinished();
+            };
+
+            storyBoard.Begin(this);
         }
     }
 }
