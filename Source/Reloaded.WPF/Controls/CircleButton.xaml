@@ -3,59 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Reloaded.WPF.Controls"
              xmlns:converters="clr-namespace:Reloaded.WPF.Converters"
-             xmlns:resources="clr-namespace:Reloaded.WPF.Resources"
-             xmlns:designTimeModels="clr-namespace:Reloaded.WPF.Controls.DesignTimeModels"
              mc:Ignorable="d"
              IsHitTestVisible="True"
-             UseLayoutRounding="True">
-    <UserControl.Resources>
-        <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}">
+             UseLayoutRounding="True"
 
-            <!-- Custom Template -->
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        
-                        <!-- This Viewbox scales the internal contents with respect to the control size.
-                             This allows for all templated controls inside to scale themselves relative to each other and
-                             not to the size of the window. -->
-                        <Viewbox Stretch="Uniform" StretchDirection="Both" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
-                            <Image x:Name="CircleImage"
-                                   Source="{Binding Path=ImageSource}" 
-                                   DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                   d:DataContext="{x:Static designTimeModels:CircleButtonModel.Instance}"
-                                   RenderOptions.BitmapScalingMode="{Binding Path=BitmapScaleMode}"
-                                   RenderOptions.EdgeMode="Aliased"
-                                   RenderOptions.CachingHint="Cache"
-                                   Height="500"
-                                   Width="500">
-                                <Image.Clip>
-                                    <EllipseGeometry RadiusX="250" 
-                                                 RadiusY="250" 
-                                                 Center="250,250" />
-                                </Image.Clip>
-                            </Image>
-                        </Viewbox>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+             ToolTipService.InitialShowDelay="0"
+             ToolTipService.IsEnabled="{Binding Path=TooltipText, Converter={x:Static converters:IsTextNotEmptyConverter.Instance}, RelativeSource={RelativeSource Self}}"
+             ToolTip="{Binding Path=TooltipText, RelativeSource={RelativeSource Self}}">
 
-            <!-- Change tooltip placement -->
-            <Setter Property="ToolTip.Placement" Value="Right"/>
-            <Setter Property="ToolTip.HorizontalOffset" Value="15"/>
-        </Style>
+    <!-- Design time only! -->
+    <d:UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </d:UserControl.Resources>
 
-    </UserControl.Resources>
-    <Grid>
-        <Button Style="{DynamicResource CircleButtonStyle}" 
-                x:Name="_button"
-                ToolTipService.InitialShowDelay="0"
-                ToolTipService.IsEnabled="{Binding Path=TooltipText, Converter={x:Static converters:IsTextNotEmptyConverter.Instance}}"
-                ToolTip="{Binding Path=TooltipText}"
-                Height="{Binding Path=Height}"
-                Width="{Binding Path=Width}"
-                DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-    </Grid>
+    <Button Style="{DynamicResource CircleButtonStyle}" 
+            x:Name="_button"
+            Height="{Binding Path=Height}"
+            Width="{Binding Path=Width}"
+            DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
 </UserControl>

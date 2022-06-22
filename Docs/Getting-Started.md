@@ -21,8 +21,6 @@ The following is a small, quick, non-exhaustive resource to help you get started
 
 Note: The default theme is not compulsory, you may simply use the core `Reloaded.WPF` package for the utilities only if desired.
 
-**Reloaded.WPF is not yet currently on NuGet and will not be until a base set of controls are complete, please instead add the repository as a submodule, add existing project to your solution and add a project reference to it.**
-
 ## Installing Reloaded.WPF Components
 
 ### Theme
@@ -37,6 +35,8 @@ Add the theme into the application's main Resource Dictionary as follows.
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Reloaded.WPF;component/Resources.xaml"/>
+				
                 <!-- This dictionary switches locations between design and runtime -->
                 <controls:DesignTimeResourceDictionary RunTimeSource="pack://siteoforigin:,,,/Theme/Default/Root.xaml" DesignTimeSource="pack://application:,,,/Reloaded.WPF.Theme.Default;component/Theme/Default/Root.xaml"/>
             </ResourceDictionary.MergedDictionaries>

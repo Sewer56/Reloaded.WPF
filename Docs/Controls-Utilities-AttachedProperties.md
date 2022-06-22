@@ -24,7 +24,24 @@
 
 ## Controls
 
-All custom controls exposed can be found in the `Reloaded.WPF.Controls` namespace. 
+All custom controls exposed can be found in the `Reloaded.WPF.Controls` namespace.  
+Before using the controls, please make sure you import 'Resources.xaml'.  
+
+
+```xaml
+<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+				<!-- This line here!! -->
+                <ResourceDictionary Source="pack://application:,,,/Reloaded.WPF;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+```
 
 ### Page Host / Page Switcher (PageHost)
 The page switcher control is what allows you to switch between multiple pages with animation support for pages which inherit from the `PageBase` class (this includes `ReloadedPage`).
