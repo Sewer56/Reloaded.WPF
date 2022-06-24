@@ -3,12 +3,16 @@
                     xmlns:controls="clr-namespace:Reloaded.WPF.Controls;assembly=Reloaded.WPF"
                     xmlns:properties="clr-namespace:Reloaded.WPF.Theme.Default.AttachedProperties;assembly=Reloaded.WPF.Theme.Default"
                     xmlns:converter="clr-namespace:Reloaded.WPF.Theme.Default.Converter;assembly=Reloaded.WPF.Theme.Default"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
 
     <!-- For IntelliSense: Uncomment only when editing. -->
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <controls:SharedResourceDictionary Source="pack://application:,,,/Reloaded.WPF;component/Resources.xaml"/>
                 <controls:SharedResourceDictionary Source="pack://siteoforigin:,,,/Theme/Default/Colours.xaml"/>
                 <controls:SharedResourceDictionary Source="pack://siteoforigin:,,,/Theme/Default/Fonts.xaml"/>
                 <controls:SharedResourceDictionary Source="pack://siteoforigin:,,,/Theme/Default/Settings.xaml"/>
@@ -289,11 +293,23 @@
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Animations xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Default Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
 
+    <!-- Style for focusing on elements -->
+    <Style x:Key="ReloadedFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-3" StrokeThickness="3" Stroke="{StaticResource TextColorBrush}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Base Style -->
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource ReloadedFocusVisual}"/>
     </Style>
 
     <!-- Text Blocks -->
@@ -301,6 +317,7 @@
         <Setter Property="FontFamily" Value="{DynamicResource FontLight}" />
         <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}" />
         <Setter Property="Foreground" Value="{StaticResource TextColorBrush}"/>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource ReloadedFocusVisual}"/>
     </Style>
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle" BasedOn="{StaticResource DefaultTextBlock}"/>
@@ -331,7 +348,7 @@
                             ContentTemplate="{TemplateBinding ContentTemplate}" 
                             Content="{TemplateBinding Content}" 
                             ContentStringFormat="{TemplateBinding ContentStringFormat}" 
-                            Focusable="False" 
+                            Focusable="True" 
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                             Margin="{TemplateBinding Padding}" 
                             RecognizesAccessKey="True" 
@@ -1430,6 +1447,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!-- Circle Button: Redefined -->
+    <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CircleButtonStyle}">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource ReloadedFocusVisual}"/>
     </Style>
 
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Default Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->

@@ -21,20 +21,21 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
 
-                    <!-- Gives us invisible padding space to allow for rendering of drop shadow. -->
-                    <Border Padding="{Binding Path=DropShadowBorderSize}" Background="Transparent">
-                        <Grid>
-                            <!-- The glowing border of the Window.
+                    <AdornerDecorator>
+                        <!-- Gives us invisible padding space to allow for rendering of drop shadow. -->
+                        <Border Padding="{Binding Path=DropShadowBorderSize}" Background="Transparent">
+                            <Grid>
+                                <!-- The glowing border of the Window.
                                  The important thing is that this must be separate and not nest the content below!
                                  The DropShadowEffect uses all descendant objects to calculate the shape of the shadow. 
                                  which means that every time any children are updated the shadow is recalculated. -->
-                            <Border x:Name="DropShadowBorder"
+                                <Border x:Name="DropShadowBorder"
                                     CornerRadius="{DynamicResource CornerRadius}"
                                     Background="{Binding Path=Background, 
                                                          RelativeSource={RelativeSource AncestorType={x:Type Window}}, 
                                                          FallbackValue=#181818}">
-                                <Border.Effect>
-                                    <DropShadowEffect
+                                    <Border.Effect>
+                                        <DropShadowEffect
                                         ShadowDepth="{DynamicResource GlowDepth}"
                                         Direction="{DynamicResource GlowDirection}"
                                         RenderingBias="{DynamicResource GlowRenderBias}"
@@ -42,73 +43,73 @@
                                                         Converter={x:Static converter:ColorToShadowColorConverter.Instance}}"
                                         BlurRadius="{Binding Path=DropShadowSize}"
                                         Opacity="{DynamicResource GlowOpacity}" />
-                                </Border.Effect>
-                            </Border>
+                                    </Border.Effect>
+                                </Border>
 
-                            <!-- This is our window background and the owner of what we see onscreen. -->
-                            <Border x:Name="ContentBorder" 
+                                <!-- This is our window background and the owner of what we see onscreen. -->
+                                <Border x:Name="ContentBorder" 
                                     Background="Transparent"
                                     CornerRadius="{DynamicResource CornerRadius}">
-                                <Border.Clip>
-                                    <MultiBinding Converter="{x:Static converter:BorderClipConverter.Instance}">
-                                        <Binding Path="ActualWidth"  RelativeSource="{RelativeSource Self}"/>
-                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
-                                        <Binding Path="CornerRadius" RelativeSource="{RelativeSource Self}"/>
-                                    </MultiBinding>
-                                </Border.Clip>
+                                    <Border.Clip>
+                                        <MultiBinding Converter="{x:Static converter:BorderClipConverter.Instance}">
+                                            <Binding Path="ActualWidth"  RelativeSource="{RelativeSource Self}"/>
+                                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                                            <Binding Path="CornerRadius" RelativeSource="{RelativeSource Self}"/>
+                                        </MultiBinding>
+                                    </Border.Clip>
 
-                                <!-- Main Window Content -->
-                                <Grid>
-                                    
-                                    <!-- TitleBar and rest of page for content. -->
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="{DynamicResource TitleBarHeight}"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                                    <!-- Main Window Content -->
+                                    <Grid>
 
-                                    <!-- Title Bar -->
-                                    <Grid Background="{DynamicResource AccentColorLightBrush}" 
+                                        <!-- TitleBar and rest of page for content. -->
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="{DynamicResource TitleBarHeight}"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Title Bar -->
+                                        <Grid Background="{DynamicResource AccentColorLightBrush}" 
                                               Grid.Row="0">
 
-                                        <!-- Title & Buttons -->
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
+                                            <!-- Title & Buttons -->
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
 
-                                        <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource HeaderAlignment}">
-                                            <TextBlock
+                                            <Viewbox Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource HeaderAlignment}">
+                                                <TextBlock
                                                     Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title, FallbackValue='Window Title'}"
                                                     Style="{DynamicResource HeaderText}"
                                                 >
-                                            </TextBlock>
-                                        </Viewbox>
+                                                </TextBlock>
+                                            </Viewbox>
 
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <Button Command="{Binding Path=MinimizeCommand}" 
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                <Button Command="{Binding Path=MinimizeCommand}" 
                                                         Visibility="{DynamicResource MinimizeButtonVisibility}"
                                                         Content="—" 
                                                         Style="{DynamicResource WindowControlButton}"/>
-                                            <Button Command="{Binding Path=MaximizeCommand}" 
+                                                <Button Command="{Binding Path=MaximizeCommand}" 
                                                         Visibility="{DynamicResource MaximizeButtonVisibility}"
                                                         Content="O" 
                                                         Style="{DynamicResource WindowControlButton}"/>
-                                            <Button Command="{Binding Path=CloseCommand}"
+                                                <Button Command="{Binding Path=CloseCommand}"
                                                         Visibility="{DynamicResource CloseButtonVisibility}"
                                                         Content="X"
                                                         Style="{DynamicResource WindowControlButton}"/>
-                                        </StackPanel>
-                                    </Grid>
+                                            </StackPanel>
+                                        </Grid>
 
-                                    <!-- Window Content Goes in Here -->
-                                    <Grid Grid.Row="1">
-                                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        <!-- Window Content Goes in Here -->
+                                        <Grid Grid.Row="1">
+                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Border>
-
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </AdornerDecorator>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
