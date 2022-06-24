@@ -348,7 +348,7 @@
                             ContentTemplate="{TemplateBinding ContentTemplate}" 
                             Content="{TemplateBinding Content}" 
                             ContentStringFormat="{TemplateBinding ContentStringFormat}" 
-                            Focusable="True" 
+                            Focusable="False" 
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                             Margin="{TemplateBinding Padding}" 
                             RecognizesAccessKey="True" 
