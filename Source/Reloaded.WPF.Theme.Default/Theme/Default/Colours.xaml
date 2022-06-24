@@ -11,6 +11,7 @@
     <Color x:Key="AccentColorDarkest">#231010</Color>   <!-- HSL: hsl(0, 36%, 10%) -->
 
     <Color x:Key="TransparentBorderColor">#004c4c4c</Color>
+    <Color x:Key="BorderColorLight">#C0ffffff</Color>
     <Color x:Key="BorderColor">#4c4c4c</Color>
     <Color x:Key="BorderColorDark">#333333</Color>
 
@@ -32,6 +33,7 @@
     <SolidColorBrush x:Key="AccentColorBrushDarker" Color="{DynamicResource AccentColorDarker}"/>
     <SolidColorBrush x:Key="AccentColorBrushDarkest" Color="{DynamicResource AccentColorDarkest}"/>
 
+    <SolidColorBrush x:Key="BorderColorLightBrush" Color="{DynamicResource BorderColorLight}"/>
     <SolidColorBrush x:Key="BorderColorBrush" Color="{DynamicResource BorderColor}"/>
     <SolidColorBrush x:Key="BorderColorDarkBrush" Color="{DynamicResource BorderColorDark}"/>
     <SolidColorBrush x:Key="TextColorBrush" Color="{DynamicResource TextColor}"/>

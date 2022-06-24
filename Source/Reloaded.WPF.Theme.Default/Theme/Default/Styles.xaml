@@ -298,7 +298,7 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="-3" StrokeThickness="3" Stroke="{StaticResource TextColorBrush}"/>
+                    <Rectangle Margin="-3" StrokeThickness="3" Stroke="{StaticResource BorderColorLightBrush}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -707,7 +707,6 @@
         <Setter Property="Foreground" Value="{StaticResource BorderColorBrush}"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="FontSize" Value="{DynamicResource FontSizeRegular}"/>
         <Setter Property="properties:ShowComboboxArrow.Value" Value="True" />
 
@@ -729,7 +728,7 @@
                                           IsHitTestVisible="False"
                                           HorizontalAlignment="Center" 
                                           VerticalAlignment="Center"
-                                          Focusable="True"
+                                          Focusable="False"
                                           Content="{TemplateBinding SelectionBoxItem}" 
                                           ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                           ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
