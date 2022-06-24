@@ -20,6 +20,11 @@ namespace Reloaded.WPF.Controls
         public static readonly DependencyProperty BitmapScalingProperty = DependencyProperty.Register(nameof(BitmapScaleMode), typeof(BitmapScalingMode), typeof(CircleButton), new PropertyMetadata(BitmapScalingMode.HighQuality));
 
         /// <summary>
+        /// Executed when the underlying button is clicked.
+        /// </summary>
+        public event RoutedEventHandler Click;
+
+        /// <summary>
         /// The source of the image.
         /// </summary>
         public ImageSource ImageSource
@@ -54,6 +59,10 @@ namespace Reloaded.WPF.Controls
         public CircleButton()
         {
             InitializeComponent();
+            _button.Click += (sender, args) =>
+            {
+                Click?.Invoke(sender, args);
+            };
         }
     }
 }
