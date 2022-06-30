@@ -295,10 +295,11 @@
 
     <!-- Style for focusing on elements -->
     <Style x:Key="ReloadedFocusVisual">
+        <Setter Property="Control.Focusable" Value="False" />
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="-3" StrokeThickness="3" Stroke="{StaticResource BorderColorLightBrush}"/>
+                    <Rectangle Margin="-3" StrokeThickness="3" Stroke="{StaticResource BorderColorLightBrush}" Focusable="False" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
