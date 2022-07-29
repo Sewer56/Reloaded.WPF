@@ -290,6 +290,25 @@
         />
     </Storyboard>
 
+    <!-- AccentColorLightest <==> AccentColorLighterBrush -->
+    <Storyboard x:Key="ForegroundFadeAccentLightestToAccentLighter"
+                Storyboard.TargetProperty="Foreground.Color">
+        <ColorAnimation
+            From="{StaticResource AccentColorLightest}"
+            To="{StaticResource AccentColorLighter}"
+            Duration="{StaticResource ColorTransitionDuration}"
+        />
+    </Storyboard>
+
+    <Storyboard x:Key="ForegroundFadeAccentLighterToAccentLightest"
+                Storyboard.TargetProperty="Foreground.Color">
+        <ColorAnimation
+            From="{StaticResource AccentColorLighter}"
+            To="{StaticResource AccentColorLightest}"
+            Duration="{StaticResource ColorTransitionDuration}"
+        />
+    </Storyboard>
+
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Animations xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Default Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
 
@@ -1457,6 +1476,22 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ReloadedFocusVisual}"/>
     </Style>
 
+    <!-- Hyperlink Style: Redefined -->
+    <Style x:Key="DefaultHyperlink" TargetType="{x:Type Hyperlink}">
+        <Setter Property="Foreground" Value="{StaticResource AccentColorLightestBrush}"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource ForegroundFadeAccentLightestToAccentLighter}"/>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource ForegroundFadeAccentLighterToAccentLightest}"/>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Default Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Style Bindings xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
 
@@ -1482,6 +1517,7 @@
     <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource DefaultMenuItemStyle}"/>
     <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource DefaultContextMenu}"/>
     <Style TargetType="{x:Type StatusBar}" BasedOn="{StaticResource DefaultStatusbar}"/>
+    <Style TargetType="{x:Type Hyperlink}" BasedOn="{StaticResource DefaultHyperlink}"/>
 
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Style Bindings xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->
     <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Custom/Optional Styles xxxxxxxxxxxxxxxxxxxxxxxxxxxxx  -->

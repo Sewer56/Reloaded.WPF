@@ -100,6 +100,13 @@
                 <StatusBar Margin="0,10">
                     <TextBlock Text="This is a StatusBar"/>
                 </StatusBar>
+
+                <TextBlock Style="{DynamicResource DefaultTextBlock}">
+                    <Hyperlink>
+                        I'm a hyperlink.
+                    </Hyperlink>
+                    <Run Text="Some regular text for reference"/>
+                </TextBlock>
             </StackPanel>
         </ScrollViewer>
     </Grid>
