@@ -128,6 +128,11 @@ namespace Reloaded.WPF.Theme.Default
             }
 
             window.Closing += WindowOnClosing;
+
+            // Inherit Default from App Resources
+            MinimizeButtonVisibility = Resources.Get<Visibility>(XAML_MinimizeButtonVisibility);
+            MaximizeButtonVisibility = Resources.Get<Visibility>(XAML_MaximizeButtonVisibility);
+            CloseButtonVisibility = Resources.Get<Visibility>(XAML_CloseButtonVisibility);
         }
 
         private void WindowOnClosing(object sender, CancelEventArgs e)
@@ -137,7 +142,24 @@ namespace Reloaded.WPF.Theme.Default
             _isClosed = true;
         }
 
-        /* Public Tweakables */
+        /* Per Window Settings */
+
+        /// <summary>
+        /// Gets/Sets the visibility of the minimize titlebar button.
+        /// </summary>
+        public Visibility MinimizeButtonVisibility { get; set; }
+
+        /// <summary>
+        /// Gets/Sets the visibility of the maximize titlebar button.
+        /// </summary>
+        public Visibility MaximizeButtonVisibility { get; set; }
+
+        /// <summary>
+        /// Gets/Sets the visibility of the close titlebar button.
+        /// </summary>
+        public Visibility CloseButtonVisibility { get; set; }
+
+        /* Global Settings */
 
         /// <summary>
         /// The size of the invisible border that provides the WPF window space
@@ -352,33 +374,6 @@ namespace Reloaded.WPF.Theme.Default
         {
             get => Resources.Get<bool>(XAML_BorderlessOnDock);
             set => Resources.Set(XAML_BorderlessOnDock, value);
-        }
-
-        /// <summary>
-        /// Gets/Sets the visibility of the minimize titlebar button.
-        /// </summary>
-        public Visibility MinimizeButtonVisibility
-        {
-            get => Resources.Get<Visibility>(XAML_MinimizeButtonVisibility);
-            set => Resources.Set(XAML_MinimizeButtonVisibility, value);
-        }
-
-        /// <summary>
-        /// Gets/Sets the visibility of the maximize titlebar button.
-        /// </summary>
-        public Visibility MaximizeButtonVisibility
-        {
-            get => Resources.Get<Visibility>(XAML_MaximizeButtonVisibility);
-            set => Resources.Set(XAML_MaximizeButtonVisibility, value);
-        }
-
-        /// <summary>
-        /// Gets/Sets the visibility of the close titlebar button.
-        /// </summary>
-        public Visibility CloseButtonVisibility
-        {
-            get => Resources.Get<Visibility>(XAML_CloseButtonVisibility);
-            set => Resources.Set(XAML_CloseButtonVisibility, value);
         }
 
         /// <summary>

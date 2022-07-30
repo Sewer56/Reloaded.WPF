@@ -87,15 +87,15 @@
 
                                             <StackPanel Grid.Column="1" Orientation="Horizontal">
                                                 <Button Command="{Binding Path=MinimizeCommand}" 
-                                                        Visibility="{DynamicResource MinimizeButtonVisibility}"
+                                                        Visibility="{Binding Path=MinimizeButtonVisibility}"
                                                         Content="—" 
                                                         Style="{DynamicResource WindowControlButton}"/>
                                                 <Button Command="{Binding Path=MaximizeCommand}" 
-                                                        Visibility="{DynamicResource MaximizeButtonVisibility}"
+                                                        Visibility="{Binding Path=MaximizeButtonVisibility}"
                                                         Content="O" 
                                                         Style="{DynamicResource WindowControlButton}"/>
                                                 <Button Command="{Binding Path=CloseCommand}"
-                                                        Visibility="{DynamicResource CloseButtonVisibility}"
+                                                        Visibility="{Binding Path=CloseButtonVisibility}"
                                                         Content="X"
                                                         Style="{DynamicResource WindowControlButton}"/>
                                             </StackPanel>
