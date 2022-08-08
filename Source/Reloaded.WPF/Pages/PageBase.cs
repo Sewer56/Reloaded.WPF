@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media.Animation;
+using Reloaded.WPF.Controls;
 using Reloaded.WPF.Pages.Animations;
 
 namespace Reloaded.WPF.Pages
@@ -10,6 +11,11 @@ namespace Reloaded.WPF.Pages
     /// </summary>
     public abstract class PageBase : System.Windows.Controls.Page
     {
+        /// <summary>
+        /// Called when the <see cref="PageHost"/> is about to remove the object from front view.
+        /// </summary>
+        public event Action SwappedOut = () => { };
+
         /// <summary>
         /// Called after the page started animating in.
         /// </summary>
@@ -87,5 +93,10 @@ namespace Reloaded.WPF.Pages
 
             storyBoard.Begin(this);
         }
+
+        /// <summary>
+        /// Calls the swapped out event.
+        /// </summary>
+        internal void InvokeSwappedOut() => SwappedOut();
     }
 }

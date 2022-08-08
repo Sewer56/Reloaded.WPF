@@ -1,4 +1,4 @@
-﻿#pragma warning disable 1591
+#pragma warning disable 1591
 
 using System;
 using System.Threading.Tasks;
@@ -57,6 +57,9 @@ namespace Reloaded.WPF.Controls
             if (dependencyObject is PageHost switcher)
             {
                 // Transfer the current page to the secondary frame.
+                if (switcher.NewPage.Content is PageBase oldPage)
+                    oldPage.InvokeSwappedOut();
+
                 switcher.OldPage.Content = switcher.NewPage.Content;
                 switcher.NewPage.Content = newValue;
             }
