@@ -1,4 +1,4 @@
-#pragma warning disable 1591
+﻿#pragma warning disable 1591
 
 using System;
 using System.Threading.Tasks;
@@ -56,6 +56,9 @@ namespace Reloaded.WPF.Controls
         {
             if (dependencyObject is PageHost switcher)
             {
+                // TODO: Add event for when OldPage about to be replaced.
+                // TODO: Fix 1 frame render by making invisible and resetting opacity at start of animation.
+
                 // Transfer the current page to the secondary frame.
                 if (switcher.NewPage.Content is PageBase oldPage)
                     oldPage.InvokeSwappedOut();

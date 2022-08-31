@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Media.Animation;
@@ -56,6 +55,17 @@ namespace Reloaded.WPF.Animations
         /// The number of times to repeat the animation. A number of <see cref="ulong.MaxValue"/> signals infinite repeats.
         /// </summary>
         public ulong Repeat { get; set; } = ulong.MaxValue;
+
+        /// <summary>
+        /// The current amount of times the animation has been repeated.
+        /// Starts with 0.
+        /// </summary>
+        public ulong RepeatCount { get; private set; } = 0;
+
+        /// <summary>
+        /// The time this animation has spent running in total.
+        /// </summary>
+        public float TimeRunning { get; private set; } = 0.0f;
 
         /// <summary>
         /// Defines the active state of the <see cref="ManualAnimation{T}"/>
@@ -180,6 +190,16 @@ namespace Reloaded.WPF.Animations
         /// </summary>
         public void Animate()
         {
+            AnimateManual();
+            AnimateAutomatic();
+        }
+
+        /// <summary>
+        /// Resets the <see cref="ManualAnimation{T}"/> for 'manual' use.
+        /// Manual use requires that you call <see cref="ManualUpdate"/> every time the animation state is to be updated.
+        /// </summary>
+        public void AnimateManual()
+        {
             if (InterpolationMethod == null || ExecutionMethod == null)
                 throw new Exception($"{nameof(InterpolationMethod)} or {nameof(ExecutionMethod)} is null. Both execution and interpolation method must be specified.");
 
@@ -187,7 +207,11 @@ namespace Reloaded.WPF.Animations
             Cancel();
 
             State = ManualAnimationState.Running;
-            _animateThread = new Thread(ExecuteManualAnimation);
+        }
+
+        private void AnimateAutomatic()
+        {
+            _animateThread = new Thread(ExecuteAutomaticAnimation);
             _animateThread.IsBackground = true;
             _animateThread.Start();
 
@@ -195,7 +219,7 @@ namespace Reloaded.WPF.Animations
             // They can lead to significant time being taken to start the animations when many animations are started at once.
         }
 
-        private void ExecuteManualAnimation()
+        private void ExecuteAutomaticAnimation()
         {
             // Setup the frame pacing class.
             SharpFPS fps = new SharpFPS();
@@ -206,50 +230,74 @@ namespace Reloaded.WPF.Animations
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
-            for (ulong x = 0; x < Repeat;)
+            var lastWatchTime = watch.Elapsed.TotalMilliseconds;
+
+            while (true)
             {
-                watch.Restart();
+                // Update Delta Time.
+                var currentWatchTime = watch.Elapsed.TotalMilliseconds;
+                var deltaTime = currentWatchTime - lastWatchTime;
+                lastWatchTime = currentWatchTime;
 
-                while (watch.ElapsedMilliseconds < Duration)
-                {
-                    // Cancel if necessary.
-                    while (State == ManualAnimationState.Paused)
-                        Thread.Sleep(16);
+                ManualUpdate((float)deltaTime);
 
-                    if (State == ManualAnimationState.Cancelled)
-                        return;
+                // Check if to terminate thread.
+                if (RepeatCount >= Repeat || State == ManualAnimationState.Cancelled)
+                    break;
 
-                    // Do animation and terminate if requested.
-                    float normalizedTime = watch.ElapsedMilliseconds / Duration;
-                    float elapsedTime;
-
-                    if (EasingFunction != null)
-                        elapsedTime = (float)EasingFunction.Ease(normalizedTime);
-                    else
-                        elapsedTime = normalizedTime;
-
-                    T nextValue             = InterpolationMethod(elapsedTime);
-                    ExecutionMethod(nextValue);
-
-                    // Sleep
-                    fps.EndFrame();
-                }
-
-                // Increment and reset if going to hit max value.
-                x++;
-
-                if (x == ulong.MaxValue)
-                    x = 0;
+                fps.EndFrame();
             }
 
             State = ManualAnimationState.Complete;
         }
 
+        /// <summary>
+        /// Can be used to manually update the animation without the use of the background thread.
+        /// </summary>
+        /// <param name="deltaTime">Time elapsed since last call.</param>
+        public void ManualUpdate(float deltaTime)
+        {
+            if (TimeRunning > Duration && RepeatCount >= Repeat)
+                return;
+
+            if (State == ManualAnimationState.Paused || State == ManualAnimationState.Cancelled)
+                return;
+
+            TimeRunning += deltaTime;
+            Update();
+
+            // Advance to next repeat if necessary.
+            if (TimeRunning > Duration)
+            {
+                TimeRunning %= Duration;
+                RepeatCount++;
+            }
+        }
+
+        private void Update()
+        {
+            float normalizedTime = TimeRunning / Duration;
+            if (normalizedTime > 1.0f)
+                normalizedTime = 1.0f;
+
+            float elapsedTime;
+
+            if (EasingFunction != null)
+                elapsedTime = (float)EasingFunction.Ease(normalizedTime);
+            else
+                elapsedTime = normalizedTime;
+
+            T nextValue = InterpolationMethod(elapsedTime);
+            ExecutionMethod(nextValue);
+        }
+
+        /// <inheritdoc />
         ~ManualAnimation()
         {
             Dispose();
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             Cancel();
