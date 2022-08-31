@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,6 +11,7 @@ using PropertyChanged;
 using Reloaded.WPF.Animations.Samples;
 using Reloaded.WPF.Pages;
 using Reloaded.WPF.Utilities;
+using Color = System.Windows.Media.Color;
 
 namespace Reloaded.WPF.Theme.Default
 {
@@ -463,13 +465,20 @@ namespace Reloaded.WPF.Theme.Default
 
         /* Core Logic */
 
+        /// <summary>
+        /// Sets a new glow colour for the window.
+        /// The change will be animated if <see cref="GlowColorAnimationEnable"/> is set to "true".
+        /// </summary>
+        /// <param name="newColor">The new glow colour.</param>
+        public void SetGlowColor(Color newColor) => SetGlowColor(newColor, false);
 
         /// <summary>
         /// Sets a new glow colour for the window.
         /// The change will be animated if <see cref="GlowColorAnimationEnable"/> is set to "true".
         /// </summary>
         /// <param name="newColor">The new glow colour.</param>
-        public void SetGlowColor(Color newColor)
+        /// <param name="setDirectly">Sets the colour directly on the current thread.</param>
+        public void SetGlowColor(Color newColor, bool setDirectly = false)
         {
             Color currentColor = GlowColor;
 
@@ -485,7 +494,12 @@ namespace Reloaded.WPF.Theme.Default
                 }
 
                 else
-                    GlowColor = newColor;
+                {
+                    if (setDirectly)
+                        SetValue(GlowColorProperty, newColor);
+                    else
+                        GlowColor = newColor;
+                }
             }
         }
 
