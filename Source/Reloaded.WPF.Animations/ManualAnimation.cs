@@ -242,13 +242,11 @@ namespace Reloaded.WPF.Animations
                 ManualUpdate((float)deltaTime);
 
                 // Check if to terminate thread.
-                if (RepeatCount >= Repeat || State == ManualAnimationState.Cancelled)
-                    break;
+                if (State == ManualAnimationState.Cancelled || State == ManualAnimationState.Complete)
+                    return;
 
                 fps.EndFrame();
             }
-
-            State = ManualAnimationState.Complete;
         }
 
         /// <summary>
@@ -257,12 +255,18 @@ namespace Reloaded.WPF.Animations
         /// <param name="deltaTime">Time elapsed since last call.</param>
         public void ManualUpdate(float deltaTime)
         {
-            if (TimeRunning > Duration && RepeatCount >= Repeat)
+            // Check if we're done.
+            if (RepeatCount >= Repeat)
+            {
+                State = ManualAnimationState.Complete;
                 return;
+            }
 
+            // Otherwise return if paused.
             if (State == ManualAnimationState.Paused || State == ManualAnimationState.Cancelled)
                 return;
 
+            // Or execute the logic.
             TimeRunning += deltaTime;
             Update();
 
