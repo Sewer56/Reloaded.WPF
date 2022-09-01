@@ -9,7 +9,7 @@ namespace Reloaded.WPF.Theme.Default.Converter
     /// <summary>
     /// Creates a clip region for a border provided the border's width, height and corner radius are bound.
     /// </summary>
-    internal class BorderClipConverter : IMultiValueConverter
+    public class BorderClipConverter : IMultiValueConverter
     {
         // Inspired by: https://stackoverflow.com/a/5650367/11106111
         public static BorderClipConverter Instance = new BorderClipConverter();
