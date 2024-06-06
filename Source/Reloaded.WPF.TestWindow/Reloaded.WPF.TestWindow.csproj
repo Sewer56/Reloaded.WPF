@@ -39,7 +39,7 @@
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="ParallelExtensionsExtras" Version="1.2.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
-    <PackageReference Include="System.Drawing.Common" Version="4.6.0-preview7.19362.9" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.2" />
     <PackageReference Include="System.Management" Version="4.6.0-preview7.19362.9" />
   </ItemGroup>
 
