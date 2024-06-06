@@ -7,7 +7,6 @@
              mc:Ignorable="d"
              IsHitTestVisible="True"
              UseLayoutRounding="True"
-
              ToolTipService.InitialShowDelay="0"
              ToolTipService.IsEnabled="{Binding Path=TooltipText, Converter={x:Static converters:IsTextNotEmptyConverter.Instance}, RelativeSource={RelativeSource Self}}"
              ToolTip="{Binding Path=TooltipText, RelativeSource={RelativeSource Self}}">
@@ -23,6 +22,7 @@
 
     <Button Style="{DynamicResource CircleButtonStyle}" 
             x:Name="_button"
+            AutomationProperties.HelpText="{Binding Path=TooltipText, RelativeSource={RelativeSource AncestorType=UserControl}}"
             Height="{Binding Path=Height, RelativeSource={RelativeSource AncestorType=UserControl}}"
             Width="{Binding Path=Width, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
 

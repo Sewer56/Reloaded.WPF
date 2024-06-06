@@ -27,6 +27,7 @@
                                Source="{Binding Path=ImageSource}" 
                                DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"
                                d:DataContext="{x:Static designTimeModels:CircleButtonModel.Instance}"
+                               AutomationProperties.Name="{Binding Path=TooltipText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
                                RenderOptions.BitmapScalingMode="{Binding Path=BitmapScaleMode}"
                                RenderOptions.EdgeMode="Aliased"
                                RenderOptions.CachingHint="Cache"
