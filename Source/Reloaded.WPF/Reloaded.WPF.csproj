@@ -22,7 +22,7 @@
     <PackageIconUrl>https://camo.githubusercontent.com/5dd4af92b8931447e2544de216a239806be096c7/68747470733a2f2f692e696d6775722e636f6d2f426a506e3772552e706e67</PackageIconUrl>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>3.3.0</Version>
+    <Version>3.3.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
