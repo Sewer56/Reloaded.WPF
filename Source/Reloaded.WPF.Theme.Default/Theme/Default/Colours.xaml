@@ -12,7 +12,7 @@
 
     <Color x:Key="TransparentBorderColor">#004c4c4c</Color>
     <Color x:Key="BorderColorLight">#C0ffffff</Color>
-    <Color x:Key="BorderColor">#4c4c4c</Color>
+    <Color x:Key="BorderColor">#7c7c7c</Color>
     <Color x:Key="BorderColorDark">#333333</Color>
 
     <Color x:Key="TextColor">#ffffff</Color>
