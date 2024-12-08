@@ -1,4 +1,5 @@
 ﻿#pragma warning disable 1591
+
 using Reloaded.WPF.Pages;
 using Reloaded.WPF.Pages.Animations;
 using Reloaded.WPF.Pages.Animations.Enum;

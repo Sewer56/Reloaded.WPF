@@ -1,6 +1,4 @@
-﻿
-#pragma warning disable 1591
-
+﻿#pragma warning disable 1591
 
 namespace Reloaded.WPF.ColorMineLite.ColorSpaces
 {

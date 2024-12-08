@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Management;
+﻿using System.Collections.Concurrent;
 using System.Windows;
 using PropertyChanged;
 using Reloaded.WPF.MVVM;

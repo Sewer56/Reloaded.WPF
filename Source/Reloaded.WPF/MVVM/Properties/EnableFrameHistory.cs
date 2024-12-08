@@ -1,5 +1,4 @@
-﻿
-#pragma warning disable 1591
+﻿#pragma warning disable 1591
 
 using System;
 using System.Windows;
