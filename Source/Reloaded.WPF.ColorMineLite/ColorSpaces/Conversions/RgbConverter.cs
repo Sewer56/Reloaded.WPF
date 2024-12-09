@@ -1,5 +1,4 @@
-﻿
-namespace Reloaded.WPF.ColorMineLite.ColorSpaces.Conversions
+﻿namespace Reloaded.WPF.ColorMineLite.ColorSpaces.Conversions
 {
 	internal static class RgbConverter
 	{

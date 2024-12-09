@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace Reloaded.WPF.ColorMineLite.ColorSpaces.Conversions
 {

@@ -2,10 +2,8 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Effects;
 using PropertyChanged;
 using Reloaded.WPF.Animations.Samples;
