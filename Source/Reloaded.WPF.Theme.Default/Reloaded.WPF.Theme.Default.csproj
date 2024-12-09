@@ -8,6 +8,7 @@
     <StartupObject />
     <RootNamespace>Reloaded.WPF.Theme.Default</RootNamespace>
     <AssemblyName>Reloaded.WPF.Theme.Default</AssemblyName>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company>Sewer56</Company>

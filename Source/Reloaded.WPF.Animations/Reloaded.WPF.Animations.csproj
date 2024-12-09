@@ -11,6 +11,7 @@ This library contains the code that powers ManualAnimations, user created animat
     <PackageIconUrl>https://camo.githubusercontent.com/5dd4af92b8931447e2544de216a239806be096c7/68747470733a2f2f692e696d6775722e636f6d2f426a506e3772552e706e67</PackageIconUrl>
     <RepositoryUrl>https://github.com/Sewer56/Reloaded.WPF</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sewer56</Authors>

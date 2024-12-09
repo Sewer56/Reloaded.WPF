@@ -7,6 +7,7 @@
     <AssemblyName>Reloaded.WPF.TestWindow</AssemblyName>
     <RootNamespace>Reloaded.WPF.TestWindow</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup>

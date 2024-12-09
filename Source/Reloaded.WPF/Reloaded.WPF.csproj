@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon />
     <StartupObject />
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <RootNamespace>Reloaded.WPF</RootNamespace>
     <AssemblyName>Reloaded.WPF</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
