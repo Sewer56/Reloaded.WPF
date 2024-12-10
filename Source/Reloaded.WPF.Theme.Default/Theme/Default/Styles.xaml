@@ -542,9 +542,17 @@
     </Style>
 
     <Style x:Key="DefaultCheckBox" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource DefaultCheckBoxBase}">
-
-        <!-- Colour the checkbox. -->
         <Style.Triggers>
+            <!-- Colour text content on IsMouseOver. -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource ForegroundFadeTextToAccentLightest}"/>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource ForegroundFadeAccentLightestToText}"/>
+                </Trigger.ExitActions>
+            </Trigger>
+            <!-- Colour the checkbox. -->
             <Trigger Property="IsChecked" Value="True">
                 <Trigger.EnterActions>
                     <BeginStoryboard Storyboard="{StaticResource BackgroundFadeBorderToAccentLighter}"/>
